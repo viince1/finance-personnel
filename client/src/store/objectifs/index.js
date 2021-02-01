@@ -8,6 +8,7 @@ export default ({
   namespaced: true,
   state: {
     objectifs: [],
+    lstStatus: [],
   },
   actions: {
     async getObjectifs({ commit, rootState }) {
@@ -20,6 +21,14 @@ export default ({
         commit('SET_OBJECTIFS', response.data);
       });
     },
+    async getStatusObjectifs({ commit }) {
+      await axios.get('http://localhost:3000/objectifs/objectifstatus', {
+      }).then((response) => {
+        console.log('here store');
+        commit('SET_STATUS', response.data);
+      });
+    },
+
     async create({ commit, rootState }, { data }) {
       console.log(data);
       return axios.post('http://localhost:3000/objectifs/create', {
@@ -32,22 +41,31 @@ export default ({
         commit('ADD_OBJECTIF', { data, response: response.data });
       });
     },
-    update({ commit }, { data }) {
-      console.log(data);
-      return axios.put(`http://localhost:3000/objectifs/update'/${data.id}`, data).then((response) => {
-        console.log(response.data);
-        commit('UPDATE_COLLECTION', { data, response: response.data });
+    async update({ commit }, objectif) {
+      return axios.post('http://localhost:3000/objectifs/update', objectif).then((response) => {
+        console.log(response);
+        commit('UPDATE_OBJECTIFS', objectif);
       });
     },
-    async delete({ commit }, objectifId) {
-      await axios.delete(`http://localhost:3000/objectifs/delete/'${objectifId}`);
-      commit('REMOVE_OBJECTIF', objectifId);
+    async delete({ commit }, IdObjectif) {
+      console.log(IdObjectif);
+      return axios.post('http://localhost:3000/objectifs/delete', {
+        params: {
+          IdObjectif,
+        },
+      })
+        .then((response) => {
+          console.log(response);
+          commit('DELETE_OBJECTIF', IdObjectif);
+        });
     },
-
   },
   mutations: {
     SET_OBJECTIFS(state, value) {
       state.objectifs = value;
+    },
+    SET_STATUS(state, value) {
+      state.lstStatus = value;
     },
     ADD_OBJECTIF(state, { data, response }) {
       state.objectifs.push({
@@ -55,22 +73,14 @@ export default ({
         ...data,
       });
     },
-    UPDATE_OBJECTIFS(state, { items }) {
-      items.forEach((item) => {
-        const index = state.objectifs.findIndex((x) => x.IdObjectif === item.IdObjectif);
-        if (index < 0) {
-          state.objectifs.push(item);
-        } else {
-          state.objectifs.splice(index, 1, {
-            ...state.objectifs[index],
-            ...item,
-          });
-        }
-      });
+    UPDATE_OBJECTIFS(state, objectif) {
+      const index = state.objectifs.findIndex((o) => o.IdObjectif === objectif.IdObjectif);
+      if (index >= 0) state.objectifs.splice(index, 1, objectif);
     },
-    REMOVE_OBJECTIF(state, objectif) {
-      const index = state.find((o) => o.id === objectif.IdObjectif);
-      state.splice(index, 1);
+    DELETE_OBJECTIF(state, IdObjectif) {
+      const index = state.objectifs.findIndex((o) => o.IdObjectif === IdObjectif);
+      state.objectifs.splice(index, 1);
     },
+
   },
 });

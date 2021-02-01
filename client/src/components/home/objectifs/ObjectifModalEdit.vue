@@ -2,7 +2,7 @@
   <div class="modal-card" id="objectif">
     <div class="modal-card-head">
       <!--CHANGER LES THIS.$ATTRS-->
-      <input class="input title is-3"  type="text" v-model="this.$attrs.Titre">
+      <input class="input title is-3"  type="text" v-model="objectif.Titre">
       <button
         type="button"
         class="delete"
@@ -12,25 +12,26 @@
       <div class="field">
         <label class="label">Date buttoir</label>
         <div class="control">
-          <input class="input" type="date" v-model="this.$attrs.DateButoir">
+          <input class="input" type="date" v-model="objectif.DateButoir">
         </div>
       </div>
       <div class="field">
         <label class="label">Description</label>
         <div class="control">
           <textarea class="input" rows="10" placeholder="Entrez une description"
-          v-model="this.$attrs.Description">
+          v-model="objectif.Description">
           </textarea>
         </div>
       </div>
       <div class="field">
         <label class="label">Statut</label>
         <div class="select">
-         <select class="select">
+         <select class="select" v-model="objectif.IdObjectifStatus">
           <option
           v-for="s in statuts"
-          :key="s.id">
-            {{ s.label }}
+          :key="s.IdObjectifStatus"
+          v-bind:value="s.IdObjectifStatus">
+            {{ s.Nom }}
           </option>
       </select>
         </div>
@@ -39,6 +40,7 @@
     <footer class="modal-card-foot">
       <button
         class="button"
+        v-on:click.prevent="edit"
         >Modifier</button>
         <button
         class="button is-danger"
@@ -49,25 +51,29 @@
 </template>
 
 <script>
-const statuts = [
-  { label: 'Succès', id: 1 },
-  { label: 'En cours', id: 2 },
-  { label: 'À faire', id: 3 },
-];
+
 export default {
   name: 'ModalObjectifEdit',
   data() {
     return {
-      // objectif: this.$attrs.data,
-      statuts,
+      objectif: {
+        IdObjectif: this.$attrs.IdObjectif,
+        Titre: this.$attrs.Titre,
+        Description: this.$attrs.Description,
+        DateButoir: this.$attrs.DateButoir,
+        IdObjectifStatus: this.$attrs.IdObjectifStatus,
+      },
+      statuts: this.$store.state.objectif.lstStatus,
     };
   },
   methods: {
-    edit() {
-      this.$store.dispatch('objectif/update', { data: this.objectif });
+    async edit() {
+      await this.$store.dispatch('objectif/update', this.objectif);
+      this.$emit('close');
     },
-    deleteIt() {
-      this.$store.dispatch('objectif/delete', { id: this.$attrs.IdObjectif });
+    async deleteIt() {
+      this.$store.dispatch('objectif/delete', this.objectif.IdObjectif);
+      this.$emit('close');
     },
   },
 };

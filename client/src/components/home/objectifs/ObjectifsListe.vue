@@ -43,6 +43,7 @@ export default {
   },
   created() {
     this.$store.dispatch('objectif/getObjectifs');
+    this.$store.dispatch('objectif/getStatusObjectifs');
   },
 };
 </script>

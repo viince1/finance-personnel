@@ -37,7 +37,7 @@
           <option
           v-for="s in statuts"
           :key="s.IdObjectifStatus"
-          :value="s.NoStatus">
+          v-bind:value="s.IdObjectifStatus">
             {{ s.Nom }}
           </option>
       </select>
@@ -66,13 +66,10 @@ export default {
         IdObjectifStatus: 0,
         NoPriorite: 0,
       },
-      statuts: [
-        { Nom: 'Succès', NoStatus: 1 },
-        { Nom: 'En cours', NoStatus: 2 },
-        { Nom: 'À faire', NoStatus: 3 },
-      ],
+      statuts: this.$store.state.objectif.lstStatus,
     };
   },
+
   methods: {
     ajout() {
       this.$store.dispatch('objectif/create', { data: this.newObj });

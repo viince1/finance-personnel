@@ -16,12 +16,21 @@ connection.connect()
 
 router.get('/', (req,res, next) => {
   const uid = req.query.uid;
-  connection.query(`SELECT obj.IdObjectif, obj.Titre, obj.Description, obj.DateButoir, objs.Nom, objs.NoStatus FROM Objectif obj JOIN ObjectifStatut objs on obj.IdObjectifStatus = objs.IdObjectifStatus WHERE IdUtilisateur = ${uid}`,
+  connection.query(`SELECT obj.IdObjectif, obj.Titre, obj.Description, obj.IdObjectifStatus, obj.DateButoir, objs.Nom, objs.NoStatus FROM Objectif obj JOIN ObjectifStatut objs on obj.IdObjectifStatus = objs.IdObjectifStatus WHERE IdUtilisateur = ${uid}`,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);
   })
 });
+router.get('/objectifstatus', (req,res, next) => {
+  const uid = req.query.uid;
+  connection.query(`SELECT * FROM ObjectifStatut`,
+  (error, results) => {
+    if (error) res.status(501).send(error);
+    if (results) res.json(results);
+  })
+});
+
 router.post('/create', (req,res, next) => {
   const objectif = req.body.params.objectif;
   const uid = req.body.params.IdUtilisateur;
@@ -31,17 +40,17 @@ router.post('/create', (req,res, next) => {
     if (results) res.json(results);
   })
 });
-router.put('/update', (req,res, next) => {
+router.post('/update', (req,res, next) => {
   const objectif = req.body;
-  connection.query(`UPDATE Objectif SET Titre = '${objectif.Titre}', Description = '${objectif.Description}', DateButoir = '${objectif.DateButoir}', IdObjectifStatus = '${objectif.IdObjectifStatus}', NoPriorite = '${objectif.NoPriorite}' WHERE IdObjectif = '${objectif.IdObjectif}' `,
+  connection.query(`UPDATE Objectif SET Titre = '${objectif.Titre}', Description = '${objectif.Description}', DateButoir = '${objectif.DateButoir}', IdObjectifStatus = '${objectif.IdObjectifStatus}' WHERE IdObjectif = '${objectif.IdObjectif}' `,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);
   })
 });
-router.delete('/delete', (req,res, next) => {
-  const objectif = req.body;
-  connection.query(`DELETE FROM Objectif WHERE IdObjectif = '${objectif.IdObjectif}' `,
+router.post('/delete', (req,res, next) => {
+  const IdObjectif = req.body.params.IdObjectif
+  connection.query(`DELETE FROM Objectif WHERE IdObjectif = '${IdObjectif}' `,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);
