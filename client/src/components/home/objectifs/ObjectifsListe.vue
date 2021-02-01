@@ -6,7 +6,7 @@
           <p class="title is-3">Objectifs</p>
         </div>
         <div class="level-item">
-          <button class="button is-small is-link">Ajouter</button>
+          <button class="button is-small is-link" @click="openModalNew">Ajouter</button>
         </div>
       </div>
     </div>
@@ -18,6 +18,7 @@
 
 <script>
 import Objectif from './Objectif.vue';
+import ModalObjectifNew from './ObjectifModalNew.vue';
 
 export default {
   name: 'Objectifs',
@@ -29,8 +30,20 @@ export default {
       return this.$store.state.objectif.objectifs;
     },
   },
+  methods: {
+    openModalNew() {
+      this.$buefy.modal.open({
+        parent: this,
+        component: ModalObjectifNew,
+        hasModalCard: true,
+        customClass: 'custom-class custom-class-2',
+        trapFocus: true,
+      });
+    },
+  },
   created() {
     this.$store.dispatch('objectif/getObjectifs');
+    this.$store.dispatch('objectif/getStatusObjectifs');
   },
 };
 </script>
