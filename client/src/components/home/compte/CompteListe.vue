@@ -44,6 +44,7 @@ export default {
   },
   created() {
     this.$store.dispatch('compte/getComptes');
+    this.$store.dispatch('compte/getTypesComptes');
   },
 };
 </script>

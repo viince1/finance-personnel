@@ -58,5 +58,16 @@ router.post('/add', (req, res, next) => {
     });
 });
 
+router.post('/delete', (req, res, next) => {
+  const idCompte = req.body.params.idCompte;
+  connection.query(
+    `DELETE FROM Compte WHERE IdCompte = ${idCompte};`
+    , (error, results) => {
+      if (error) console.log(error);
+      if (results) res.json(results);
+    });
+});
+
+
 module.exports = router;
 

@@ -35,7 +35,7 @@
             <button class="button is-primary">Save</button>
           </div>
           <div class="level-item">
-            <button class="button is-danger">Delete</button>
+            <button class="button is-danger" v-on:click.prevent="deleteCompte">Delete</button>
           </div>
         </div>
       </div>
@@ -56,6 +56,12 @@ export default {
       },
       typescomptes: this.$store.state.compte.typescomptes,
     };
+  },
+  methods: {
+    async deleteCompte() {
+      await this.$store.dispatch('compte/deleteCompte', this.compte.IdCompte);
+      this.$emit('close');
+    },
   },
 };
 </script>

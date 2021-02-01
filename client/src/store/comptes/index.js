@@ -36,6 +36,19 @@ export default ({
           commit('ADD_COMPTE', { data, response: response.data });
         });
     },
+
+    async deleteCompte({ commit }, idCompte) {
+      console.log(idCompte);
+      return axios.post('http://localhost:3000/comptes/delete', {
+        params: {
+          idCompte,
+        },
+      })
+        .then((response) => {
+          console.log(response);
+          commit('DELETE_COMPTE', idCompte);
+        });
+    },
   },
   mutations: {
     SET_COMPTES(state, value) {
@@ -49,6 +62,10 @@ export default ({
         IdCompte: response.insertId,
         ...data,
       });
+    },
+    DELETE_COMPTE(state, idCompte) {
+      const index = state.comptes.findIndex((compte) => compte.IdCompte === idCompte);
+      state.comptes.splice(index, 1);
     },
   },
 });
