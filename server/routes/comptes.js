@@ -7,7 +7,7 @@ var connection = mysql.createConnection({
   // Mettre bonnes infos de connexion selon votre bd local
   host: 'localhost',
   user: 'root',
-  password: 'localhost',
+  password: 'Dekzspz1995',
   database: 'ProjetFinEtude',
   insecureAuth: true,
 });
@@ -33,6 +33,15 @@ router.get('/transactions', (req,res, next) => {
       INNER JOIN CategorieDepense cs
       ON cs.IdCategorieDepense = dp.IdCategorieDepense
   WHERE co.IdCompte = ${idcompte};`,
+  (error, results) => {
+    if (error) res.status(501).send(error);
+    if (results) res.json(results);
+  })
+});
+
+router.get('/typescompte', (req,res, next) => {
+  const uid = req.query.uid;
+  connection.query(`SELECT * FROM typecompte`,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);
