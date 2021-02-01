@@ -7,7 +7,7 @@ var connection = mysql.createConnection({
   // Mettre bonnes infos de connexion selon votre bd local
   host: 'localhost',
   user: 'root',
-  password: 'localhost',
+  password: 'root',
   database: 'ProjetFinEtude',
   insecureAuth: true,
 });
@@ -22,5 +22,28 @@ router.get('/', (req,res, next) => {
     if (results) res.json(results);
   })
 });
-
+router.post('/create', (req,res, next) => {
+  const objectif = req.body;
+  connection.query(`INSERT INTO Objectif VALUES (0, '${objectif.Titre}','${objectif.Description}', '${objectif.DateButoir}', '${objectif.IdObjectifStatus}', 1, '${objectif.NoPriorite}')`,
+  (error, results) => {
+    if (error) res.status(501).send(error);
+    if (results) res.json(results);
+  })
+});
+router.put('/update', (req,res, next) => {
+  const objectif = req.body;
+  connection.query(`UPDATE Objectif SET Titre = '${objectif.Titre}', Description = '${objectif.Description}', DateButoir = '${objectif.DateButoir}', IdObjectifStatus = '${objectif.IdObjectifStatus}', NoPriorite = '${objectif.NoPriorite}' WHERE IdObjectif = '${objectif.IdObjectif}' `,
+  (error, results) => {
+    if (error) res.status(501).send(error);
+    if (results) res.json(results);
+  })
+});
+router.put('/delete', (req,res, next) => {
+  const objectif = req.body;
+  connection.query(`DELETE FROM Objectif WHERE IdObjectif = '${objectif.IdObjectif}' `,
+  (error, results) => {
+    if (error) res.status(501).send(error);
+    if (results) res.json(results);
+  })
+});
 module.exports = router;

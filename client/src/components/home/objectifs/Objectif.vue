@@ -1,7 +1,7 @@
 <template>
   <div class="container" id="objectif">
     <!-- Rajouter javascript pour  ouvrir les modales verifier si anchor tag est le meilleur-->
-    <a href="" v-on:click.prevent="">
+    <a href="" v-on:click.prevent="openModalEdit">
       <div class="card">
           <div class="card-content">
             <div class="media">
@@ -32,6 +32,8 @@
 </template>
 
 <script>
+import ModalObjectifEdit from './ObjectifModalEdit.vue';
+
 export default {
   name: 'Objectif',
   props: {
@@ -43,6 +45,18 @@ export default {
       if (this.objectif.NoStatus === 99) return 'is-primary';
       if (this.objectif.NoStatus === 1) return 'is-secondary';
       return '';
+    },
+  },
+  methods: {
+    openModalEdit() {
+      this.$buefy.modal.open({
+        parent: this,
+        component: ModalObjectifEdit,
+        props: this.objectif,
+        hasModalCard: true,
+        customClass: 'custom-class custom-class-2',
+        trapFocus: true,
+      });
     },
   },
 };
