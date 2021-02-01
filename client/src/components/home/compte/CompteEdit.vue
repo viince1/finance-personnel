@@ -32,7 +32,7 @@
       <div class="level">
         <div class="level-right">
           <div class="level-item">
-            <button class="button is-primary">Save</button>
+            <button class="button is-primary" v-on:click.prevent="updateCompte">Save</button>
           </div>
           <div class="level-item">
             <button class="button is-danger" v-on:click.prevent="deleteCompte">Delete</button>
@@ -60,6 +60,10 @@ export default {
   methods: {
     async deleteCompte() {
       await this.$store.dispatch('compte/deleteCompte', this.compte.IdCompte);
+      this.$emit('close');
+    },
+    async updateCompte() {
+      await this.$store.dispatch('compte/updateCompte', this.compte);
       this.$emit('close');
     },
   },

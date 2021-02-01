@@ -54,6 +54,13 @@ export default ({
           commit('DELETE_COMPTE', idCompte);
         });
     },
+    async updateCompte({ commit }, compte) {
+      return axios.post('http://localhost:3000/comptes/update', compte)
+        .then((response) => {
+          console.log(response);
+          commit('UPDATE_COMPTE', compte);
+        });
+    },
   },
   mutations: {
     SET_COMPTES(state, value) {
@@ -71,6 +78,10 @@ export default ({
     DELETE_COMPTE(state, idCompte) {
       const index = state.comptes.findIndex((compte) => compte.IdCompte === idCompte);
       state.comptes.splice(index, 1);
+    },
+    UPDATE_COMPTE(state, compte) {
+      const index = state.comptes.findIndex((c) => c.IdCompte === compte.IdCompte);
+      if (index >= 0) state.comptes.splice(index, 1, compte);
     },
   },
 });

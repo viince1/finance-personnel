@@ -69,6 +69,15 @@ router.post('/delete', (req, res, next) => {
     });
 });
 
+router.post('/update', (req, res, next) => {
+  const compte = req.body;
+  connection.query(
+    `UPDATE Compte SET Nom = '${compte.NomCompte}', IdType = ${compte.IdTypeCompte} WHERE IdCompte = ${compte.IdCompte}`
+    , (error, results) => {
+      if (error) console.log(error);
+      if (results) res.json(results);
+    });
+});
+
 
 module.exports = router;
-
