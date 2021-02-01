@@ -1,0 +1,58 @@
+<template>
+  <div class="container" id="compte">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-header-title">{{compte.NomCompte}} - {{compte.TypeCompte}}</div>
+      </div>
+      <div class="card-footer">
+        <a href="" class="card-footer-item" v-on:click.prevent="openTransactions">
+          Afficher les transactions
+        </a>
+        <a href="" class="card-footer-item" v-on:click.prevent="">
+          Modifier le compte
+        </a>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+import TransactionCompte from './CompteTransactions.vue';
+
+export default {
+  name: 'Compte',
+  data() {
+    return {
+      transactions: null,
+    };
+  },
+  props: {
+    compte: Object,
+  },
+  methods: {
+    async openTransactions() {
+      console.log(this.compte.IdCompte);
+      const transactions = await axios.get('http://localhost:3000/comptes/transactions', {
+        params: {
+          IdCompte: this.compte.IdCompte,
+        },
+      });
+      this.$buefy.modal.open({
+        parent: this,
+        component: TransactionCompte,
+        props: transactions,
+        hasModalCard: true,
+        customClass: 'custom-class custom-class-2',
+        trapFocus: true,
+      });
+    },
+  },
+};
+</script>
+
+<style scoped lang="scss">
+.card-header{
+  margin-bottom: 0;
+}
+</style>
