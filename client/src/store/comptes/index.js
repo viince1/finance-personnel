@@ -8,6 +8,7 @@ export default ({
   namespaced: true,
   state: {
     comptes: [],
+    typescomptes: [],
   },
   actions: {
     async getComptes({ commit, rootState }) {
@@ -20,10 +21,67 @@ export default ({
         commit('SET_COMPTES', response.data);
       });
     },
+    async getTypesComptes({ commit }) {
+      await axios.get('http://localhost:3000/comptes/typescompte', {
+      }).then((response) => {
+        console.log('here store');
+        commit('SET_TYPESCOMPTE', response.data);
+      });
+    },
+    async addCompte({ commit, rootState }, { data }) {
+      console.log(data);
+      return axios.post('http://localhost:3000/comptes/add', {
+        params: {
+          compte: data,
+          IdUtilisateur: rootState.user.user.data.uid.data[0].IdUtilisateur,
+        },
+      })
+        .then((response) => {
+          console.log(response.data);
+          commit('ADD_COMPTE', { data, response: response.data });
+        });
+    },
+
+    async deleteCompte({ commit }, idCompte) {
+      console.log(idCompte);
+      return axios.post('http://localhost:3000/comptes/delete', {
+        params: {
+          idCompte,
+        },
+      })
+        .then((response) => {
+          console.log(response);
+          commit('DELETE_COMPTE', idCompte);
+        });
+    },
+    async updateCompte({ commit }, compte) {
+      return axios.post('http://localhost:3000/comptes/update', compte)
+        .then((response) => {
+          console.log(response);
+          commit('UPDATE_COMPTE', compte);
+        });
+    },
   },
   mutations: {
     SET_COMPTES(state, value) {
       state.comptes = value;
+    },
+    SET_TYPESCOMPTE(state, value) {
+      state.typescomptes = value;
+    },
+    ADD_COMPTE(state, { data, response }) {
+      state.comptes.push({
+        IdCompte: response.insertId,
+        ...data,
+      });
+    },
+    DELETE_COMPTE(state, idCompte) {
+      const index = state.comptes.findIndex((compte) => compte.IdCompte === idCompte);
+      state.comptes.splice(index, 1);
+    },
+    UPDATE_COMPTE(state, compte) {
+      const index = state.comptes.findIndex((c) => c.IdCompte === compte.IdCompte);
+      if (index >= 0) state.comptes.splice(index, 1, compte);
     },
   },
 });

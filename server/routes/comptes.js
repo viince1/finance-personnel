@@ -16,7 +16,7 @@ connection.connect()
 
 router.get('/', (req,res, next) => {
   const uid = req.query.uid;
-  connection.query(`SELECT co.IdCompte, co.Nom as NomCompte, tc.Nom as TypeCompte FROM Compte co INNER JOIN TypeCompte tc
+  connection.query(`SELECT co.IdCompte, co.Nom as NomCompte, tc.Nom as TypeCompte, tc.IdTypeCompte FROM Compte co INNER JOIN TypeCompte tc
   ON co.IdType = tc.IdTypeCompte WHERE IdUtilisateur = ${uid};`,
   (error, results) => {
     if (error) res.status(501).send(error);
@@ -38,5 +38,46 @@ router.get('/transactions', (req,res, next) => {
     if (results) res.json(results);
   })
 });
+
+router.get('/typescompte', (req,res, next) => {
+  const uid = req.query.uid;
+  connection.query(`SELECT * FROM typecompte`,
+  (error, results) => {
+    if (error) res.status(501).send(error);
+    if (results) res.json(results);
+  })
+});
+
+router.post('/add', (req, res, next) => {
+  const compte = req.body.params.compte;
+  const uid = req.body.params.IdUtilisateur
+  connection.query(
+    `INSERT INTO COMPTE VALUES (0,'${compte.NomCompte}','${compte.Description}', ${compte.TypeCompte}, ${uid});`
+    , (error, results) => {
+      if (error) console.log(error);
+      if (results) res.json(results);
+    });
+});
+
+router.post('/delete', (req, res, next) => {
+  const idCompte = req.body.params.idCompte;
+  connection.query(
+    `DELETE FROM Compte WHERE IdCompte = ${idCompte};`
+    , (error, results) => {
+      if (error) console.log(error);
+      if (results) res.json(results);
+    });
+});
+
+router.post('/update', (req, res, next) => {
+  const compte = req.body;
+  connection.query(
+    `UPDATE Compte SET Nom = '${compte.NomCompte}', IdType = ${compte.IdTypeCompte} WHERE IdCompte = ${compte.IdCompte}`
+    , (error, results) => {
+      if (error) console.log(error);
+      if (results) res.json(results);
+    });
+});
+
 
 module.exports = router;
