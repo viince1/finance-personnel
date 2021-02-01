@@ -8,31 +8,36 @@
         @click="$emit('close')"/>
     </div>
     <div class="modal-card-body">
-      <!-- Il faut rajouter une description et un nom de transaction -->
-<div class="field">
-  <label class="label">Nom du compte</label>
-  <div class="control">
-    <input class="input" type="text" placeholder="Text input" v-model="nom">
-  </div>
-</div>
-<div class="field">
-  <label class="label">Description</label>
-  <div class="control">
-    <textarea class="textarea" placeholder="Textarea"  v-model="description"></textarea>
-  </div>
-</div>
-
-<div class="field">
-  <label class="label">Type</label>
-  <div class="control">
-    <div class="select">
-      <select v-model="type">
-        <option value="" selected>Choisir un type de compte</option>
-        <option :key ="c.IdTypeCompte" v-for="c in comptes" :value="c.IdTypeCompte" >
-            {{c.Nom}}</option>
-      </select>
+    <div class="field">
+      <label class="label">Nom du compte</label>
+      <div class="control">
+        <input class="input"
+        type="text"
+        placeholder="Nom de votre compte ex: Compte cheque"
+        v-model="nom">
+      </div>
     </div>
-  </div>
+    <div class="field">
+      <label class="label">Description</label>
+      <div class="control">
+        <textarea class="textarea"
+        placeholder="Description du contenu de votre compte"
+        v-model="description">
+        </textarea>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Type</label>
+      <div class="control">
+        <div class="select">
+          <select v-model="type">
+            <option value="0" selected>Choisir un type de compte</option>
+            <option :key ="c.IdTypeCompte" v-for="c in comptes" :value="c.IdTypeCompte" >
+                {{c.Nom}}
+            </option>
+          </select>
+      </div>
+    </div>
 </div>
 
 <div class="field is-grouped">
@@ -55,7 +60,6 @@ export default {
   },
   methods: {
     add() {
-      console.log(this.type);
       this.$store.dispatch('compte/addCompte', {
         data: {
           NomCompte: this.nom,
@@ -63,6 +67,7 @@ export default {
           Description: this.description,
         },
       });
+      this.$emit('close');
     },
   },
   computed: {
