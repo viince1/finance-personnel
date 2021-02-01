@@ -58,9 +58,9 @@ export default {
       console.log(this.type);
       this.$store.dispatch('compte/addCompte', {
         data: {
-          nom: this.nom,
-          type: this.type,
-          description: this.description,
+          NomCompte: this.nom,
+          TypeCompte: this.type,
+          Description: this.description,
         },
       });
     },

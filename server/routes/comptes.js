@@ -7,7 +7,7 @@ var connection = mysql.createConnection({
   // Mettre bonnes infos de connexion selon votre bd local
   host: 'localhost',
   user: 'root',
-  password: 'Dekzspz1995',
+  password: 'localhost',
   database: 'ProjetFinEtude',
   insecureAuth: true,
 });
@@ -51,7 +51,7 @@ router.get('/typescompte', (req,res, next) => {
 router.post('/add', (req, res, next) => {
   const compte = req.body;
   connection.query(
-    `INSERT INTO COMPTE VALUES (0,'${compte.nom}','${compte.description}', ${compte.type},1);`
+    `INSERT INTO COMPTE VALUES (0,'${compte.NomCompte}','${compte.Description}', ${compte.TypeCompte},1);`
     , (error, results) => {
       if (error) console.log(error);
       if (results) res.json(results);
