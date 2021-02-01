@@ -48,4 +48,15 @@ router.get('/typescompte', (req,res, next) => {
   })
 });
 
+router.post('/add', (req, res, next) => {
+  const compte = req.body;
+  connection.query(
+    `INSERT INTO COMPTE VALUES (0,'${compte.nom}','${compte.description}', ${compte.type},1);`
+    , (error, results) => {
+      if (error) console.log(error);
+      if (results) res.json(results);
+    });
+});
+
 module.exports = router;
+

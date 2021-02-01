@@ -28,6 +28,12 @@ export default ({
         commit('SET_TYPESCOMPTE', response.data);
       });
     },
+    async addCompte({ commit }, { data }) {
+      console.log(data);
+      return axios.post('http://localhost:3000/comptes/add', data).then((response) => {
+        commit('ADD_COMPTE', { items: [response.data] });
+      });
+    },
   },
   mutations: {
     SET_COMPTES(state, value) {
@@ -35,6 +41,19 @@ export default ({
     },
     SET_TYPESCOMPTE(state, value) {
       state.typescomptes = value;
+    },
+    ADD_COMPTE(state, { items }) {
+      items.forEach((item) => {
+        const index = state.comptes.findIndex((x) => x.IdCompte === item.IdCompte);
+        if (index < 0) {
+          state.comptes.push(item);
+        } else {
+          state.comptes.splice(index, 1, {
+            ...state.comptes[index],
+            ...item,
+          });
+        }
+      });
     },
   },
 });

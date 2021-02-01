@@ -28,7 +28,8 @@
     <div class="select">
       <select v-model="type">
         <option value="" selected>Choisir un type de compte</option>
-        <option :key ="c.IdTypeCompte" v-for="c in comptes" :value="c.Nom" >{{c.Nom}}</option>
+        <option :key ="c.IdTypeCompte" v-for="c in comptes" :value="c.IdTypeCompte" >
+            {{c.Nom}}</option>
       </select>
     </div>
   </div>
@@ -36,7 +37,7 @@
 
 <div class="field is-grouped">
   <div class="control">
-    <button class="button is-link">Ajouter</button>
+    <button class="button is-link" @click="add">Ajouter</button>
   </div>
 </div>
     </div>
@@ -48,9 +49,21 @@ export default {
   data() {
     return {
       nom: '',
-      type: '',
+      type: 0,
       description: '',
     };
+  },
+  methods: {
+    add() {
+      console.log(this.type);
+      this.$store.dispatch('compte/addCompte', {
+        data: {
+          nom: this.nom,
+          type: this.type,
+          description: this.description,
+        },
+      });
+    },
   },
   computed: {
     comptes() {
