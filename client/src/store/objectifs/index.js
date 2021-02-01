@@ -20,21 +20,40 @@ export default ({
         commit('SET_OBJECTIFS', response.data);
       });
     },
-    create({ commit }, { data }) {
-      return axios.post('http://localhost:3000/objectifs/create', data).then((response) => {
-        commit('UPDATE_OBJECTIFS', { items: [response.data] });
+    async create({ commit, rootState }, { data }) {
+      console.log(data);
+      return axios.post('http://localhost:3000/objectifs/create', {
+        params: {
+          objectif: data,
+          IdUtilisateur: rootState.user.user.data.uid.data[0].IdUtilisateur,
+        },
+      }).then((response) => {
+        console.log(response.data);
+        commit('ADD_OBJECTIF', { data, response: response.data });
       });
     },
     update({ commit }, { data }) {
-      return axios.put(`/api/http://localhost:3000/objectifs/update'/${data.id}`, data).then((response) => {
-        commit('UPDATE_COLLECTION', { items: [response.data] });
+      console.log(data);
+      return axios.put(`http://localhost:3000/objectifs/update'/${data.id}`, data).then((response) => {
+        console.log(response.data);
+        commit('UPDATE_COLLECTION', { data, response: response.data });
       });
+    },
+    async delete({ commit }, objectifId) {
+      await axios.delete(`http://localhost:3000/objectifs/delete/'${objectifId}`);
+      commit('REMOVE_OBJECTIF', objectifId);
     },
 
   },
   mutations: {
     SET_OBJECTIFS(state, value) {
       state.objectifs = value;
+    },
+    ADD_OBJECTIF(state, { data, response }) {
+      state.objectifs.push({
+        IdObjectif: response.insertId,
+        ...data,
+      });
     },
     UPDATE_OBJECTIFS(state, { items }) {
       items.forEach((item) => {
@@ -48,6 +67,10 @@ export default ({
           });
         }
       });
+    },
+    REMOVE_OBJECTIF(state, objectif) {
+      const index = state.find((o) => o.id === objectif.IdObjectif);
+      state.splice(index, 1);
     },
   },
 });

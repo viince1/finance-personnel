@@ -33,11 +33,12 @@
         <label class="label">Statut</label>
         <div class="select">
          <select class="select" v-model="newObj.IdObjectifStatus">
+           <option value="0" selected>Choisir un statut</option>
           <option
           v-for="s in statuts"
-          :key="s.id"
-          :value="s.id">
-            {{ s.label }}
+          :key="s.IdObjectifStatus"
+          :value="s.NoStatus">
+            {{ s.Nom }}
           </option>
       </select>
         </div>
@@ -53,22 +54,29 @@
 </template>
 
 <script>
-const statuts = [
-  { label: 'Succès', id: 1 },
-  { label: 'En cours', id: 2 },
-  { label: 'À faire', id: 3 },
-];
+
 export default {
   name: 'ModalObjectifNew',
   data() {
     return {
-      statuts,
-      newObj: {},
+      newObj: {
+        Titre: '',
+        Description: '',
+        DateButoir: '',
+        IdObjectifStatus: 0,
+        NoPriorite: 0,
+      },
+      statuts: [
+        { Nom: 'Succès', NoStatus: 1 },
+        { Nom: 'En cours', NoStatus: 2 },
+        { Nom: 'À faire', NoStatus: 3 },
+      ],
     };
   },
   methods: {
     ajout() {
       this.$store.dispatch('objectif/create', { data: this.newObj });
+      this.$emit('close');
     },
   },
 };
