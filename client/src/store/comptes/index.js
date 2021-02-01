@@ -28,9 +28,14 @@ export default ({
         commit('SET_TYPESCOMPTE', response.data);
       });
     },
-    async addCompte({ commit }, { data }) {
+    async addCompte({ commit, rootState }, { data }) {
       console.log(data);
-      return axios.post('http://localhost:3000/comptes/add', data)
+      return axios.post('http://localhost:3000/comptes/add', {
+        params: {
+          compte: data,
+          IdUtilisateur: rootState.user.user.data.uid.data[0].IdUtilisateur,
+        },
+      })
         .then((response) => {
           console.log(response.data);
           commit('ADD_COMPTE', { data, response: response.data });
