@@ -16,7 +16,7 @@ connection.connect()
 
 router.get('/', (req,res, next) => {
   const uid = req.query.uid;
-  connection.query(`SELECT co.IdCompte, co.Nom as NomCompte, tc.Nom as TypeCompte FROM Compte co INNER JOIN TypeCompte tc
+  connection.query(`SELECT co.IdCompte, co.Nom as NomCompte, tc.Nom as TypeCompte, tc.IdTypeCompte FROM Compte co INNER JOIN TypeCompte tc
   ON co.IdType = tc.IdTypeCompte WHERE IdUtilisateur = ${uid};`,
   (error, results) => {
     if (error) res.status(501).send(error);

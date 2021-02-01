@@ -8,7 +8,7 @@
         <a href="" class="card-footer-item" v-on:click.prevent="openTransactions">
           Afficher les transactions
         </a>
-        <a href="" class="card-footer-item" v-on:click.prevent="">
+        <a href="" class="card-footer-item" v-on:click.prevent="updateCompte">
           Modifier le compte
         </a>
       </div>
@@ -19,6 +19,7 @@
 <script>
 import axios from 'axios';
 import TransactionCompte from './CompteTransactions.vue';
+import CompteEdit from './CompteEdit.vue';
 
 export default {
   name: 'Compte',
@@ -42,6 +43,16 @@ export default {
         parent: this,
         component: TransactionCompte,
         props: transactions,
+        hasModalCard: true,
+        customClass: 'custom-class custom-class-2',
+        trapFocus: true,
+      });
+    },
+    updateCompte() {
+      this.$buefy.modal.open({
+        parent: this,
+        component: CompteEdit,
+        props: this.compte,
         hasModalCard: true,
         customClass: 'custom-class custom-class-2',
         trapFocus: true,
