@@ -1,7 +1,11 @@
 <template>
   <div class="budget">
-    <moyenne />
-    <pie-chart />
+    <div class="container box">
+      <moyenne />
+    </div>
+    <div class="container box">
+      <pie-chart />
+    </div>
   </div>
 </template>
 

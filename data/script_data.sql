@@ -53,6 +53,7 @@ INSERT INTO COMPTE VALUES (0,'Compte #3 pour projet', 'Compte investi en bourse 
 INSERT INTO COMPTE VALUES (0,'Compte #4 pour retraite', 'Compte investi en bourse pour planifier ma retraite',2,2);
 INSERT INTO COMPTE VALUES (0,'Compte #5 pour projet', 'Compte investi en bourse pour planifier mon projet dachat immobilier',1,3);
 INSERT INTO COMPTE VALUES (0,'Compte #6 pour retraite', 'Compte investi en bourse pour planifier ma retraite',2,3);
+INSERT INTO COMPTE VALUES (0,'Compte #6 pour retraite', 'Compte investi en bourse pour planifier ma retraite',2,1);
 -- Donnees DepenseFrequence
 INSERT INTO DepenseFrequence VALUES (0,'Hebdo');
 INSERT INTO DepenseFrequence VALUES (0,'Bi-Hebdo');
@@ -108,6 +109,15 @@ INSERT INTO Objectif VALUES (0,'Amasser 10 000$','Payer la carte de credit','202
 INSERT INTO DepenseSuivi VALUES (0,199.99,'2020-01-21', 1,2,'Immatriculation',null);
 INSERT INTO DepenseSuivi VALUES (0,70,'2020-01-21', 1,2,'Paiement de voiture',null);
 INSERT INTO DepenseSuivi VALUES (0,80,'2020-01-21', 7,8, 'Paiement de voiture',null);
+INSERT INTO DepenseSuivi VALUES (0,80,'2021-01-21', 7,27, 'Paiement de voiture',null);
+INSERT INTO DepenseSuivi VALUES (0,40,'2021-01-19', 7,27, 'Paiement de cellulaire',null);
+
+INSERT INTO RevenuSuivi VALUES (0,2000,'2020-01-21', 1,2,'Paie',null);
+INSERT INTO RevenuSuivi VALUES (0,1000,'2020-01-21', 1,2,'Comission',null);
+INSERT INTO RevenuSuivi VALUES (0,80,'2020-01-21', 7,2, 'Paiement de voiture',null);
+INSERT INTO RevenuSuivi VALUES (0,80,'2021-01-21', 7,2, 'Paiement de voiture',null);
+INSERT INTO RevenuSuivi VALUES (0,40,'2021-01-19', 7,2, 'Paiement de cellulaire',null);
+
 
 SELECT * FROM Compte;
 -- Donnees RevenusSuivi

@@ -1,6 +1,6 @@
 <template>
   <div class="piechart" id="piechart">
-    Component PieChart.vue
+    test
   </div>
 </template>
 
@@ -11,7 +11,8 @@ export default {
 </script>
 
 <style lang="scss">
-.container {
-  height: 100%;
+#piechart {
+  max-height: 45vh;
+  min-height: 45vh;
 }
 </style>
