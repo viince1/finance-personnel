@@ -7,7 +7,18 @@ Vue.use(Vuex);
 export default ({
   namespaced: true,
   state: {
-    revenus: 0,
+    revenus: [],
+  },
+  getters: {
+    yeartodate(state) {
+      let sum = 0;
+      state.revenus.forEach((revenu) => {
+        const current = new Date().getFullYear();
+        const entered = new Date(revenu.DateEntree).getFullYear();
+        if (entered >= current) sum += revenu.Montant;
+      });
+      return sum;
+    },
   },
   actions: {
     async getRevenus({ commit, rootState }) {

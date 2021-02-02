@@ -9,6 +9,17 @@ export default ({
   state: {
     depenses: [],
   },
+  getters: {
+    yeartodate(state) {
+      let sum = 0;
+      state.depenses.forEach((depense) => {
+        const current = new Date().getFullYear();
+        const entered = new Date(depense.DateEntree).getFullYear();
+        if (entered >= current) sum += depense.Montant;
+      });
+      return sum;
+    },
+  },
   actions: {
     async getDepenses({ commit, rootState }) {
       const uid = rootState.user.user.data.uid.data[0].IdUtilisateur;

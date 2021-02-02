@@ -12,7 +12,7 @@ export default {
 
 <style lang="scss">
 #piechart {
-  max-height: 45vh;
-  min-height: 45vh;
+  max-height: 50vh;
+  min-height: 60vh;
 }
 </style>

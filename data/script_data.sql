@@ -111,9 +111,9 @@ INSERT INTO DepenseSuivi VALUES (0,70,'2020-01-21', 1,2,'Paiement de voiture',nu
 INSERT INTO DepenseSuivi VALUES (0,80,'2020-01-21', 7,8, 'Paiement de voiture',null);
 INSERT INTO DepenseSuivi VALUES (0,80,'2021-01-21', 7,27, 'Paiement de voiture',null);
 INSERT INTO DepenseSuivi VALUES (0,40,'2021-01-19', 7,27, 'Paiement de cellulaire',null);
-
-INSERT INTO RevenuSuivi VALUES (0,2000,'2020-01-21', 1,2,'Paie',null);
-INSERT INTO RevenuSuivi VALUES (0,1000,'2020-01-21', 1,2,'Comission',null);
+USE ProjetFinEtude;
+INSERT INTO RevenuSuivi VALUES (0,2000,'2021-01-21', 1,2,'Paie',null);
+INSERT INTO RevenuSuivi VALUES (0,1000,'2021-01-21', 1,2,'Comission',null);
 INSERT INTO RevenuSuivi VALUES (0,80,'2020-01-21', 7,2, 'Paiement de voiture',null);
 INSERT INTO RevenuSuivi VALUES (0,80,'2021-01-21', 7,2, 'Paiement de voiture',null);
 INSERT INTO RevenuSuivi VALUES (0,40,'2021-01-19', 7,2, 'Paiement de cellulaire',null);
