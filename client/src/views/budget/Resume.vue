@@ -5,10 +5,10 @@
     </div>
     <div class="">
       <div class="columns">
-        <div class="column">
+        <div class="column is-4">
           <pie-chart />
         </div>
-        <div class="column">
+        <div class="column is-8">
           <budget />
         </div>
       </div>
@@ -31,3 +31,10 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+#resume {
+  padding: 10px;
+  margin: 10px 0px 10px 10px;
+}
+</style>
