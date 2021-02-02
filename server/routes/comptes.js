@@ -16,7 +16,7 @@ connection.connect()
 
 router.get('/', (req,res, next) => {
   const uid = req.query.uid;
-  connection.query(`SELECT co.IdCompte, co.Nom as NomCompte, tc.Nom as TypeCompte, tc.IdTypeCompte FROM Compte co INNER JOIN TypeCompte tc
+  connection.query(`SELECT co.IdCompte, co.Nom as NomCompte, co.Description, tc.Nom as TypeCompte, tc.IdTypeCompte FROM Compte co INNER JOIN TypeCompte tc
   ON co.IdType = tc.IdTypeCompte WHERE IdUtilisateur = ${uid};`,
   (error, results) => {
     if (error) res.status(501).send(error);
@@ -72,7 +72,7 @@ router.post('/delete', (req, res, next) => {
 router.post('/update', (req, res, next) => {
   const compte = req.body;
   connection.query(
-    `UPDATE Compte SET Nom = '${compte.NomCompte}', IdType = ${compte.IdTypeCompte} WHERE IdCompte = ${compte.IdCompte}`
+    `UPDATE Compte SET Nom = '${compte.NomCompte}', IdType = ${compte.IdTypeCompte}, Description = '${compte.Description}' WHERE IdCompte = ${compte.IdCompte}`
     , (error, results) => {
       if (error) console.log(error);
       if (results) res.json(results);
