@@ -50,7 +50,8 @@ export default ({
       state.budgets = data;
     },
     ADD_BUDGET(state, { budget, data }) {
-      state.budgets.push({
+      console.log(data);
+      state.bugets.push({
         IdBudget: data.insertId,
         ...budget,
       });

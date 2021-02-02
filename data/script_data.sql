@@ -156,3 +156,10 @@ FROM Compte co
     ON cs.IdCategorieDepense = dp.IdCategorieDepense
 WHERE co.IdCompte = 1;
 SELECT * FROM Utilisateur;
+
+SELECT D.IdCategorieDepense, D.IdDepense, D.Titre, D.Montant, D.IdBudget, CD.Nom, DF.Nom, D.IdDepenseFrequence
+FROM Depense D
+INNER JOIN CategorieDepense CD on D.IdCategorieDepense = CD.IdCategorieDepense
+INNER JOIN DepenseFrequence DF on D.IdDepenseFrequence = D.IdDepenseFrequence
+WHERE D.IdBudget = 1
+ORDER BY CD.Nom;

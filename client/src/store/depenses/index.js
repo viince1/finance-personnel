@@ -8,6 +8,7 @@ export default ({
   namespaced: true,
   state: {
     depenses: [],
+    depensesBudget: [],
   },
   getters: {
     yeartodate(state) {
@@ -32,10 +33,22 @@ export default ({
         commit('SET_DEPENSES', response.data);
       });
     },
+    async getDepensesBudget({ commit }, idBudget) {
+      return axios.get('http://localhost:3000/depenses/budget', {
+        params: {
+          idBudget,
+        },
+      }).then((response) => {
+        commit('SET_DEPENSES_BUDGET', response.data);
+      });
+    },
   },
   mutations: {
     SET_DEPENSES(state, data) {
       state.depenses = data;
+    },
+    SET_DEPENSES_BUDGET(state, data) {
+      state.depensesBudget = data;
     },
   },
 });
