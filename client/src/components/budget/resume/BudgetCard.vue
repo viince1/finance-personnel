@@ -9,14 +9,14 @@
         <div class="level-right">
           <div class="level-item">
             <a href="" class="link"
-              v-on:click.prevent="seeRevenus(budget.IdBudget)">
+              v-on:click.prevent="seeRevenus()">
             Planifiez vos revenus
             </a>
           </div>
           <div class="level-item">
             <a href=""
              class="link"
-             v-on:click.prevent="seeDepenses(budget.IdBudget)">
+             v-on:click.prevent="seeDepenses()">
              Planifiez vos d&eacute;penses
             </a>
           </div>
@@ -39,11 +39,11 @@ export default {
     budget: Object,
   },
   methods: {
-    seeRevenus(idBudget) {
-      console.log(idBudget);
+    seeRevenus() {
+      this.$router.push({ name: 'Revenus', params: { IdBudget: this.budget.IdBudget } });
     },
-    seeDepenses(idBudget) {
-      console.log(idBudget);
+    seeDepenses() {
+      this.$router.push({ name: 'Depenses', params: { IdBudget: this.budget.IdBudget } });
     },
     deleteBudget(idBudget) {
       console.log(idBudget);
