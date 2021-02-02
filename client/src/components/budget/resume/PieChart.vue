@@ -1,5 +1,8 @@
 <template>
   <div class="box container" id="piechart">
+    <div class="title">
+      <p class="title is-3">Visualisation</p>
+    </div>
     <div class="relative">
       <canvas id="myChart"></canvas>
       <div class="absolute-center text-center">
@@ -80,5 +83,10 @@ p {
 
 #myChart {
   width:50%;
+}
+
+#piechart {
+  padding: 10px;
+  margin: 10px 0px 10px 10px;
 }
 </style>

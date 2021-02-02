@@ -1,5 +1,5 @@
 <template>
-  <div class="budget box container" id="piechart">
+  <div class="budget box container" id="budget">
     <div class="level">
       <div class="level-left">
         <div class="level-item">
@@ -46,5 +46,8 @@ export default {
 </script>
 
 <style lang="scss">
-
+#budget {
+  padding: 10px;
+  margin: 10px 0px 10px 10px;
+}
 </style>

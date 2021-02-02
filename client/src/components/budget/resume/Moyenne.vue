@@ -1,30 +1,31 @@
 <template>
   <div class="" id="moyenne">
+    <p class="title is-3">Resume</p>
     <div class="columns flex">
       <div class="column is-4">
-        <div class="revenus box has-background-success-dark has-text-white">
-          <h1 class="is-size-4">Revenus</h1>
+        <div class="revenus box has-background-success-dark has-text-white has-text-centered">
+          <h1 class="title is-4 has-text-white">Revenus</h1>
           <div class="card-content">
-            <div class="amount is-size-5">{{revenusYTD.toFixed(2)}} $</div>
-            <div class="description is-size-7">Cummul annuel des revenus</div>
+            <div class="amount is-size-4">{{revenusYTD.toFixed(2)}} $</div>
+            <div class="description is-size-6">Cummul annuel des revenus</div>
           </div>
         </div>
       </div>
       <div class="column is-4">
-        <div class="box depenses has-text-white has-background-danger-dark">
-          <h1 class="is-size-4">Depenses</h1>
+        <div class="box depenses has-text-white has-background-danger-dark has-text-centered">
+          <h1 class=" title is-4 has-text-white">Depenses</h1>
           <div class="card-content">
-            <div class="amount is-size-5">{{depensesYTD.toFixed(2)}} $</div>
-            <div class="description is-size-7">Cummul annuel des depenses</div>
+            <div class="amount is-size-4">{{depensesYTD.toFixed(2)}} $</div>
+            <div class="description is-size-6">Cummul annuel des depenses</div>
           </div>
         </div>
       </div>
       <div class="column is-4">
-        <div class="box is-fullheight epargne has-background-link-dark has-text-white">
-          <h1 class="is-size-4">Taux epargne</h1>
+        <div class="box is-fullheight has-background-link-dark has-text-white has-text-centered">
+          <h1 class="title is-4 has-text-white">Taux epargne</h1>
           <div class="card-content">
-            <div class="amount is-size-5">{{savingRateYTD.toFixed(2)}} %</div>
-            <div class="description is-size-7">Taux d'epargne pour l'ann&eacute;e 2021</div>
+            <div class="amount is-size-4">{{savingRateYTD}} %</div>
+            <div class="description is-size-6">Taux d'epargne pour l'ann&eacute;e 2021</div>
           </div>
         </div>
       </div>
