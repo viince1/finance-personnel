@@ -120,6 +120,7 @@ INSERT INTO RevenuSuivi VALUES (0,40,'2021-01-19', 7,2, 'Paiement de cellulaire'
 
 USE ProjetFinEtude;
 SELECT * FROM Budget WHERE IdUtilisateur = 1;
+DELETE FROM Budget WHERE IdBudget = 9;
 -- Donnees RevenusSuivi
 
 USE ProjetFinEtude;

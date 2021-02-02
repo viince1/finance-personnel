@@ -20,6 +20,13 @@
              Planifiez vos d&eacute;penses
             </a>
           </div>
+           <div class="level-item">
+            <a href=""
+             class="link"
+             v-on:click.prevent="deleteBudget(budget.IdBudget)">
+             Supprimer
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -37,6 +44,10 @@ export default {
     },
     seeDepenses(idBudget) {
       console.log(idBudget);
+    },
+    deleteBudget(idBudget) {
+      console.log(idBudget);
+      this.$store.dispatch('budget/deleteBudget', idBudget);
     },
   },
 };

@@ -40,11 +40,11 @@
     </div>
 </div>
 
-<div class="field is-grouped">
-  <div class="control">
-    <button class="button is-link" @click="add">Ajouter</button>
-  </div>
-</div>
+    <div class="field is-grouped">
+      <div class="control">
+        <button class="button is-link" @click="add">Ajouter</button>
+      </div>
+    </div>
     </div>
   </div>
 </template>

@@ -6,7 +6,7 @@
           <p class="title is-3">Budget</p>
         </div>
         <div class="level-item">
-          <button class="button is-link is-small" v-on:click="addBudget" >Ajouter</button>
+          <button class="button is-link is-small" v-on:click="openBudgetAdd" >Ajouter</button>
         </div>
       </div>
     </div>
@@ -16,6 +16,7 @@
 
 <script>
 import BudgetCard from './BudgetCard.vue';
+import BudgetCreateModal from './BudgetCreateModal.vue';
 
 export default {
   name: 'Budget',
@@ -28,8 +29,14 @@ export default {
     },
   },
   methods: {
-    addBudget() {
-      console.log('add budget');
+    openBudgetAdd() {
+      this.$buefy.modal.open({
+        parent: this,
+        component: BudgetCreateModal,
+        hasModalCard: true,
+        customClass: 'custom-class custom-class-2',
+        trapFocus: true,
+      });
     },
   },
   created() {
