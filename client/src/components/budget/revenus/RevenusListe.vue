@@ -1,12 +1,17 @@
 <template>
   <div class="revenus" id="revenus">
-    Component RevenusListe.vue
+    {{idBudget}}
   </div>
 </template>
 
 <script>
 export default {
   name: 'Revenus',
+  data() {
+    return {
+      idBudget: this.$route.params.IdBudget,
+    };
+  },
 };
 </script>
 

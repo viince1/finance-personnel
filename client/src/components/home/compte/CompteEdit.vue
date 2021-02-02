@@ -16,6 +16,18 @@
       </div>
       <div class="field">
         <div class="control">
+          <label for="" class="label">Description du compte</label>
+          <textarea
+          name=""
+          id=""
+          cols="30"
+          rows="10"
+          class="input"
+          v-model="compte.Description"></textarea>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
           <label for="" class="label">Type de compte</label>
           <select name="" id="" class="select input" v-model="compte.IdTypeCompte">
             <option
@@ -53,6 +65,7 @@ export default {
         IdCompte: this.$attrs.IdCompte,
         TypeCompte: this.$attrs.TypeCompte,
         IdTypeCompte: this.$attrs.IdTypeCompte,
+        Description: this.$attrs.Description,
       },
       typescomptes: this.$store.state.compte.typescomptes,
     };

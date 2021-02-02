@@ -3,6 +3,9 @@ import Vuex from 'vuex';
 import user from './users';
 import objectif from './objectifs';
 import compte from './comptes';
+import depense from './depenses';
+import revenu from './revenus';
+import budget from './budgets';
 
 Vue.use(Vuex);
 
@@ -11,5 +14,8 @@ export default new Vuex.Store({
     user,
     objectif,
     compte,
+    depense,
+    revenu,
+    budget,
   },
 });

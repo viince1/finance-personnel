@@ -20,7 +20,7 @@
                 </div>
                 <div class="level-right">
                   <span class="tag is-primary level-item" v-bind:class="status">
-                    {{objectif.Nom}}
+                    {{statusNom}}
                   </span>
                 </div>
               </div>
@@ -41,10 +41,16 @@ export default {
   },
   computed: {
     status() {
-      if (this.objectif.NoStatus === 49) return 'is-warning';
-      if (this.objectif.NoStatus === 99) return 'is-primary';
-      if (this.objectif.NoStatus === 1) return 'is-secondary';
+      if (this.objectif.IdObjectifStatus === 2) return 'is-warning';
+      if (this.objectif.IdObjectifStatus === 1) return 'is-primary';
+      if (this.objectif.IdObjectifStatus === 3) return 'is-danger';
       return '';
+    },
+    statusNom() {
+      if (this.objectif.IdObjectifStatus === 1) return 'Succes';
+      if (this.objectif.IdObjectifStatus === 2) return 'En cours';
+      if (this.objectif.IdObjectifStatus === 3) return 'A faire';
+      return 'Statuis';
     },
   },
   methods: {
