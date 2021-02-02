@@ -1,8 +1,7 @@
 <template>
   <div class="modal-card" id="objectif">
     <div class="modal-card-head">
-      <!--CHANGER LES THIS.$ATTRS-->
-      <input class="input title is-3"  type="text" v-model="objectif.Titre">
+      <input class="input is-5 mr-4 is-size-5"  type="text" v-model="objectif.Titre">
       <button
         type="button"
         class="delete"
