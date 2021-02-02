@@ -2,7 +2,7 @@
   <div class="" id="moyenne">
     <div class="columns flex">
       <div class="column is-4">
-        <div class="box revenus has-background-success-dark has-text-white">
+        <div class="revenus box has-background-success-dark has-text-white">
           <h1 class="is-size-4">Revenus</h1>
           <div class="card-content">
             <div class="amount is-size-5">{{revenusYTD.toFixed(2)}} $</div>
@@ -64,7 +64,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 #moyenne.columns {
   display: flex;
   min-height: 100%;

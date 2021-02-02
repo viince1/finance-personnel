@@ -118,8 +118,8 @@ INSERT INTO RevenuSuivi VALUES (0,80,'2020-01-21', 7,2, 'Paiement de voiture',nu
 INSERT INTO RevenuSuivi VALUES (0,80,'2021-01-21', 7,2, 'Paiement de voiture',null);
 INSERT INTO RevenuSuivi VALUES (0,40,'2021-01-19', 7,2, 'Paiement de cellulaire',null);
 
-
-SELECT * FROM Compte;
+USE ProjetFinEtude;
+SELECT * FROM Budget WHERE IdUtilisateur = 1;
 -- Donnees RevenusSuivi
 
 USE ProjetFinEtude;

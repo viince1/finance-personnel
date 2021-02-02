@@ -1,5 +1,5 @@
 <template>
-  <div class="home container">
+  <div class="home">
     <div class="columns">
       <div class="column is-5">
         <objectif/>
