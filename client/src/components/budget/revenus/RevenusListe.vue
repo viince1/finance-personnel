@@ -142,7 +142,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-#revenuListe {
+#revenusListe {
   padding: 7px;
   margin: 10px 0px 10px 10px;
 }

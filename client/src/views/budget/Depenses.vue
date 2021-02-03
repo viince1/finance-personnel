@@ -9,7 +9,7 @@
 import DepensesListe from '../../components/budget/depenses/DepensesListe.vue';
 
 export default {
-  name: 'Depenses',
+  name: 'DepensesListes',
   components: {
     DepensesListe,
   },

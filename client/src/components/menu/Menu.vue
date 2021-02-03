@@ -20,8 +20,12 @@
           <router-link to="/budget/resume" class="navbar-link">Budget</router-link>
           <div class="navbar-dropdown">
             <router-link to="/budget/resume" class="navbar-item">Resume</router-link>
-            <router-link to="/budget/revenus" class="navbar-item">Revenus</router-link>
-            <router-link to="/budget/depenses" class="navbar-item">Depenses</router-link>
+            <router-link
+            :to="{ name: 'Revenus', params: { idBudget: 0 } }"
+            class="navbar-item">Revenus</router-link>
+            <router-link
+            :to="{ name: 'Depenses', params: { idBudget: 0 } }"
+            class="navbar-item">Depenses</router-link>
             <router-link to="/budget/suivi" class="navbar-item">Suivi</router-link>
           </div>
         </div>
