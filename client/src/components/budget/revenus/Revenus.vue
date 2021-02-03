@@ -87,8 +87,8 @@ export default {
       await this.$store.dispatch('revenu/update', this.revenu);
       this.showInputs = false;
     },
-    remove() {
-      console.log('remove revenu');
+    async remove() {
+      this.$store.dispatch('revenu/delete', this.revenu.IdRevenu);
     },
   },
 };

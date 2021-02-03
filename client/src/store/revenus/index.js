@@ -66,6 +66,18 @@ export default ({
         commit('UPDATE_REVENUS', revenu);
       });
     },
+    async delete({ commit }, IdRevenu) {
+      console.log(IdRevenu);
+      return axios.post('http://localhost:3000/revenus/delete', {
+        params: {
+          IdRevenu,
+        },
+      })
+        .then((response) => {
+          console.log(response);
+          commit('DELETE_REVENU', IdRevenu);
+        });
+    },
   },
   mutations: {
     SET_REVENUS(state, data) {
@@ -80,6 +92,10 @@ export default ({
     UPDATE_REVENUS(state, revenus) {
       const index = state.revenusBudget.findIndex((r) => r.IdRevenu === revenus.IdRevenu);
       if (index >= 0) state.revenusBudget.splice(index, 1, revenus);
+    },
+    DELETE_REVENU(state, IdRevenu) {
+      const index = state.revenusBudget.findIndex((r) => r.IdRevenu === IdRevenu);
+      state.revenusBudget.splice(index, 1);
     },
   },
 });
