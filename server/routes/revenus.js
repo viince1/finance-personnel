@@ -45,11 +45,9 @@ router.get('/categoriesrevenus', (req,res, next) => {
     if (results) res.json(results);
   })
 });
-router.post('/create', (req,res, next) => {
-  const revenus = req.body.params.revenus;
-  const idBudget = req.query.idBudget;
-  console.log(idBudget);
-  connection.query(`INSERT INTO Revenu VALUES (0, '${revenus.Titre}','${revenus.Montant}', '${revenus.IdCategorieRevenu}', ${IdBudget})`,
+router.post('/add', (req,res, next) => {
+  const revenus = req.body;
+  connection.query(`INSERT INTO Revenu VALUES (0, '${revenus.Titre}','${revenus.Montant}', '${revenus.IdCategorieRevenu}', ${revenus.IdBudget})`,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);

@@ -48,17 +48,12 @@ export default ({
         commit('SET_CATEGORIES_REVENUS', response.data);
       });
     },
-    async create({ commit, rootState }, { data }) {
-      console.log(data);
-      return axios.post('http://localhost:3000/revenus/create', {
-        params: {
-          revenu: data,
-          IdBudget: rootState.budget.budget.data.uid.data[0].IdUtilisateur,
-        },
-      }).then((response) => {
-        console.log(response.data);
-        commit('ADD_OBJECTIF', { data, response: response.data });
-      });
+    async create({ commit }, revenu) {
+      console.log(revenu);
+      return axios.post('http://localhost:3000/revenus/add', revenu)
+        .then((response) => {
+          commit('ADD_REVENU', { data: response.data, revenu });
+        });
     },
     async update({ commit }, revenu) {
       return axios.post('http://localhost:3000/revenus/update', revenu).then((response) => {
@@ -88,6 +83,12 @@ export default ({
     },
     SET_REVENUS_BUDGET(state, data) {
       state.revenusBudget = data;
+    },
+    ADD_REVENU(state, { data, revenu }) {
+      state.revenusBudget.push({
+        ...revenu,
+        IdRevenu: data.insertId,
+      });
     },
     UPDATE_REVENUS(state, revenus) {
       const index = state.revenusBudget.findIndex((r) => r.IdRevenu === revenus.IdRevenu);
