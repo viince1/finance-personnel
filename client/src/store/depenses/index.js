@@ -35,6 +35,27 @@ export default ({
         commit('SET_DEPENSES', response.data);
       });
     },
+    async ajouterDepense({ commit }, depense) {
+      console.log(depense);
+      return axios.post('http://localhost:3000/depenses/add', depense)
+        .then((response) => {
+          commit('ADD_DEPENSE', { data: response.data, depense });
+        });
+    },
+    async deleteDepense({ commit }, IdDepense) {
+      return axios.post('http://localhost:3000/depenses/delete', {
+        IdDepense,
+      })
+        .then((response) => {
+          commit('DELETE_DEPENSE', { response, IdDepense });
+        });
+    },
+    async updateDepense({ commit }, depense) {
+      return axios.post('http://localhost:3000/depenses/update', depense)
+        .then((response) => {
+          commit('UPDATE_DEPENSE', { response, depense });
+        });
+    },
     async getDepensesBudget({ commit }, idBudget) {
       return axios.get('http://localhost:3000/depenses/budget', {
         params: {
@@ -69,6 +90,20 @@ export default ({
     },
     SET_FREQUENCES(state, data) {
       state.frequences = data;
+    },
+    ADD_DEPENSE(state, { data, depense }) {
+      state.depensesBudget.push({
+        ...depense,
+        IdDepense: data.insertId,
+      });
+    },
+    DELETE_DEPENSE(state, { IdDepense }) {
+      const index = state.depensesBudget.findIndex((d) => d.IdDepense === IdDepense);
+      if (index >= 0) state.depensesBudget.splice(index, 1);
+    },
+    UPDATE_DEPENSE(state, { depense }) {
+      const index = state.depensesBudget.findIndex((d) => d.IdDepense === depense.IdDepense);
+      if (index >= 0) state.depensesBudget.splice(index, 1, depense);
     },
   },
 });

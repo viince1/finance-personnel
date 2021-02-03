@@ -51,12 +51,39 @@ router.get('/frequences', (req,res, next) => {
 router.get('/budget', (req,res, next) => {
   const idBudget = req.query.idBudget;
   console.log(idBudget);
-  connection.query(`SELECT D.IdDepense, D.Titre as DepenseTitre, D.Montant, D.IdBudget, CD.Nom as CategorieDepenseNom, DF.Nom as DepenseFrequenceNom, D.IdDepenseFrequence, CD.IdCategorieDepense
+  connection.query(`SELECT D.IdDepense, D.Titre as nom, D.Montant as montant, D.idBudget, D.IdDepenseFrequence as idDepenseFrequence, CD.IdCategorieDepense as idCategorieDepense
   FROM Depense D
   INNER JOIN CategorieDepense CD on D.IdCategorieDepense = CD.IdCategorieDepense
   INNER JOIN DepenseFrequence DF on D.IdDepenseFrequence = DF.IdDepenseFrequence
   WHERE D.IdBudget = ${idBudget}
   ORDER BY CD.Nom;`,
+  (error, results) => {
+    if (error) res.status(501).send(error);
+    if (results) res.json(results);
+  })
+});
+
+router.post('/update', (req,res, next) => {
+  const depense = req.body;
+  connection.query(`UPDATE Depense SET Titre = '${depense.nom}', Montant = ${depense.montant}, IdCategorieDepense = ${depense.idCategorieDepense}, IdDepenseFrequence = ${depense.idDepenseFrequence} WHERE IdDepense = ${depense.IdDepense}`,
+  (error, results) => {
+    if (error) res.status(501).send(error);
+    if (results) res.json(results);
+  })
+});
+
+router.post('/add', (req,res, next) => {
+  const depense = req.body;
+  connection.query(`INSERT INTO Depense VALUES (0, '${depense.nom}', ${depense.montant}, ${depense.idCategorieDepense}, ${depense.idBudget}, ${depense.idDepenseFrequence})`,
+  (error, results) => {
+    if (error) res.status(501).send(error);
+    if (results) res.json(results);
+  })
+});
+
+router.post('/delete', (req,res, next) => {
+  const idDepense = req.body.IdDepense;
+  connection.query(`DELETE FROM Depense WHERE IdDepense = ${idDepense} `,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);
