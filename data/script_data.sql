@@ -160,6 +160,6 @@ SELECT * FROM Utilisateur;
 SELECT D.IdCategorieDepense, D.IdDepense, D.Titre, D.Montant, D.IdBudget, CD.Nom, DF.Nom, D.IdDepenseFrequence
 FROM Depense D
 INNER JOIN CategorieDepense CD on D.IdCategorieDepense = CD.IdCategorieDepense
-INNER JOIN DepenseFrequence DF on D.IdDepenseFrequence = D.IdDepenseFrequence
+INNER JOIN DepenseFrequence DF on D.IdDepenseFrequence = DF.IdDepenseFrequence
 WHERE D.IdBudget = 1
 ORDER BY CD.Nom;

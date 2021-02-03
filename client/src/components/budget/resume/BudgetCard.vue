@@ -20,7 +20,10 @@
              Planifiez vos d&eacute;penses
             </a>
           </div>
-           <div class="level-item">
+          <div class="level-item">
+            <a href="" class="link" v-on:click.prevent="modifier()">Modifier</a>
+          </div>
+          <div class="level-item">
             <a href=""
              class="link"
              v-on:click.prevent="deleteBudget(budget.IdBudget)">
@@ -33,6 +36,8 @@
 </template>
 
 <script>
+import BudgetEditModal from './BudgetEditModal.vue';
+
 export default {
   name: 'BudgetCard',
   props: {
@@ -48,6 +53,16 @@ export default {
     deleteBudget(idBudget) {
       console.log(idBudget);
       this.$store.dispatch('budget/deleteBudget', idBudget);
+    },
+    modifier() {
+      this.$buefy.modal.open({
+        parent: this,
+        component: BudgetEditModal,
+        props: this.budget,
+        hasModalCard: true,
+        customClass: 'custom-class custom-class-2',
+        trapFocus: true,
+      });
     },
   },
 };

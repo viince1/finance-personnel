@@ -33,13 +33,16 @@
       </h3>
     </div>
     <div v-if="idBudget != 0" class="columns">
-      <div class="column is-10">
-        <div class="box">
+      <div class="column is-10 ">
+        <div class="liste box">
             <depense-card
-            v-for="depense in depenses"
-             :key="depense.IdDepense"
+            v-for="(depense, index) in depenses"
+             :key="index"
               :depense="depense"
             />
+        </div>
+        <div class="box">
+          Input pour ajouter des revenus
         </div>
       </div>
       <div class="column is-2">
@@ -90,5 +93,10 @@ export default {
 #depenses {
   padding: 7px;
   margin: 10px 0px 10px 10px;
+}
+
+.liste {
+  max-height: 65vh;
+  overflow-y: scroll;
 }
 </style>

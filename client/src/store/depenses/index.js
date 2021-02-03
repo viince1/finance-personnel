@@ -9,6 +9,8 @@ export default ({
   state: {
     depenses: [],
     depensesBudget: [],
+    categories: [],
+    frequences: [],
   },
   getters: {
     yeartodate(state) {
@@ -42,6 +44,18 @@ export default ({
         commit('SET_DEPENSES_BUDGET', response.data);
       });
     },
+    async getCategoriesDepense({ commit }) {
+      return axios.get('http://localhost:3000/depenses/categories')
+        .then((response) => {
+          commit('SET_CATEGORIES', response.data);
+        });
+    },
+    async getFrequencesDepense({ commit }) {
+      return axios.get('http://localhost:3000/depenses/frequences')
+        .then((response) => {
+          commit('SET_FREQUENCES', response.data);
+        });
+    },
   },
   mutations: {
     SET_DEPENSES(state, data) {
@@ -49,6 +63,12 @@ export default ({
     },
     SET_DEPENSES_BUDGET(state, data) {
       state.depensesBudget = data;
+    },
+    SET_CATEGORIES(state, data) {
+      state.categories = data;
+    },
+    SET_FREQUENCES(state, data) {
+      state.frequences = data;
     },
   },
 });
