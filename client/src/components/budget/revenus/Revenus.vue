@@ -2,7 +2,7 @@
   <div class="box mb-3" id="revenus">
     <div class="columns">
       <div class="column is-3 has-text-centered">
-        <label v-if="showInputs === false" for="" class="">{{ revenu.Nom }}</label>
+        <label v-if="showInputs === false" for="" class="">{{ revenu.Titre }}</label>
         <input
           v-if="showInputs === true"
           type="text"
@@ -22,7 +22,7 @@
         />
       </div>
       <div class="column is-3 has-text-centered">
-        <label v-if="showInputs === false" for="">categorie a mettre</label>
+        <label v-if="showInputs === false" for="">{{ revenu.Nom }}</label>
         <input
           v-if="showInputs === true"
           type="text"
