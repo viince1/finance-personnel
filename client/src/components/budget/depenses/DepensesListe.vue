@@ -14,7 +14,7 @@
               <p class="control">
                 <span class="select">
                   <select v-model="idBudget" v-on:change.prevent="updateDepenses" >
-                    <option value="0">Selectionnez un budget</option>
+                    <option :value="0" disabled>Selectionnez un budget</option>
                     <option
                      :value="budget.IdBudget"
                       v-for="budget in budgets"

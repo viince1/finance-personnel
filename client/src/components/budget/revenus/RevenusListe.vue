@@ -13,7 +13,7 @@
               <p class="control">
                 <span class="select">
                   <select v-model="idBudget" @change="updateRevenus()">
-                    <option value="0">Selectionnez un budget</option>
+                    <option value="0" disabled>Selectionnez un budget</option>
                     <option
                       :value="budget.IdBudget"
                       v-for="budget in budgets"
@@ -62,7 +62,7 @@
             <div class="column is-3 has-text-centered">
               <div class="select">
                 <select class="select" v-model="IdCategorieRevenu">
-                  <option value="0" selected>Choisir un statut</option>
+                  <option :value="0" selected>Choisir un statut</option>
                   <option v-for="c in categories"
                   :key="c.IdCategorieRevenu"
                   v-bind:value="c.IdCategorieRevenu">
