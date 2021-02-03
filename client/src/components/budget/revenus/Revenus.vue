@@ -8,7 +8,7 @@
           type="text"
           class="input has-text-centered"
           placeholder="Titre du revenu"
-          v-model="Nom"
+          v-model="revenu.Titre"
         />
       </div>
       <div class="column is-3 has-text-centered">
@@ -18,18 +18,19 @@
           type="text"
           class="input has-text-centered"
           placeholder="Montant"
-          v-model="Montant"
+          v-model="revenu.Montant"
         />
       </div>
       <div class="column is-3 has-text-centered">
-        <label v-if="showInputs === false" for="">{{ revenu.Nom }}</label>
-        <input
-          v-if="showInputs === true"
-          type="text"
-          class="input has-text-centered"
-          placeholder="Catégorie"
-          v-model="categorieRevenue"
-        />
+        <label v-if="showInputs === false" for="">{{ nomCategorie }}</label>
+         <select class="select" v-if="showInputs === true" v-model="revenu.IdCategorieRevenu">
+          <option
+          v-for="categorie in categories"
+          :key="categorie.IdCategorieRevenu"
+          v-bind:value="categorie.IdCategorieRevenu">
+            {{ categorie.Nom }}
+          </option>
+        </select>
       </div>
       <div class="column is-3 has-text-right">
         <button
@@ -61,22 +62,30 @@ export default {
     return {
       showInputs: false,
       dynamicButton: 'Modifier',
-      Nom: this.revenu.RevenuTitre,
-      Montant: this.revenu.Montant,
-      IdCategorieRevenu: this.revenu.IdCategorieRevenu,
+      categories: this.$store.state.revenu.categoriesRevenus,
     };
   },
   props: {
     revenu: Object,
+  },
+  computed: {
+    nomCategorie() {
+      if (this.revenu.IdCategorieRevenu === 1) return 'Salaire horaire';
+      if (this.revenu.IdCategorieRevenu === 2) return 'Salaire annuel';
+      if (this.revenu.IdCategorieRevenu === 3) return 'Comission';
+      if (this.revenu.IdCategorieRevenu === 4) return 'Versement unique';
+      if (this.revenu.IdCategorieRevenu === 5) return 'Bonus';
+      return 'Categorie';
+    },
   },
   methods: {
     updateForm() {
       this.showInputs = true;
       console.log('update form');
     },
-    save() {
+    async save() {
+      await this.$store.dispatch('revenu/update', this.revenu);
       this.showInputs = false;
-      console.log('update revenu');
     },
     remove() {
       console.log('remove revenu');

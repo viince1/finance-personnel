@@ -60,6 +60,12 @@ export default ({
         commit('ADD_OBJECTIF', { data, response: response.data });
       });
     },
+    async update({ commit }, revenu) {
+      return axios.post('http://localhost:3000/revenus/update', revenu).then((response) => {
+        console.log(response);
+        commit('UPDATE_REVENUS', revenu);
+      });
+    },
   },
   mutations: {
     SET_REVENUS(state, data) {
@@ -70,6 +76,10 @@ export default ({
     },
     SET_REVENUS_BUDGET(state, data) {
       state.revenusBudget = data;
+    },
+    UPDATE_REVENUS(state, revenus) {
+      const index = state.revenusBudget.findIndex((r) => r.IdRevenu === revenus.IdRevenu);
+      if (index >= 0) state.revenusBudget.splice(index, 1, revenus);
     },
   },
 });

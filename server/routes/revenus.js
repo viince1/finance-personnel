@@ -28,7 +28,7 @@ router.get('/', (req,res, next) => {
 router.get('/revenusBudget', (req,res, next) => {
   const idBudget = req.query.idBudget;
   console.log(idBudget);
-  connection.query(`SELECT r.Titre, r.Montant, r.IdBudget, cr.Nom, cr.IdCategorieRevenu
+  connection.query(`SELECT r.IdRevenu, r.Titre, r.Montant, r.IdBudget, cr.Nom, cr.IdCategorieRevenu
   FROM Revenu r INNER JOIN CategorieRevenu cr on r.IdCategorieRevenu = cr.IdCategorieRevenu
   WHERE r.IdBudget = ${idBudget} ORDER BY cr.Nom;`,
   (error, results) => {
@@ -57,7 +57,7 @@ router.post('/create', (req,res, next) => {
 });
 router.post('/update', (req,res, next) => {
   const revenus = req.body;
-  connection.query(`UPDATE Revenu SET Titre = '${revenus.Titre}', Montant = '${revenus.Montant}', IdCategorieRevenu = '${revenus.IdCategorieRevenu}' WHERE IdRevenu = '${revenus.IdRevenu}')`,
+  connection.query(`UPDATE Revenu SET Titre = '${revenus.Titre}', Montant = '${revenus.Montant}', IdCategorieRevenu = '${revenus.IdCategorieRevenu}' WHERE IdRevenu = '${revenus.IdRevenu}'`,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);

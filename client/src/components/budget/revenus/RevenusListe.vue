@@ -85,6 +85,7 @@ export default {
   },
   created() {
     this.$store.dispatch('budget/getBudgets');
+    this.$store.dispatch('revenu/getCategoriesRevenus');
     // this.$store.dispatch('revenu/getRevenus');
   },
 
