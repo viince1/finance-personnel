@@ -8,6 +8,8 @@ export default ({
   namespaced: true,
   state: {
     revenus: [],
+    categoriesRevenus: [],
+    revenusBudget: [],
   },
   getters: {
     yeartodate(state) {
@@ -32,10 +34,42 @@ export default ({
         commit('SET_REVENUS', response.data);
       });
     },
+    async getRevenusBudget({ commit }, idBudget) {
+      return axios.get('http://localhost:3000/revenus/revenusBudget', {
+        params: {
+          idBudget,
+        },
+      }).then((response) => {
+        commit('SET_REVENUS_BUDGET', response.data);
+      });
+    },
+    async getCategoriesRevenus({ commit }) {
+      return axios.get('http://localhost:3000/revenus/categoriesrevenus').then((response) => {
+        commit('SET_CATEGORIES_REVENUS', response.data);
+      });
+    },
+    async create({ commit, rootState }, { data }) {
+      console.log(data);
+      return axios.post('http://localhost:3000/revenus/create', {
+        params: {
+          revenu: data,
+          IdBudget: rootState.budget.budget.data.uid.data[0].IdUtilisateur,
+        },
+      }).then((response) => {
+        console.log(response.data);
+        commit('ADD_OBJECTIF', { data, response: response.data });
+      });
+    },
   },
   mutations: {
     SET_REVENUS(state, data) {
       state.revenus = data;
+    },
+    SET_CATEGORIES_REVENUS(state, value) {
+      state.categoriesRevenus = value;
+    },
+    SET_REVENUS_BUDGET(state, data) {
+      state.revenusBudget = data;
     },
   },
 });
