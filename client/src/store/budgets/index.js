@@ -44,13 +44,20 @@ export default ({
         commit('DELETE_BUDGET', idBudget);
       });
     },
+    async updateBudget({ commit }, budget) {
+      return axios.post('http://localhost:3000/budgets/update', budget)
+        .then(() => {
+          commit('UPDATE_BUDGETS', budget.budget);
+        });
+    },
   },
   mutations: {
     SET_BUDGETS(state, data) {
       state.budgets = data;
     },
     ADD_BUDGET(state, { budget, data }) {
-      state.budgets.push({
+      console.log(data);
+      state.bugets.push({
         IdBudget: data.insertId,
         ...budget,
       });
@@ -58,6 +65,12 @@ export default ({
     DELETE_BUDGET(state, idBudget) {
       const index = state.budgets.findIndex((budget) => budget.IdBudget === idBudget);
       if (index >= 0) state.budgets.splice(index, 1);
+    },
+    UPDATE_BUDGETS(state, budget) {
+      console.log(budget);
+      const index = state.budgets.findIndex((b) => b.IdBudget === budget.IdBudget);
+      console.log(index);
+      if (index >= 0) state.budgets.splice(index, 1, budget);
     },
   },
 });

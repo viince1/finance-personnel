@@ -45,4 +45,14 @@ router.post('/delete', (req, res, next) => {
     });
 });
 
+router.post('/update', (req, res, next) => {
+  const budget = req.body.budget;
+  connection.query(
+    `UPDATE Budget SET Nom = '${budget.Nom}' WHERE IdBudget = '${budget.IdBudget}'`
+    , (error, results) => {
+      if (error) res.status(501).send(error);
+      if (results) res.json(results);
+    });
+});
+
 module.exports = router;
