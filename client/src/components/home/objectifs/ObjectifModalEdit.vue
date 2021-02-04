@@ -1,7 +1,8 @@
 <template>
   <div class="modal-card" id="objectif">
     <div class="modal-card-head">
-      <input class="input is-5 mr-4 is-size-5"  type="text" v-model="objectif.Titre">
+      <input class="input is-5 mr-4 is-size-5"  type="text" v-model="objectif.Titre"
+        placeholder="Entrez le titre de l'objectif">
       <button
         type="button"
         class="delete"

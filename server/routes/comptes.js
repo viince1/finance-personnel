@@ -49,10 +49,10 @@ router.get('/typescompte', (req,res, next) => {
 });
 
 router.post('/add', (req, res, next) => {
-  const compte = req.body.params.compte;
+  const compte = req.body.params.Compte;
   const uid = req.body.params.IdUtilisateur
   connection.query(
-    `INSERT INTO COMPTE VALUES (0,'${compte.NomCompte}','${compte.Description}', ${compte.TypeCompte}, ${uid});`
+    `INSERT INTO COMPTE VALUES (0,'${compte.NomCompte}','${compte.Description}', ${compte.IdTypeCompte}, ${uid});`
     , (error, results) => {
       if (error) console.log(error);
       if (results) res.json(results);

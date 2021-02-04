@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="comptesListe">
-      <compte v-for="co in comptes" :key="co.IdCompte" :compte="co"/>
+      <compte v-for="compte in comptes" :key="compte.IdCompte" :compte="compte"/>
     </div>
   </div>
 </template>
@@ -26,8 +26,7 @@ export default {
     Compte,
   },
   methods: {
-    async addCompte() {
-      console.log('here');
+    addCompte() {
       this.$buefy.modal.open({
         parent: this,
         component: AjoutCompte,
@@ -42,9 +41,9 @@ export default {
       return this.$store.state.compte.comptes;
     },
   },
-  created() {
-    this.$store.dispatch('compte/getComptes');
-    this.$store.dispatch('compte/getTypesComptes');
+  async created() {
+    await this.$store.dispatch('compte/getComptes');
+    await this.$store.dispatch('compte/getTypesComptes');
   },
 };
 </script>

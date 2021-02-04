@@ -23,11 +23,6 @@ import CompteEdit from './CompteEdit.vue';
 
 export default {
   name: 'Compte',
-  data() {
-    return {
-      transactions: null,
-    };
-  },
   props: {
     compte: Object,
   },
@@ -42,19 +37,19 @@ export default {
   },
   methods: {
     async openTransactions() {
-      console.log(this.compte.IdCompte);
       const transactions = await axios.get('http://localhost:3000/comptes/transactions', {
         params: {
           IdCompte: this.compte.IdCompte,
         },
-      });
-      this.$buefy.modal.open({
-        parent: this,
-        component: TransactionCompte,
-        props: transactions,
-        hasModalCard: true,
-        customClass: 'custom-class custom-class-2',
-        trapFocus: true,
+      }).then(() => {
+        this.$buefy.modal.open({
+          parent: this,
+          component: TransactionCompte,
+          props: transactions,
+          hasModalCard: true,
+          customClass: 'custom-class custom-class-2',
+          trapFocus: true,
+        });
       });
     },
     updateCompte() {
