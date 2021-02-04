@@ -20,19 +20,20 @@ export default ({
         commit('SET_BUDGETS', response.data);
       });
     },
-    async createBudget({ commit, rootState }, nom) {
+    async createBudget({ commit, rootState }, { budget }) {
       const uid = rootState.user.user.data.uid.data[0].IdUtilisateur;
       return axios.post('http://localhost:3000/budgets/create', {
         params: {
+          budget,
           uid,
-          nom,
         },
       }).then((response) => {
-        const budget = {
+        const data = {
           IdUtilisateur: uid,
-          Nom: nom,
+          IdBudget: response.data.insertId,
+          ...budget,
         };
-        commit('ADD_BUDGET', { budget, data: response.data });
+        commit('ADD_BUDGET', { data });
       });
     },
     async deleteBudget({ commit }, idBudget) {
@@ -55,11 +56,8 @@ export default ({
     SET_BUDGETS(state, data) {
       state.budgets = data;
     },
-    ADD_BUDGET(state, { budget, data }) {
-      state.budgets.push({
-        IdBudget: data.insertId,
-        ...budget,
-      });
+    ADD_BUDGET(state, { data }) {
+      state.budgets.push(data);
     },
     DELETE_BUDGET(state, idBudget) {
       const index = state.budgets.findIndex((budget) => budget.IdBudget === idBudget);

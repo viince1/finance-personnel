@@ -10,6 +10,7 @@ export default ({
     revenus: [],
     categoriesRevenus: [],
     revenusBudget: [],
+    yeartodate: Number,
   },
   getters: {
     yeartodate(state) {
@@ -19,6 +20,7 @@ export default ({
         const entered = new Date(revenu.DateEntree).getFullYear();
         if (entered >= current) sum += revenu.Montant;
       });
+      state.yeartodate = sum;
       return sum;
     },
   },

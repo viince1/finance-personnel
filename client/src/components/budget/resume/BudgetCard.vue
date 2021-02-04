@@ -31,9 +31,8 @@ export default {
     budget: Object,
   },
   methods: {
-    deleteBudget(idBudget) {
-      console.log(idBudget);
-      this.$store.dispatch('budget/deleteBudget', idBudget);
+    async deleteBudget(idBudget) {
+      await this.$store.dispatch('budget/deleteBudget', idBudget);
     },
     modifier() {
       this.$buefy.modal.open({

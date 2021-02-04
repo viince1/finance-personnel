@@ -41,12 +41,6 @@ export default {
     };
   },
   computed: {
-    depenses() {
-      return this.$store.state.depense.depenses;
-    },
-    revenus() {
-      return this.$store.state.revenu.revenus;
-    },
     revenusYTD() {
       return this.$store.getters['revenu/yeartodate'];
     },
@@ -58,10 +52,6 @@ export default {
       return ((this.revenusYTD - this.depensesYTD) / this.revenusYTD) * 100;
     },
   },
-  created() {
-    this.$store.dispatch('depense/getDepenses');
-    this.$store.dispatch('revenu/getRevenus');
-  },
 };
 </script>
 
@@ -71,5 +61,4 @@ export default {
   min-height: 100%;
   align-items: stretch;
 }
-
 </style>

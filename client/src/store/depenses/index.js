@@ -11,6 +11,7 @@ export default ({
     depensesBudget: [],
     categories: [],
     frequences: [],
+    yeartodate: Number,
   },
   getters: {
     yeartodate(state) {
@@ -20,6 +21,7 @@ export default ({
         const entered = new Date(depense.DateEntree).getFullYear();
         if (entered >= current) sum += depense.Montant;
       });
+      state.yeartodate = sum;
       return sum;
     },
   },

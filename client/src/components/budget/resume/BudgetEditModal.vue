@@ -8,20 +8,30 @@
         @click="$emit('close')"/>
     </div>
     <div class="modal-card-body">
-    <div class="field">
-      <label class="label">Nom du budget</label>
-      <div class="control">
-        <input class="input"
-        type="text"
-        placeholder="Donnez un nom descriptif a votre budget Ex: Budget AAAA"
-        v-model="Nom">
+      <div class="message is-danger" v-if="errorMessage.length !== 0">
+        <div v-for="(m, index) in errorMessage"
+            :key="index"
+              class="message-body has-icons-left"
+                style="padding:6px;">
+            Erreur : {{m}}
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Nom du budget</label>
+        <div class="control">
+          <input class="input"
+          type="text"
+          placeholder="Donnez un nom descriptif a votre budget Ex: Budget AAAA"
+          v-model="budget.Nom">
+        </div>
       </div>
     </div>
-<div class="field is-grouped">
-  <div class="control">
-    <button class="button is-link" @click="addBudget">Modifier</button>
-  </div>
-</div>
+    <div class="modal-card-foot">
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-primary" @click="addBudget">Modifier</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -31,14 +41,19 @@ export default {
   name: 'BudgetEditModal',
   data() {
     return {
-      Nom: this.$attrs.Nom,
-      IdUtilisateur: this.$attrs.IdUtilisateur,
-      IdBudget: this.$attrs.IdBudget,
+      budget: {
+        Nom: this.$attrs.Nom,
+        IdBudget: this.$attrs.IdBudget,
+      },
+      errorMessage: [],
     };
   },
   methods: {
-    addBudget() {
-      this.$store.dispatch('budget/updateBudget', { budget: { Nom: this.Nom, IdUtilisateur: this.IdUtilisateur, IdBudget: this.IdBudget } });
+    async addBudget() {
+      this.errorMessage = [];
+      if (this.budget.Nom === '') this.errorMessage.push('Le champ Nom est requis');
+      if (this.errorMessage.length !== 0) return;
+      await this.$store.dispatch('budget/updateBudget', { budget: this.budget });
       this.$emit('close');
     },
   },
