@@ -1,93 +1,87 @@
 <template>
-  <div class="revenus" id="revenusListe">
-    <div class="title">
-      <div class="level">
-        <div class="level-left">
-          <div class="level-item">
-            <h1>Revenus</h1>
-          </div>
-        </div>
-        <div class="level-right">
-          <div class="level-item">
-            <div class="field">
-              <p class="control">
-                <span class="select">
-                  <select v-model="idBudget" @change="updateRevenus()">
-                    <option value="0" disabled>Selectionnez un budget</option>
-                    <option
-                      :value="budget.IdBudget"
-                      v-for="budget in budgets"
-                      :key="budget.IdBudget"
-                    >
-                      {{ budget.Nom }}
-                    </option>
-                  </select>
-                </span>
-              </p>
+   <div class="revenus" id="revenusListe">
+      <div>
+         <div class="box">
+            <div class="title">
+               <div class="level">
+                  <div class="level-left">
+                     <div class="level-item">
+                        <h1 class="title is-5">Liste des revenus</h1>
+                     </div>
+                  </div>
+                  <div class="level-right">
+                     <div class="level-item">
+                        <div class="field">
+                           <p class="control">
+                              <span class="select">
+                                 <select v-model="idBudget" v-on:change.prevent="updateRevenus" >
+                                    <option :value="0" disabled>Selectionnez un budget</option>
+                                    <option
+                                       :value="budget.IdBudget"
+                                       v-for="budget in budgets"
+                                       :key="budget.IdBudget">{{budget.Nom}}
+                                    </option>
+                                 </select>
+                              </span>
+                           </p>
+                        </div>
+                     </div>
+                  </div>
+               </div>
             </div>
-          </div>
-        </div>
+            <div class="liste" v-if="idBudget != 0">
+               <revenus
+                  v-for="revenu in revenus"
+                  :key="revenu.IdRevenu"
+                  :revenu="revenu"
+                  />
+            </div>
+         </div>
+         <div class="ajout box" v-if="idBudget != 0">
+            <div class="title">
+               <h1 class="title is-5">Ajout d'un revenu</h1>
+            </div>
+            <div class="columns">
+               <div class="column is-3 has-text-centered">
+                  <input
+                     type="text"
+                     class="input has-text-centered"
+                     placeholder="Titre du revenu"
+                     v-model="Titre"
+                     />
+               </div>
+               <div class="column is-2 has-text-centered">
+                  <input
+                     type="text"
+                     class="input has-text-centered"
+                     placeholder="Montant"
+                     v-model="Montant"
+                     />
+               </div>
+               <div class="column is-3 has-text-centered">
+                  <div class="select">
+                     <select class="select" v-model="IdCategorieRevenu">
+                        <option :value="0" selected>Choisir un statut</option>
+                        <option v-for="c in categories"
+                           :key="c.IdCategorieRevenu"
+                           v-bind:value="c.IdCategorieRevenu">
+                           {{ c.Nom }}
+                        </option>
+                     </select>
+                  </div>
+               </div>
+               <div class="column is-4 has-text-centered">
+                  <button
+                     class="button is-link"
+                     @click="addRevenus"
+                     >
+                  Ajouter
+                  </button>
+               </div>
+            </div>
+         </div>
       </div>
-      <h3 class="has-text-centered" v-if="idBudget === 0">
-        Veuillez selectionner un budget
-      </h3>
-    </div>
-    <div v-if="idBudget != 0" class="columns">
-      <div class="column is-10">
-        <div class="liste box">
-          <revenus
-            v-for="revenu in revenus"
-            :key="revenu.IdRevenu"
-            :revenu="revenu"
-          />
-        </div>
-        <div class="ajout box">
-          <div class="columns">
-            <div class="column is-3 has-text-centered">
-              <input
-                type="text"
-                class="input has-text-centered"
-                placeholder="Titre du revenu"
-                v-model="Titre"
-              />
-            </div>
-            <div class="column is-2 has-text-centered">
-              <input
-                type="text"
-                class="input has-text-centered"
-                placeholder="Montant"
-                v-model="Montant"
-              />
-            </div>
-            <div class="column is-3 has-text-centered">
-              <div class="select">
-                <select class="select" v-model="IdCategorieRevenu">
-                  <option :value="0" selected>Choisir un statut</option>
-                  <option v-for="c in categories"
-                  :key="c.IdCategorieRevenu"
-                  v-bind:value="c.IdCategorieRevenu">
-                  {{ c.Nom }}
-                  </option>
-                </select>
-              </div>
-            </div>
-            <div class="column is-3 has-text-centered">
-              <button
-                class="button is-success"
-                @click="addRevenus"
-              >
-                Ajouter
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="column is-2">
-        <div class="stats box">STATISTIQUE 1</div>
-        <div class="stats box">STATISIQUE 2</div>
-      </div>
-    </div>
-  </div>
+   </div>
 </template>
 
 <script>
@@ -100,7 +94,7 @@ export default {
   },
   data() {
     return {
-      idBudget: 0,
+      idBudget: this.$store.state.budget.budgetIdCurr,
       Titre: '',
       Montant: 0,
       IdCategorieRevenu: 0,
@@ -134,9 +128,8 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch('budget/getBudgets');
     this.$store.dispatch('revenu/getCategoriesRevenus');
-    // this.$store.dispatch('revenu/getRevenus');
+    this.$store.dispatch('revenu/getRevenusBudget', this.idBudget);
   },
 };
 </script>
@@ -148,9 +141,10 @@ export default {
 }
 
 .liste {
-  max-height: 70vh;
-  min-height: 70vh;
+  max-height: 60vh;
+  min-height: 60vh;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .ajout {

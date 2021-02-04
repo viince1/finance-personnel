@@ -8,6 +8,12 @@
         </div>
         <div class="level-right">
           <div class="level-item">
+            <a href="" class="link" v-on:click.prevent="seeRevenus()">Planifiez vos revenus</a>
+          </div>
+          <div class="level-item">
+            <a href="" class="link" v-on:click.prevent="seeDepenses()">Planifiez vos depenses</a>
+          </div>
+          <div class="level-item">
             <a href="" class="link" v-on:click.prevent="modifier()">Modifier</a>
           </div>
           <div class="level-item">
@@ -43,6 +49,14 @@ export default {
         customClass: 'custom-class custom-class-2',
         trapFocus: true,
       });
+    },
+    seeRevenus() {
+      this.$store.dispatch('budget/setCurrentBudget', this.budget.IdBudget);
+      this.$router.push({ name: 'Revenus' });
+    },
+    seeDepenses() {
+      this.$store.dispatch('budget/setCurrentBudget', this.budget.IdBudget);
+      this.$router.push({ name: 'Depenses' });
     },
   },
 };

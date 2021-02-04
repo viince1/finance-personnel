@@ -8,6 +8,7 @@ export default ({
   namespaced: true,
   state: {
     budgets: [],
+    budgetIdCurr: 0,
   },
   actions: {
     async getBudgets({ commit, rootState }) {
@@ -51,10 +52,16 @@ export default ({
           commit('UPDATE_BUDGETS', budget.budget);
         });
     },
+    setCurrentBudget({ commit }, id) {
+      commit('SET_CURRENT_BUDGET', id);
+    },
   },
   mutations: {
     SET_BUDGETS(state, data) {
       state.budgets = data;
+    },
+    SET_CURRENT_BUDGET(state, data) {
+      state.budgetIdCurr = data;
     },
     ADD_BUDGET(state, { data }) {
       state.budgets.push(data);
