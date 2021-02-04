@@ -96,13 +96,13 @@ INSERT INTO ObjectifStatut VALUES (0,'Succes',99);
 INSERT INTO ObjectifStatut VALUES (0,'En cours',1);
 INSERT INTO ObjectifStatut VALUES (0,'A faire',49);
 -- Donnees Objectif
-INSERT INTO Objectif VALUES (0,'Amasser 50 000$','Projet pour lachat de la premiere maison','2020-01-22',3,1,1);
-INSERT INTO Objectif VALUES (0,'Amasser 10 000$','Payer luniversite','2020-01-22',1,1,2);
-INSERT INTO Objectif VALUES (0,'Amasser 50 000$','Projet pour lachat de la premiere maison','2020-01-22',3,1,5);
-INSERT INTO Objectif VALUES (0,'Amasser 10 000$','Payer luniversite','2020-01-22',1,1,7);
-INSERT INTO Objectif VALUES (0,'Amasser 50 000$','Projet pour lachat de la premiere maison','2020-01-22',3,1,6);
-INSERT INTO Objectif VALUES (0,'Amasser 10 000$','Payer luniversite','2020-01-22',1,1,9);
-INSERT INTO Objectif VALUES (0,'Amasser 10 000$','Payer la carte de credit','2020-01-22',2,2,2);
+INSERT INTO Objectif VALUES (0,'Amasser 50 000$','Projet pour lachat de la premiere maison','2020-01-22',3,1);
+INSERT INTO Objectif VALUES (0,'Amasser 10 000$','Payer luniversite','2020-01-22',1,1);
+INSERT INTO Objectif VALUES (0,'Amasser 50 000$','Projet pour lachat de la premiere maison','2020-01-22',3,1);
+INSERT INTO Objectif VALUES (0,'Amasser 10 000$','Payer luniversite','2020-01-22',1,1);
+INSERT INTO Objectif VALUES (0,'Amasser 50 000$','Projet pour lachat de la premiere maison','2020-01-22',3,1);
+INSERT INTO Objectif VALUES (0,'Amasser 10 000$','Payer luniversite','2020-01-22',1,1);
+INSERT INTO Objectif VALUES (0,'Amasser 10 000$','Payer la carte de credit','2020-01-22',2,2);
 -- Mettre le no de priorite dans objectif a place de objectif status
 -- Donnees DepenseSuivi
 -- Rajouter une description facultative de la depense

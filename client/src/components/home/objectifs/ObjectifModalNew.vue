@@ -1,41 +1,41 @@
 <template>
   <div class="modal-card" id="objectif">
     <div class="modal-card-head">
-      <input class="input title is-3" placeholder="Entrez le titre de l'objectif"
-      type="text" v-model="newObj.Titre">
+      <input class="input is-5 mr-4 is-size-5" placeholder="Entrez le titre de l'objectif"
+      type="text" v-model="objectif.Titre">
       <button
         type="button"
         class="delete"
         @click="$emit('close')"/>
     </div>
     <div class="modal-card-body">
+      <div class="message is-danger" v-if="errorMessage.length !== 0">
+        <div v-for="(m, index) in errorMessage"
+            :key="index" class="message-body has-icons-left" style="padding:6px;">
+            Erreur : {{m}}
+        </div>
+      </div>
       <div class="field">
         <label class="label">Date buttoir</label>
         <div class="control">
-          <input class="input" type="date" v-model="newObj.DateButoir">
+          <input class="input" type="date" v-model="objectif.DateButoir">
         </div>
       </div>
       <div class="field">
         <label class="label">Description</label>
         <div class="control">
           <textarea class="input" rows="10" placeholder="Entrez une description"
-          v-model="newObj.Description">
+          v-model="objectif.Description">
           </textarea>
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">Numéro de priorité</label>
-        <div class="control">
-          <input class="input" type="number" v-model="newObj.NoPriorite">
         </div>
       </div>
       <div class="field">
         <label class="label">Statut</label>
         <div class="select">
-         <select class="select" v-model="newObj.IdObjectifStatus">
+         <select class="select" v-model="objectif.IdObjectifStatus">
            <option value="0" selected>Choisir un statut</option>
           <option
-          v-for="s in statuts"
+          v-for="s in status"
           :key="s.IdObjectifStatus"
           v-bind:value="s.IdObjectifStatus">
             {{ s.Nom }}
@@ -59,20 +59,25 @@ export default {
   name: 'ModalObjectifNew',
   data() {
     return {
-      newObj: {
+      objectif: {
         Titre: '',
         Description: '',
         DateButoir: '',
         IdObjectifStatus: 0,
-        NoPriorite: 0,
       },
-      statuts: this.$store.state.objectif.lstStatus,
+      status: this.$store.state.objectif.lstStatus,
+      errorMessage: [],
     };
   },
 
   methods: {
-    ajout() {
-      this.$store.dispatch('objectif/create', { data: this.newObj });
+    async ajout() {
+      this.errorMessage = [];
+      if (this.objectif.DateButoir === '') this.errorMessage.push('Vous n\' pas entrer de Date Butoir');
+      if (this.objectif.Titre === '') this.errorMessage.push('Vous n\'avez pas entrer de Titre');
+      if (this.objectif.IdObjectifStatus === 0) this.errorMessage.push('Vous devez specifier un status');
+      if (this.errorMessage.length !== 0) return;
+      await this.$store.dispatch('objectif/create', { data: this.objectif });
       this.$emit('close');
     },
   },

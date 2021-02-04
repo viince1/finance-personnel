@@ -36,8 +36,8 @@ export default ({
       });
     },
     async deleteBudget({ commit }, idBudget) {
-      return axios.post('http://localhost:3000/budgets/delete', {
-        params: {
+      return axios.delete('http://localhost:3000/budgets/delete', {
+        data: {
           idBudget,
         },
       }).then(() => {
@@ -45,7 +45,7 @@ export default ({
       });
     },
     async updateBudget({ commit }, budget) {
-      return axios.post('http://localhost:3000/budgets/update', budget)
+      return axios.put('http://localhost:3000/budgets/update', budget)
         .then(() => {
           commit('UPDATE_BUDGETS', budget.budget);
         });
@@ -56,8 +56,7 @@ export default ({
       state.budgets = data;
     },
     ADD_BUDGET(state, { budget, data }) {
-      console.log(data);
-      state.bugets.push({
+      state.budgets.push({
         IdBudget: data.insertId,
         ...budget,
       });
@@ -67,9 +66,7 @@ export default ({
       if (index >= 0) state.budgets.splice(index, 1);
     },
     UPDATE_BUDGETS(state, budget) {
-      console.log(budget);
       const index = state.budgets.findIndex((b) => b.IdBudget === budget.IdBudget);
-      console.log(index);
       if (index >= 0) state.budgets.splice(index, 1, budget);
     },
   },

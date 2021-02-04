@@ -34,8 +34,8 @@ router.post('/create', (req, res, next) => {
     });
 });
 
-router.post('/delete', (req, res, next) => {
-  const idbudget = req.body.params.idBudget;
+router.delete('/delete', (req, res, next) => {
+  const idbudget = req.body.idBudget;
   console.log(idbudget);
   connection.query(
     `DELETE FROM Budget WHERE IdBudget = ${idbudget};`
@@ -45,7 +45,7 @@ router.post('/delete', (req, res, next) => {
     });
 });
 
-router.post('/update', (req, res, next) => {
+router.put('/update', (req, res, next) => {
   const budget = req.body.budget;
   connection.query(
     `UPDATE Budget SET Nom = '${budget.Nom}' WHERE IdBudget = '${budget.IdBudget}'`

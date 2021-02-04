@@ -19,7 +19,7 @@
                   </time>
                 </div>
                 <div class="level-right">
-                  <span class="tag is-primary level-item" v-bind:class="status">
+                  <span class="tag is-primary level-item" v-bind:class="statusStyle">
                     {{statusNom}}
                   </span>
                 </div>
@@ -40,7 +40,7 @@ export default {
     objectif: Object,
   },
   computed: {
-    status() {
+    statusStyle() {
       if (this.objectif.IdObjectifStatus === 2) return 'is-warning';
       if (this.objectif.IdObjectifStatus === 1) return 'is-primary';
       if (this.objectif.IdObjectifStatus === 3) return 'is-danger';

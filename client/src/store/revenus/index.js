@@ -30,7 +30,6 @@ export default ({
           uid,
         },
       }).then((response) => {
-        console.log(response);
         commit('SET_REVENUS', response.data);
       });
     },
@@ -49,27 +48,23 @@ export default ({
       });
     },
     async create({ commit }, revenu) {
-      console.log(revenu);
       return axios.post('http://localhost:3000/revenus/add', revenu)
         .then((response) => {
           commit('ADD_REVENU', { data: response.data, revenu });
         });
     },
     async update({ commit }, revenu) {
-      return axios.post('http://localhost:3000/revenus/update', revenu).then((response) => {
-        console.log(response);
+      return axios.put('http://localhost:3000/revenus/update', revenu).then(() => {
         commit('UPDATE_REVENUS', revenu);
       });
     },
     async delete({ commit }, IdRevenu) {
-      console.log(IdRevenu);
-      return axios.post('http://localhost:3000/revenus/delete', {
-        params: {
+      return axios.delete('http://localhost:3000/revenus/delete', {
+        data: {
           IdRevenu,
         },
       })
-        .then((response) => {
-          console.log(response);
+        .then(() => {
           commit('DELETE_REVENU', IdRevenu);
         });
     },

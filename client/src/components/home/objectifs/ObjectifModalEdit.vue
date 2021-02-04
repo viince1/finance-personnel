@@ -8,6 +8,12 @@
         @click="$emit('close')"/>
     </div>
     <div class="modal-card-body">
+      <div class="message is-danger" v-if="errorMessage.length !== 0">
+        <div v-for="(m, index) in errorMessage"
+            :key="index" class="message-body has-icons-left" style="padding:6px;">
+            Erreur : {{m}}
+      </div>
+      </div>
       <div class="field">
         <label class="label">Date buttoir</label>
         <div class="control">
@@ -28,7 +34,7 @@
         <div class="select">
          <select class="select" v-model="objectif.IdObjectifStatus">
           <option
-          v-for="s in statuts"
+          v-for="s in status"
           :key="s.IdObjectifStatus"
           v-bind:value="s.IdObjectifStatus">
             {{ s.Nom }}
@@ -63,16 +69,22 @@ export default {
         DateButoir: this.$attrs.DateButoir,
         IdObjectifStatus: this.$attrs.IdObjectifStatus,
       },
-      statuts: this.$store.state.objectif.lstStatus,
+      status: this.$store.state.objectif.lstStatus,
+      errorMessage: [],
     };
   },
   methods: {
     async edit() {
+      this.errorMessage = [];
+      if (this.objectif.DateButoir === '') this.errorMessage.push('Le champ date butoir est requis');
+      if (this.objectif.Titre === '') this.errorMessage.push('Le champ titre est requis');
+      if (this.objectif.IdObjectifStatus === 0) this.errorMessage.push('Le numero de status est requis');
+      if (this.errorMessage.length !== 0) return;
       await this.$store.dispatch('objectif/update', this.objectif);
       this.$emit('close');
     },
     async deleteIt() {
-      this.$store.dispatch('objectif/delete', this.objectif.IdObjectif);
+      await this.$store.dispatch('objectif/delete', this.objectif.IdObjectif);
       this.$emit('close');
     },
   },

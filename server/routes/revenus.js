@@ -53,7 +53,7 @@ router.post('/add', (req,res, next) => {
     if (results) res.json(results);
   })
 });
-router.post('/update', (req,res, next) => {
+router.put('/update', (req,res, next) => {
   const revenus = req.body;
   connection.query(`UPDATE Revenu SET Titre = '${revenus.Titre}', Montant = '${revenus.Montant}', IdCategorieRevenu = '${revenus.IdCategorieRevenu}' WHERE IdRevenu = '${revenus.IdRevenu}'`,
   (error, results) => {
@@ -61,9 +61,9 @@ router.post('/update', (req,res, next) => {
     if (results) res.json(results);
   })
 });
-router.post('/delete', (req,res, next) => {
-  const IdRevenu = req.body.params.IdRevenu
-  connection.query(`DELETE FROM Revenu WHERE IdRevenu = '${IdRevenu}' `,
+router.delete('/delete', (req,res, next) => {
+  const IdRevenu = req.body.IdRevenu;
+  connection.query(`DELETE FROM Revenu WHERE IdRevenu = '${IdRevenu}';`,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);

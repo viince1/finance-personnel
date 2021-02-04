@@ -28,7 +28,6 @@ CREATE TABLE Objectif(
   DateButoir DATE,
   IdObjectifStatus INT NOT NULL,
   IdUtilisateur INT NOT NULL,
-  NoPriorite INT NOT NULL,
   PRIMARY KEY (IdObjectif),
   FOREIGN KEY (IdObjectifStatus) REFERENCES ObjectifStatut(IdObjectifStatus),
   FOREIGN KEY (IdUtilisateur) REFERENCES Utilisateur(IdUtilisateur)
