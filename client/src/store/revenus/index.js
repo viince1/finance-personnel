@@ -55,19 +55,19 @@ export default ({
           commit('ADD_REVENU', { data: response.data, revenu });
         });
     },
-    async update({ commit }, revenu) {
+    async update({ commit }, { revenu }) {
       return axios.put('http://localhost:3000/revenus/update', revenu).then(() => {
-        commit('UPDATE_REVENUS', revenu);
+        commit('UPDATE_REVENUS', { revenu });
       });
     },
-    async delete({ commit }, IdRevenu) {
+    async delete({ commit }, idRevenu) {
       return axios.delete('http://localhost:3000/revenus/delete', {
         data: {
-          IdRevenu,
+          idRevenu,
         },
       })
         .then(() => {
-          commit('DELETE_REVENU', IdRevenu);
+          commit('DELETE_REVENU', idRevenu);
         });
     },
   },
@@ -84,15 +84,16 @@ export default ({
     ADD_REVENU(state, { data, revenu }) {
       state.revenusBudget.push({
         ...revenu,
-        IdRevenu: data.insertId,
+        idRevenu: data.insertId,
       });
     },
-    UPDATE_REVENUS(state, revenus) {
-      const index = state.revenusBudget.findIndex((r) => r.IdRevenu === revenus.IdRevenu);
-      if (index >= 0) state.revenusBudget.splice(index, 1, revenus);
+    UPDATE_REVENUS(state, { revenu }) {
+      console.log(revenu);
+      const index = state.revenusBudget.findIndex((r) => r.idRevenu === revenu.idRevenu);
+      if (index >= 0) state.revenusBudget.splice(index, 1, revenu);
     },
-    DELETE_REVENU(state, IdRevenu) {
-      const index = state.revenusBudget.findIndex((r) => r.IdRevenu === IdRevenu);
+    DELETE_REVENU(state, idRevenu) {
+      const index = state.revenusBudget.findIndex((r) => r.idRevenu === idRevenu);
       state.revenusBudget.splice(index, 1);
     },
   },

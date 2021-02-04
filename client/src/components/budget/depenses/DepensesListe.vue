@@ -13,7 +13,9 @@
                     <div class="field">
                       <p class="control">
                           <span class="select">
-                            <select v-model="idBudget" v-on:change.prevent="updateDepenses" >
+                            <select
+                              v-model="depense.idBudget"
+                               v-on:change.prevent="updateDepenses" >
                                 <option :value="0" disabled>Selectionnez un budget</option>
                                 <option
                                   :value="budget.IdBudget"
@@ -28,7 +30,7 @@
               </div>
           </div>
         </div>
-        <div class="liste" v-if="idBudget != 0">
+        <div class="liste" v-if="depense.idBudget != 0">
           <depense-card
               v-for="(depense, index) in depenses"
               :key="index"
@@ -39,14 +41,14 @@
         </div>
     </div>
     <!-- Input pour ajouter -->
-    <div class="ajout box" v-if="idBudget != 0">
+    <div class="ajout box" v-if="depense.idBudget != 0">
         <div class="title">
           <h1 class="title is-5">Ajout d'un depense</h1>
         </div>
         <div class="columns">
           <div class="column is-2 has-text-centered">
               <span class="select">
-                <select name="" id="" class="select" v-model="idCategorieDepense">
+                <select name="" id="" class="select" v-model="depense.idCategorieDepense">
                     <option value="0">Categories</option>
                     <option :value="c.IdCategorieDepense"
                       v-for="(c, index) in categories" :key="index">
@@ -60,18 +62,27 @@
                 type="text"
                 class="input has-text-centered"
                 placeholder="Nom de la depense"
-                v-model="nom">
+                v-model="depense.nom">
           </div>
           <div class="column is-1 has-text-centered">
-              <input
-                type="text"
+            <div class="field has-addons">
+              <div class="control">
+                <input
+                type="number"
+                min="0.01"
+                step="any"
                 class="input has-text-centered"
-                placeholder="Montant"
-                v-model="montant">
+                placeholder="Montant de la depense Ex: 1.99"
+                  v-model="depense.montant">
+              </div>
+              <div class="control">
+                <button class="button is-static">$</button>
+              </div>
+            </div>
           </div>
           <div class="column is-2 has-text-centered">
               <span class="select">
-                <select name="" id="" class="select" v-model="idDepenseFrequence">
+                <select name="" id="" class="select" v-model="depense.idDepenseFrequence">
                     <option value="0">Frequence</option>
                     <option
                       v-for="(f, index) in frequences"
@@ -104,11 +115,14 @@ export default {
   },
   data() {
     return {
-      idBudget: this.$store.state.budget.budgetIdCurr,
-      idCategorieDepense: 0,
-      idDepenseFrequence: 0,
-      nom: '',
-      montant: null,
+      depense: {
+        idBudget: this.$store.state.budget.budgetIdCurr,
+        idCategorieDepense: 0,
+        idDepenseFrequence: 0,
+        nom: '',
+        montant: null,
+      },
+      error: false,
     };
   },
   computed: {
@@ -127,26 +141,51 @@ export default {
   },
   methods: {
     updateDepenses() {
-      this.$store.dispatch('depense/getDepensesBudget', this.idBudget);
+      this.$store.dispatch('depense/getDepensesBudget', this.depense.idBudget);
     },
     async ajouterDepense() {
-      await this.$store.dispatch('depense/ajouterDepense', {
-        idCategorieDepense: this.idCategorieDepense,
-        idDepenseFrequence: this.idDepenseFrequence,
-        nom: this.nom,
-        montant: parseInt(this.montant, 10),
-        idBudget: this.idBudget,
+      this.error = false;
+      let message = '<h2 style="font-weight:bold">Insertion incomplete</h2>';
+      if (this.depense.nom === '') {
+        this.error = true;
+        message += '<p>Le champ nom est vide </p>';
+      }
+      if (this.depense.idCategorieDepense === 0) {
+        this.error = true;
+        message += '<p>Le champ categorie est vide </p>';
+      }
+      if (this.depense.idDepenseFrequence === 0) {
+        this.error = true;
+        message += '<p>Le champ frequence est vide </p>';
+      }
+      if (this.depense.montant <= 0.0) {
+        this.error = true;
+        message += '<p>Le champ montant est vide </p>';
+      }
+      if (this.error === true) {
+        return this.$buefy.notification.open({
+          duration: 5000,
+          message,
+          position: 'is-top-right',
+          type: 'is-danger',
+        });
+      }
+      await this.$store.dispatch('depense/ajouterDepense', this.depense);
+      this.depense.idCategorieDepense = 0;
+      this.depense.idDepenseFrequence = 0;
+      this.depense.nom = '';
+      this.depense.montant = null;
+      return this.$buefy.notification.open({
+        message: '<h2 style="font-weight:bold">Insertion completee</h2>',
+        type: 'is-success',
       });
-      this.idCategorieDepense = 0;
-      this.idDepenseFrequence = 0;
-      this.nom = '';
-      this.montant = null;
     },
   },
-  created() {
-    this.$store.dispatch('depense/getFrequencesDepense');
-    this.$store.dispatch('depense/getCategoriesDepense');
-    this.$store.dispatch('depense/getDepensesBudget', this.idBudget);
+  async created() {
+    await this.$store.dispatch('depense/getFrequencesDepense');
+    await this.$store.dispatch('depense/getCategoriesDepense');
+    await this.$store.dispatch('depense/getDepensesBudget', this.depense.idBudget);
+    await this.$store.dispatch('budget/getBudgets');
   },
 };
 </script>

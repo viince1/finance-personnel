@@ -28,7 +28,7 @@ router.get('/', (req,res, next) => {
 router.get('/revenusBudget', (req,res, next) => {
   const idBudget = req.query.idBudget;
   console.log(idBudget);
-  connection.query(`SELECT r.IdRevenu, r.Titre, r.Montant, r.IdBudget, cr.Nom, cr.IdCategorieRevenu
+  connection.query(`SELECT r.IdRevenu as idRevenu , r.Titre as titre, r.Montant as montant, r.IdBudget as idBudget, cr.Nom, cr.IdCategorieRevenu as idCategorieRevenu
   FROM Revenu r INNER JOIN CategorieRevenu cr on r.IdCategorieRevenu = cr.IdCategorieRevenu
   WHERE r.IdBudget = ${idBudget} ORDER BY cr.Nom;`,
   (error, results) => {
@@ -47,23 +47,24 @@ router.get('/categoriesrevenus', (req,res, next) => {
 });
 router.post('/add', (req,res, next) => {
   const revenus = req.body;
-  connection.query(`INSERT INTO Revenu VALUES (0, '${revenus.Titre}','${revenus.Montant}', '${revenus.IdCategorieRevenu}', ${revenus.IdBudget})`,
+  connection.query(`INSERT INTO Revenu VALUES (0, '${revenus.titre}','${revenus.montant}', '${revenus.idCategorieRevenu}', ${revenus.idBudget})`,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);
   })
 });
 router.put('/update', (req,res, next) => {
-  const revenus = req.body;
-  connection.query(`UPDATE Revenu SET Titre = '${revenus.Titre}', Montant = '${revenus.Montant}', IdCategorieRevenu = '${revenus.IdCategorieRevenu}' WHERE IdRevenu = '${revenus.IdRevenu}'`,
+  console.log(req.body);
+  const revenu = req.body;
+  connection.query(`UPDATE Revenu SET Titre = '${revenu.titre}', Montant = ${revenu.montant}, IdCategorieRevenu = ${revenu.idCategorieRevenu} WHERE IdRevenu = ${revenu.idRevenu}`,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);
   })
 });
 router.delete('/delete', (req,res, next) => {
-  const IdRevenu = req.body.IdRevenu;
-  connection.query(`DELETE FROM Revenu WHERE IdRevenu = '${IdRevenu}';`,
+  const idRevenu = req.body.idRevenu;
+  connection.query(`DELETE FROM Revenu WHERE IdRevenu = ${idRevenu};`,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);

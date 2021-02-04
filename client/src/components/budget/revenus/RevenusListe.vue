@@ -14,7 +14,9 @@
                         <div class="field">
                            <p class="control">
                               <span class="select">
-                                 <select v-model="idBudget" v-on:change.prevent="updateRevenus" >
+                                 <select
+                                  v-model="revenu.idBudget"
+                                  v-on:change.prevent="updateRevenus" >
                                     <option :value="0" disabled>Selectionnez un budget</option>
                                     <option
                                        :value="budget.IdBudget"
@@ -29,15 +31,16 @@
                   </div>
                </div>
             </div>
-            <div class="liste" v-if="idBudget != 0">
+            <div class="liste" v-if="revenu.idBudget != 0">
                <revenus
-                  v-for="revenu in revenus"
-                  :key="revenu.IdRevenu"
-                  :revenu="revenu"
+                class="box"
+                  v-for="rev in revenus"
+                  :key="rev.idRevenu"
+                  :revenu="rev"
                   />
             </div>
          </div>
-         <div class="ajout box" v-if="idBudget != 0">
+         <div class="ajout box" v-if="revenu.idBudget != 0">
             <div class="title">
                <h1 class="title is-5">Ajout d'un revenu</h1>
             </div>
@@ -47,21 +50,29 @@
                      type="text"
                      class="input has-text-centered"
                      placeholder="Titre du revenu"
-                     v-model="Titre"
+                     v-model="revenu.titre"
                      />
                </div>
                <div class="column is-2 has-text-centered">
-                  <input
-                     type="text"
-                     class="input has-text-centered"
-                     placeholder="Montant"
-                     v-model="Montant"
-                     />
-               </div>
+                <div class="field has-addons">
+                  <div class="control">
+                    <input
+                    type="number"
+                    min="0.01"
+                    step="any"
+                    class="input has-text-centered"
+                    placeholder="Montant de la depense Ex: 1.99"
+                      v-model="revenu.montant">
+                  </div>
+                  <div class="control">
+                    <button class="button is-static">$</button>
+                  </div>
+                </div>
+              </div>
                <div class="column is-3 has-text-centered">
                   <div class="select">
-                     <select class="select" v-model="IdCategorieRevenu">
-                        <option :value="0" selected>Choisir un statut</option>
+                     <select class="select" v-model="revenu.idCategorieRevenu">
+                        <option :value="0" selected>Choisir une categorie</option>
                         <option v-for="c in categories"
                            :key="c.IdCategorieRevenu"
                            v-bind:value="c.IdCategorieRevenu">
@@ -94,10 +105,13 @@ export default {
   },
   data() {
     return {
-      idBudget: this.$store.state.budget.budgetIdCurr,
-      Titre: '',
-      Montant: 0,
-      IdCategorieRevenu: 0,
+      revenu: {
+        idBudget: this.$store.state.budget.budgetIdCurr,
+        titre: '',
+        montant: null,
+        idCategorieRevenu: 0,
+      },
+      error: false,
     };
   },
   computed: {
@@ -113,23 +127,45 @@ export default {
   },
   methods: {
     updateRevenus() {
-      this.$store.dispatch('revenu/getRevenusBudget', this.idBudget);
+      this.$store.dispatch('revenu/getRevenusBudget', this.revenu.idBudget);
     },
     async addRevenus() {
-      await this.$store.dispatch('revenu/create', {
-        Titre: this.Titre,
-        Montant: this.Montant,
-        IdCategorieRevenu: this.IdCategorieRevenu,
-        IdBudget: this.idBudget,
+      this.error = false;
+      let message = '<h2 style="font-weight:bold">Modification non reussie</h2>';
+      if (this.revenu.titre === '') {
+        this.error = true;
+        message += '<p>Le Titre est vide </p>';
+      }
+      if (this.revenu.montant <= 0.0) {
+        this.error = true;
+        message += '<p>Le champ Montant est vide ou invalide</p>';
+      }
+      if (this.revenu.idCategorieRevenu === 0) {
+        this.error = true;
+        message += '<p>Le champ Categorie est vide</p>';
+      }
+      if (this.error === true) {
+        return this.$buefy.notification.open({
+          duration: 5000,
+          message,
+          position: 'is-top-right',
+          type: 'is-danger',
+        });
+      }
+      await this.$store.dispatch('revenu/create', this.revenu);
+      this.revenu.titre = '';
+      this.revenu.montant = null;
+      this.revenu.idCategorieRevenu = 0;
+      return this.$buefy.notification.open({
+        message: 'Modification completée',
+        type: 'is-success',
       });
-      this.Titre = '';
-      this.Montant = null;
-      this.IdCategorieRevenu = 0;
     },
   },
   created() {
     this.$store.dispatch('revenu/getCategoriesRevenus');
-    this.$store.dispatch('revenu/getRevenusBudget', this.idBudget);
+    this.$store.dispatch('revenu/getRevenusBudget', this.revenu.idBudget);
+    this.$store.dispatch('budget/getBudgets');
   },
 };
 </script>
