@@ -63,7 +63,7 @@ router.get('/budget', (req,res, next) => {
   })
 });
 
-router.post('/update', (req,res, next) => {
+router.put('/update', (req,res, next) => {
   const depense = req.body;
   connection.query(`UPDATE Depense SET Titre = '${depense.nom}', Montant = ${depense.montant}, IdCategorieDepense = ${depense.idCategorieDepense}, IdDepenseFrequence = ${depense.idDepenseFrequence} WHERE IdDepense = ${depense.IdDepense}`,
   (error, results) => {
@@ -81,8 +81,8 @@ router.post('/add', (req,res, next) => {
   })
 });
 
-router.post('/delete', (req,res, next) => {
-  const idDepense = req.body.IdDepense;
+router.delete('/delete', (req,res, next) => {
+  const idDepense = req.body.idDepense;
   connection.query(`DELETE FROM Depense WHERE IdDepense = ${idDepense} `,
   (error, results) => {
     if (error) res.status(501).send(error);

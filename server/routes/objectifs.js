@@ -34,13 +34,13 @@ router.get('/objectifstatus', (req,res, next) => {
 router.post('/create', (req,res, next) => {
   const objectif = req.body.params.objectif;
   const uid = req.body.params.IdUtilisateur;
-  connection.query(`INSERT INTO Objectif VALUES (0, '${objectif.Titre}','${objectif.Description}', '${objectif.DateButoir}', '${objectif.IdObjectifStatus}', ${uid}, '${objectif.NoPriorite}')`,
+  connection.query(`INSERT INTO Objectif VALUES (0, '${objectif.Titre}','${objectif.Description}', '${objectif.DateButoir}', '${objectif.IdObjectifStatus}', ${uid});`,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);
   })
 });
-router.post('/update', (req,res, next) => {
+router.put('/update', (req,res, next) => {
   const objectif = req.body;
   connection.query(`UPDATE Objectif SET Titre = '${objectif.Titre}', Description = '${objectif.Description}', DateButoir = '${objectif.DateButoir}', IdObjectifStatus = '${objectif.IdObjectifStatus}' WHERE IdObjectif = '${objectif.IdObjectif}' `,
   (error, results) => {
@@ -48,8 +48,8 @@ router.post('/update', (req,res, next) => {
     if (results) res.json(results);
   })
 });
-router.post('/delete', (req,res, next) => {
-  const IdObjectif = req.body.params.IdObjectif
+router.delete('/delete', (req,res, next) => {
+  const IdObjectif = req.body.IdObjectif
   connection.query(`DELETE FROM Objectif WHERE IdObjectif = '${IdObjectif}' `,
   (error, results) => {
     if (error) res.status(501).send(error);

@@ -3,7 +3,7 @@
       <div class="columns">
         <div class="column is-2 has-text-centered">
           <span class="select">
-            <select name="" id="" class="select" v-model="idCategorieDepense">
+            <select name="" id="" class="select" v-model="depense.idCategorieDepense">
               <option :value="c.IdCategorieDepense"
               v-for="(c, index) in categories" :key="index">
               {{c.Nom}}
@@ -16,18 +16,28 @@
             type="text"
              class="input has-text-centered"
               placeholder="Nom de la depense"
-                v-model="nom">
+                v-model="depense.nom">
         </div>
         <div class="column is-1 has-text-centered">
-          <input
-           type="text"
-            class="input has-text-centered"
-            placeholder="Montant de la depense Ex: 1.99"
-              v-model="montant">
+          <div class="field has-addons">
+            <div class="control">
+              <input
+              type="number"
+              min="0.01"
+              step="any"
+              class="input has-text-centered"
+              placeholder="Montant de la depense Ex: 1.99"
+                v-model="depense.montant">
+            </div>
+            <div class="control">
+              <button class="button is-static">$</button>
+            </div>
+          </div>
+
         </div>
         <div class="column is-2 has-text-centered">
           <span class="select">
-            <select name="" id="" class="select" v-model="idDepenseFrequence">
+            <select name="" id="" class="select" v-model="depense.idDepenseFrequence">
               <option
               v-for="(f, index) in frequences"
                 :key="index"
@@ -54,11 +64,7 @@ export default {
   name: 'Depenses',
   data() {
     return {
-      // isDisabled: true,
-      nom: this.depense.nom,
-      montant: this.depense.montant,
-      idCategorieDepense: this.depense.idCategorieDepense,
-      idDepenseFrequence: this.depense.idDepenseFrequence,
+      error: false,
     };
   },
   props: {
@@ -67,35 +73,39 @@ export default {
     frequences: null,
   },
   methods: {
-    save() {
-      this.$store.dispatch('depense/updateDepense', {
-        nom: this.nom,
-        montant: this.montant,
-        idCategorieDepense: this.idCategorieDepense,
-        idDepenseFrequence: this.idDepenseFrequence,
-        IdDepense: this.depense.IdDepense,
+    async save() {
+      this.error = false;
+      let message = '<h2 style="font-weight:bold">Modification non reussie</h2>';
+      if (this.depense.nom === '') {
+        this.error = true;
+        message += '<p>Le champ nom est vide </p>';
+      }
+      if (this.depense.montant <= 0.0) {
+        this.error = true;
+        message += '<p>Le champ montant est vide </p>';
+      }
+      if (this.error === true) {
+        return this.$buefy.notification.open({
+          duration: 5000,
+          message,
+          position: 'is-top-right',
+          type: 'is-danger',
+        });
+      }
+      await this.$store.dispatch('depense/updateDepense', this.depense);
+      return this.$buefy.notification.open({
+        message: 'Modification completée',
+        type: 'is-success',
       });
     },
-    remove() {
-      this.$store.dispatch('depense/deleteDepense', this.depense.IdDepense);
+    async remove() {
+      await this.$store.dispatch('depense/deleteDepense', this.depense.IdDepense);
+      return this.$buefy.notification.open({
+        message: 'Suppression completée',
+        type: 'is-success',
+      });
     },
   },
-  // watch: {
-  //   nom(newValue) {
-  //     if (newValue === this.depense.nom) {
-  //       this.isDisabled = true;
-  //     } else {
-  //       this.isDisabled = false;
-  //     }
-  //   },
-  //   montant(newValue) {
-  //     if (newValue === this.depense.montant) {
-  //       this.isDisabled = true;
-  //     } else {
-  //       this.isDisabled = false;
-  //     }
-  //   },
-  // },
 };
 </script>
 

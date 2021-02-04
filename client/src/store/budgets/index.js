@@ -8,6 +8,7 @@ export default ({
   namespaced: true,
   state: {
     budgets: [],
+    budgetIdCurr: 0,
   },
   actions: {
     async getBudgets({ commit, rootState }) {
@@ -20,24 +21,25 @@ export default ({
         commit('SET_BUDGETS', response.data);
       });
     },
-    async createBudget({ commit, rootState }, nom) {
+    async createBudget({ commit, rootState }, { budget }) {
       const uid = rootState.user.user.data.uid.data[0].IdUtilisateur;
       return axios.post('http://localhost:3000/budgets/create', {
         params: {
+          budget,
           uid,
-          nom,
         },
       }).then((response) => {
-        const budget = {
+        const data = {
           IdUtilisateur: uid,
-          Nom: nom,
+          IdBudget: response.data.insertId,
+          ...budget,
         };
-        commit('ADD_BUDGET', { budget, data: response.data });
+        commit('ADD_BUDGET', { data });
       });
     },
     async deleteBudget({ commit }, idBudget) {
-      return axios.post('http://localhost:3000/budgets/delete', {
-        params: {
+      return axios.delete('http://localhost:3000/budgets/delete', {
+        data: {
           idBudget,
         },
       }).then(() => {
@@ -45,31 +47,31 @@ export default ({
       });
     },
     async updateBudget({ commit }, budget) {
-      return axios.post('http://localhost:3000/budgets/update', budget)
+      return axios.put('http://localhost:3000/budgets/update', budget)
         .then(() => {
           commit('UPDATE_BUDGETS', budget.budget);
         });
+    },
+    setCurrentBudget({ commit }, id) {
+      commit('SET_CURRENT_BUDGET', id);
     },
   },
   mutations: {
     SET_BUDGETS(state, data) {
       state.budgets = data;
     },
-    ADD_BUDGET(state, { budget, data }) {
-      console.log(data);
-      state.bugets.push({
-        IdBudget: data.insertId,
-        ...budget,
-      });
+    SET_CURRENT_BUDGET(state, data) {
+      state.budgetIdCurr = data;
+    },
+    ADD_BUDGET(state, { data }) {
+      state.budgets.push(data);
     },
     DELETE_BUDGET(state, idBudget) {
       const index = state.budgets.findIndex((budget) => budget.IdBudget === idBudget);
       if (index >= 0) state.budgets.splice(index, 1);
     },
     UPDATE_BUDGETS(state, budget) {
-      console.log(budget);
       const index = state.budgets.findIndex((b) => b.IdBudget === budget.IdBudget);
-      console.log(index);
       if (index >= 0) state.budgets.splice(index, 1, budget);
     },
   },

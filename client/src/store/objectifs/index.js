@@ -24,38 +24,33 @@ export default ({
     async getStatusObjectifs({ commit }) {
       await axios.get('http://localhost:3000/objectifs/objectifstatus', {
       }).then((response) => {
-        console.log('here store');
         commit('SET_STATUS', response.data);
       });
     },
 
     async create({ commit, rootState }, { data }) {
-      console.log(data);
       return axios.post('http://localhost:3000/objectifs/create', {
         params: {
           objectif: data,
           IdUtilisateur: rootState.user.user.data.uid.data[0].IdUtilisateur,
         },
       }).then((response) => {
-        console.log(response.data);
         commit('ADD_OBJECTIF', { data, response: response.data });
       });
     },
     async update({ commit }, objectif) {
-      return axios.post('http://localhost:3000/objectifs/update', objectif).then((response) => {
-        console.log(response);
+      return axios.put('http://localhost:3000/objectifs/update', objectif).then(() => {
         commit('UPDATE_OBJECTIFS', objectif);
       });
     },
     async delete({ commit }, IdObjectif) {
       console.log(IdObjectif);
-      return axios.post('http://localhost:3000/objectifs/delete', {
-        params: {
+      return axios.delete('http://localhost:3000/objectifs/delete', {
+        data: {
           IdObjectif,
         },
       })
-        .then((response) => {
-          console.log(response);
+        .then(() => {
           commit('DELETE_OBJECTIF', IdObjectif);
         });
     },

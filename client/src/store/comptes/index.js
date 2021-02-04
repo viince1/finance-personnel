@@ -24,40 +24,35 @@ export default ({
     async getTypesComptes({ commit }) {
       await axios.get('http://localhost:3000/comptes/typescompte', {
       }).then((response) => {
-        console.log('here store');
         commit('SET_TYPESCOMPTE', response.data);
       });
     },
-    async addCompte({ commit, rootState }, { data }) {
-      console.log(data);
+    async addCompte({ commit, rootState }, { compte }) {
       return axios.post('http://localhost:3000/comptes/add', {
         params: {
-          compte: data,
+          Compte: compte,
           IdUtilisateur: rootState.user.user.data.uid.data[0].IdUtilisateur,
         },
       })
         .then((response) => {
-          console.log(response.data);
-          commit('ADD_COMPTE', { data, response: response.data });
+          commit('ADD_COMPTE', { compte, response: response.data });
         });
     },
 
     async deleteCompte({ commit }, idCompte) {
       console.log(idCompte);
-      return axios.post('http://localhost:3000/comptes/delete', {
-        params: {
+      return axios.delete('http://localhost:3000/comptes/delete', {
+        data: {
           idCompte,
         },
       })
-        .then((response) => {
-          console.log(response);
+        .then(() => {
           commit('DELETE_COMPTE', idCompte);
         });
     },
     async updateCompte({ commit }, compte) {
-      return axios.post('http://localhost:3000/comptes/update', compte)
-        .then((response) => {
-          console.log(response);
+      return axios.put('http://localhost:3000/comptes/update', compte)
+        .then(() => {
           commit('UPDATE_COMPTE', compte);
         });
     },
@@ -69,10 +64,10 @@ export default ({
     SET_TYPESCOMPTE(state, value) {
       state.typescomptes = value;
     },
-    ADD_COMPTE(state, { data, response }) {
+    ADD_COMPTE(state, { compte, response }) {
       state.comptes.push({
         IdCompte: response.insertId,
-        ...data,
+        ...compte,
       });
     },
     DELETE_COMPTE(state, idCompte) {

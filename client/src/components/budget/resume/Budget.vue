@@ -1,5 +1,5 @@
 <template>
-  <div class="budget box container" id="budget">
+  <div class="budget box" id="budget">
     <div class="level">
       <div class="level-left">
         <div class="level-item">
@@ -10,7 +10,7 @@
         </div>
       </div>
     </div>
-    <budget-card :budget="b" v-for="b in budgets" :key="b.IdBudget"/>
+    <budget-card :budget="budget" v-for="budget in budgets" :key="budget.IdBudget"/>
   </div>
 </template>
 
@@ -39,15 +39,8 @@ export default {
       });
     },
   },
-  created() {
-    this.$store.dispatch('budget/getBudgets');
+  async created() {
+    await this.$store.dispatch('budget/getBudgets');
   },
 };
 </script>
-
-<style lang="scss">
-#budget {
-  padding: 10px;
-  margin: 10px 0px 10px 10px;
-}
-</style>

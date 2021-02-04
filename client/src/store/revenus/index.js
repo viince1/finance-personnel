@@ -10,6 +10,7 @@ export default ({
     revenus: [],
     categoriesRevenus: [],
     revenusBudget: [],
+    yeartodate: Number,
   },
   getters: {
     yeartodate(state) {
@@ -19,6 +20,7 @@ export default ({
         const entered = new Date(revenu.DateEntree).getFullYear();
         if (entered >= current) sum += revenu.Montant;
       });
+      state.yeartodate = sum;
       return sum;
     },
   },
@@ -30,7 +32,6 @@ export default ({
           uid,
         },
       }).then((response) => {
-        console.log(response);
         commit('SET_REVENUS', response.data);
       });
     },
@@ -49,28 +50,24 @@ export default ({
       });
     },
     async create({ commit }, revenu) {
-      console.log(revenu);
       return axios.post('http://localhost:3000/revenus/add', revenu)
         .then((response) => {
           commit('ADD_REVENU', { data: response.data, revenu });
         });
     },
-    async update({ commit }, revenu) {
-      return axios.post('http://localhost:3000/revenus/update', revenu).then((response) => {
-        console.log(response);
-        commit('UPDATE_REVENUS', revenu);
+    async update({ commit }, { revenu }) {
+      return axios.put('http://localhost:3000/revenus/update', revenu).then(() => {
+        commit('UPDATE_REVENUS', { revenu });
       });
     },
-    async delete({ commit }, IdRevenu) {
-      console.log(IdRevenu);
-      return axios.post('http://localhost:3000/revenus/delete', {
-        params: {
-          IdRevenu,
+    async delete({ commit }, idRevenu) {
+      return axios.delete('http://localhost:3000/revenus/delete', {
+        data: {
+          idRevenu,
         },
       })
-        .then((response) => {
-          console.log(response);
-          commit('DELETE_REVENU', IdRevenu);
+        .then(() => {
+          commit('DELETE_REVENU', idRevenu);
         });
     },
   },
@@ -87,15 +84,16 @@ export default ({
     ADD_REVENU(state, { data, revenu }) {
       state.revenusBudget.push({
         ...revenu,
-        IdRevenu: data.insertId,
+        idRevenu: data.insertId,
       });
     },
-    UPDATE_REVENUS(state, revenus) {
-      const index = state.revenusBudget.findIndex((r) => r.IdRevenu === revenus.IdRevenu);
-      if (index >= 0) state.revenusBudget.splice(index, 1, revenus);
+    UPDATE_REVENUS(state, { revenu }) {
+      console.log(revenu);
+      const index = state.revenusBudget.findIndex((r) => r.idRevenu === revenu.idRevenu);
+      if (index >= 0) state.revenusBudget.splice(index, 1, revenu);
     },
-    DELETE_REVENU(state, IdRevenu) {
-      const index = state.revenusBudget.findIndex((r) => r.IdRevenu === IdRevenu);
+    DELETE_REVENU(state, idRevenu) {
+      const index = state.revenusBudget.findIndex((r) => r.idRevenu === idRevenu);
       state.revenusBudget.splice(index, 1);
     },
   },

@@ -11,6 +11,7 @@ export default ({
     depensesBudget: [],
     categories: [],
     frequences: [],
+    yeartodate: Number,
   },
   getters: {
     yeartodate(state) {
@@ -20,6 +21,7 @@ export default ({
         const entered = new Date(depense.DateEntree).getFullYear();
         if (entered >= current) sum += depense.Montant;
       });
+      state.yeartodate = sum;
       return sum;
     },
   },
@@ -31,27 +33,26 @@ export default ({
           uid,
         },
       }).then((response) => {
-        console.log(response);
         commit('SET_DEPENSES', response.data);
       });
     },
     async ajouterDepense({ commit }, depense) {
-      console.log(depense);
       return axios.post('http://localhost:3000/depenses/add', depense)
         .then((response) => {
           commit('ADD_DEPENSE', { data: response.data, depense });
         });
     },
     async deleteDepense({ commit }, IdDepense) {
-      return axios.post('http://localhost:3000/depenses/delete', {
-        IdDepense,
-      })
-        .then((response) => {
-          commit('DELETE_DEPENSE', { response, IdDepense });
-        });
+      return axios.delete('http://localhost:3000/depenses/delete', {
+        data: {
+          idDepense: IdDepense,
+        },
+      }).then((response) => {
+        commit('DELETE_DEPENSE', { response, IdDepense });
+      });
     },
     async updateDepense({ commit }, depense) {
-      return axios.post('http://localhost:3000/depenses/update', depense)
+      return axios.put('http://localhost:3000/depenses/update', depense)
         .then((response) => {
           commit('UPDATE_DEPENSE', { response, depense });
         });

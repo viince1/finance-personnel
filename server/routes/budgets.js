@@ -24,18 +24,18 @@ router.get('/', (req,res, next) => {
 });
 
 router.post('/create', (req, res, next) => {
-  const nom = req.body.params.nom;
-  const uid = req.body.params.uid
+  const budget = req.body.params.budget;
+  const uid = req.body.params.uid;
   connection.query(
-    `INSERT INTO Budget VALUES (0,'${nom}', ${uid});`
+    `INSERT INTO Budget VALUES (0,'${budget.Nom}', ${uid});`
     , (error, results) => {
       if (error) console.log(error);
       if (results) res.json(results);
     });
 });
 
-router.post('/delete', (req, res, next) => {
-  const idbudget = req.body.params.idBudget;
+router.delete('/delete', (req, res, next) => {
+  const idbudget = req.body.idBudget;
   console.log(idbudget);
   connection.query(
     `DELETE FROM Budget WHERE IdBudget = ${idbudget};`
@@ -45,7 +45,7 @@ router.post('/delete', (req, res, next) => {
     });
 });
 
-router.post('/update', (req, res, next) => {
+router.put('/update', (req, res, next) => {
   const budget = req.body.budget;
   connection.query(
     `UPDATE Budget SET Nom = '${budget.Nom}' WHERE IdBudget = '${budget.IdBudget}'`

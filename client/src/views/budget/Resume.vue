@@ -3,14 +3,9 @@
     <div class="box">
       <moyenne />
     </div>
-    <div class="">
-      <div class="columns">
-        <div class="column is-4">
-          <pie-chart />
-        </div>
-        <div class="column is-8">
-          <budget />
-        </div>
+    <div class="columns">
+      <div class="column is-12">
+        <budget />
       </div>
     </div>
   </div>
@@ -19,15 +14,17 @@
 <script>
 
 import Moyenne from '../../components/budget/resume/Moyenne.vue';
-import PieChart from '../../components/budget/resume/PieChart.vue';
 import Budget from '../../components/budget/resume/Budget.vue';
 
 export default {
   name: 'Resume',
   components: {
     Moyenne,
-    PieChart,
     Budget,
+  },
+  async mounted() {
+    await this.$store.dispatch('depense/getDepenses');
+    await this.$store.dispatch('revenu/getRevenus');
   },
 };
 </script>

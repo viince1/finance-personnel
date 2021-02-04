@@ -96,21 +96,21 @@ INSERT INTO ObjectifStatut VALUES (0,'Succes',99);
 INSERT INTO ObjectifStatut VALUES (0,'En cours',1);
 INSERT INTO ObjectifStatut VALUES (0,'A faire',49);
 -- Donnees Objectif
-INSERT INTO Objectif VALUES (0,'Amasser 50 000$','Projet pour lachat de la premiere maison','2020-01-22',3,1,1);
-INSERT INTO Objectif VALUES (0,'Amasser 10 000$','Payer luniversite','2020-01-22',1,1,2);
-INSERT INTO Objectif VALUES (0,'Amasser 50 000$','Projet pour lachat de la premiere maison','2020-01-22',3,1,5);
-INSERT INTO Objectif VALUES (0,'Amasser 10 000$','Payer luniversite','2020-01-22',1,1,7);
-INSERT INTO Objectif VALUES (0,'Amasser 50 000$','Projet pour lachat de la premiere maison','2020-01-22',3,1,6);
-INSERT INTO Objectif VALUES (0,'Amasser 10 000$','Payer luniversite','2020-01-22',1,1,9);
-INSERT INTO Objectif VALUES (0,'Amasser 10 000$','Payer la carte de credit','2020-01-22',2,2,2);
+INSERT INTO Objectif VALUES (0,'Amasser 50 000$','Projet pour lachat de la premiere maison','2020-01-22',3,1);
+INSERT INTO Objectif VALUES (0,'Amasser 10 000$','Payer luniversite','2020-01-22',1,1);
+INSERT INTO Objectif VALUES (0,'Amasser 50 000$','Projet pour lachat de la premiere maison','2020-01-22',3,1);
+INSERT INTO Objectif VALUES (0,'Amasser 10 000$','Payer luniversite','2020-01-22',1,1);
+INSERT INTO Objectif VALUES (0,'Amasser 50 000$','Projet pour lachat de la premiere maison','2020-01-22',3,1);
+INSERT INTO Objectif VALUES (0,'Amasser 10 000$','Payer luniversite','2020-01-22',1,1);
+INSERT INTO Objectif VALUES (0,'Amasser 10 000$','Payer la carte de credit','2020-01-22',2,2);
 -- Mettre le no de priorite dans objectif a place de objectif status
 -- Donnees DepenseSuivi
 -- Rajouter une description facultative de la depense
 INSERT INTO DepenseSuivi VALUES (0,199.99,'2020-01-21', 1,2,'Immatriculation',null);
 INSERT INTO DepenseSuivi VALUES (0,70,'2020-01-21', 1,2,'Paiement de voiture',null);
 INSERT INTO DepenseSuivi VALUES (0,80,'2020-01-21', 7,8, 'Paiement de voiture',null);
-INSERT INTO DepenseSuivi VALUES (0,80,'2021-01-21', 7,27, 'Paiement de voiture',null);
-INSERT INTO DepenseSuivi VALUES (0,40,'2021-01-19', 7,27, 'Paiement de cellulaire',null);
+INSERT INTO DepenseSuivi VALUES (0,80,'2021-01-21', 1,2, 'Paiement de voiture',null);
+INSERT INTO DepenseSuivi VALUES (0,40,'2021-01-19', 1,2, 'Paiement de cellulaire',null);
 USE ProjetFinEtude;
 INSERT INTO RevenuSuivi VALUES (0,2000,'2021-01-21', 1,2,'Paie',null);
 INSERT INTO RevenuSuivi VALUES (0,1000,'2021-01-21', 1,2,'Comission',null);

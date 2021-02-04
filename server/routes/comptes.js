@@ -49,18 +49,18 @@ router.get('/typescompte', (req,res, next) => {
 });
 
 router.post('/add', (req, res, next) => {
-  const compte = req.body.params.compte;
+  const compte = req.body.params.Compte;
   const uid = req.body.params.IdUtilisateur
   connection.query(
-    `INSERT INTO COMPTE VALUES (0,'${compte.NomCompte}','${compte.Description}', ${compte.TypeCompte}, ${uid});`
+    `INSERT INTO COMPTE VALUES (0,'${compte.NomCompte}','${compte.Description}', ${compte.IdTypeCompte}, ${uid});`
     , (error, results) => {
       if (error) console.log(error);
       if (results) res.json(results);
     });
 });
 
-router.post('/delete', (req, res, next) => {
-  const idCompte = req.body.params.idCompte;
+router.delete('/delete', (req, res, next) => {
+  const idCompte = req.body.idCompte;
   connection.query(
     `DELETE FROM Compte WHERE IdCompte = ${idCompte};`
     , (error, results) => {
@@ -69,7 +69,7 @@ router.post('/delete', (req, res, next) => {
     });
 });
 
-router.post('/update', (req, res, next) => {
+router.put('/update', (req, res, next) => {
   const compte = req.body;
   connection.query(
     `UPDATE Compte SET Nom = '${compte.NomCompte}', IdType = ${compte.IdTypeCompte}, Description = '${compte.Description}' WHERE IdCompte = ${compte.IdCompte}`

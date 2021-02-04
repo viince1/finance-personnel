@@ -8,17 +8,10 @@
         </div>
         <div class="level-right">
           <div class="level-item">
-            <a href="" class="link"
-              v-on:click.prevent="seeRevenus()">
-            Planifiez vos revenus
-            </a>
+            <a href="" class="link" v-on:click.prevent="seeRevenus()">Planifiez vos revenus</a>
           </div>
           <div class="level-item">
-            <a href=""
-             class="link"
-             v-on:click.prevent="seeDepenses()">
-             Planifiez vos d&eacute;penses
-            </a>
+            <a href="" class="link" v-on:click.prevent="seeDepenses()">Planifiez vos depenses</a>
           </div>
           <div class="level-item">
             <a href="" class="link" v-on:click.prevent="modifier()">Modifier</a>
@@ -44,15 +37,8 @@ export default {
     budget: Object,
   },
   methods: {
-    seeRevenus() {
-      this.$router.push({ name: 'Revenus', params: { IdBudget: this.budget.IdBudget } });
-    },
-    seeDepenses() {
-      this.$router.push({ name: 'Depenses', params: { IdBudget: this.budget.IdBudget } });
-    },
-    deleteBudget(idBudget) {
-      console.log(idBudget);
-      this.$store.dispatch('budget/deleteBudget', idBudget);
+    async deleteBudget(idBudget) {
+      await this.$store.dispatch('budget/deleteBudget', idBudget);
     },
     modifier() {
       this.$buefy.modal.open({
@@ -63,6 +49,14 @@ export default {
         customClass: 'custom-class custom-class-2',
         trapFocus: true,
       });
+    },
+    seeRevenus() {
+      this.$store.dispatch('budget/setCurrentBudget', this.budget.IdBudget);
+      this.$router.push({ name: 'Revenus' });
+    },
+    seeDepenses() {
+      this.$store.dispatch('budget/setCurrentBudget', this.budget.IdBudget);
+      this.$router.push({ name: 'Depenses' });
     },
   },
 };
