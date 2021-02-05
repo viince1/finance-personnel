@@ -57,14 +57,14 @@
                 </select>
               </span>
           </div>
-          <div class="column is-4 has-text-centered">
+          <div class="column is-3 has-text-centered">
               <input
                 type="text"
                 class="input has-text-centered"
                 placeholder="Nom de la depense"
                 v-model="depense.nom">
           </div>
-          <div class="column is-1 has-text-centered">
+          <div class="column is-2 has-text-centered">
             <div class="field has-addons">
               <div class="control">
                 <input
