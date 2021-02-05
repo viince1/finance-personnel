@@ -24,7 +24,7 @@
         <div class="box is-fullheight has-background-link-dark has-text-white has-text-centered">
           <h1 class="title is-4 has-text-white">Taux epargne</h1>
           <div class="card-content">
-            <div class="amount is-size-4">{{savingRateYTD}} %</div>
+            <div class="amount is-size-4">{{savingRateYTD.toFixed(0)}} %</div>
             <div class="description is-size-6">Taux d'epargne pour l'ann&eacute;e 2021</div>
           </div>
         </div>

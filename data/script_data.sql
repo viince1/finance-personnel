@@ -114,58 +114,6 @@ INSERT INTO DepenseSuivi VALUES (0,40,'2021-01-19', 1,2, 'Paiement de cellulaire
 USE ProjetFinEtude;
 INSERT INTO RevenuSuivi VALUES (0,2000,'2021-01-21', 1,2,'Paie',null);
 INSERT INTO RevenuSuivi VALUES (0,1000,'2021-01-21', 1,2,'Comission',null);
-INSERT INTO RevenuSuivi VALUES (0,80,'2020-01-21', 7,2, 'Paiement de voiture',null);
-INSERT INTO RevenuSuivi VALUES (0,80,'2021-01-21', 7,2, 'Paiement de voiture',null);
-INSERT INTO RevenuSuivi VALUES (0,40,'2021-01-19', 7,2, 'Paiement de cellulaire',null);
-
-USE ProjetFinEtude;
-SELECT * FROM Budget WHERE IdUtilisateur = 1;
-DELETE FROM Budget WHERE IdBudget = 9;
--- Donnees RevenusSuivi
-
-USE ProjetFinEtude;
-
-SELECT obj.IdObjectif, obj.Titre, obj.Description, obj.DateButoir, objs.Nom, objs.NoStatus
-FROM Objectif obj
-JOIN ObjectifStatut objs
-    on obj.IdObjectifStatus = objs.IdObjectifStatus
-WHERE IdUtilisateur = 1;
-
-SELECT obj.IdObjectif, obj.Titre, obj.Description, obj.DateButoir, objs.Nom, objs.NoStatus
-    FROM Objectif obj
-    JOIN ObjectifStatut objs
-        on obj.IdObjectifStatus = objs.IdObjectifStatus
-    WHERE IdUtilisateur = 1;
-
-SELECT co.Nom, co.IdType, tc.Nom, tc.Description
-FROM Compte co
-INNER JOIN TypeCompte tc
-    ON co.IdType = tc.IdTypeCompte
-WHERE IdUtilisateur = 1;
-
-SELECT co.IdCompte, co.Nom, co.IdType, tc.Nom, tc.Description FROM Compte co INNER JOIN TypeCompte tc
-  ON co.IdType = tc.IdTypeCompte WHERE IdUtilisateur = 1;
-
-SELECT ds.Montant, ds.DateEntree, cs.Nom
-FROM Compte co
-    INNER JOIN DepenseSuivi ds
-    ON co.IdCompte = ds.IdCompte
-    INNER JOIN Depense dp
-    ON ds.IdDepense = dp.IdDepense
-    INNER JOIN CategorieDepense cs
-    ON cs.IdCategorieDepense = dp.IdCategorieDepense
-WHERE co.IdCompte = 1;
-SELECT * FROM Utilisateur;
-
-SELECT D.IdCategorieDepense, D.IdDepense, D.Titre, D.Montant, D.IdBudget, CD.Nom, DF.Nom, D.IdDepenseFrequence
-FROM Depense D
-INNER JOIN CategorieDepense CD on D.IdCategorieDepense = CD.IdCategorieDepense
-INNER JOIN DepenseFrequence DF on D.IdDepenseFrequence = DF.IdDepenseFrequence
-WHERE D.IdBudget = 1
-ORDER BY CD.Nom;
-USE ProjetFinEtude
-
-INSERT INTO Depense VALUES (0, 'ttset', 23, 1, 2,)
-
-
-UPDATE Depense SET Titre
+INSERT INTO RevenuSuivi VALUES (0,80,'2020-01-21', 1, 2, 'Paiement de voiture',null);
+INSERT INTO RevenuSuivi VALUES (0,80,'2021-01-21', 1, 2, 'Paiement de voiture',null);
+INSERT INTO RevenuSuivi VALUES (0,40,'2021-01-19', 1,2, 'Paiement de cellulaire',null);
