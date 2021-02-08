@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
   // Mettre bonnes infos de connexion selon votre bd local
   host: 'localhost',
   user: 'root',
-  password: 'localhost',
+  password: 'Dekzspz1995',
   database: 'ProjetFinEtude',
   insecureAuth: true,
 });
@@ -47,7 +47,7 @@ router.get('/categoriesrevenus', (req,res, next) => {
 });
 router.post('/add', (req,res, next) => {
   const revenus = req.body;
-  connection.query(`INSERT INTO Revenu VALUES (0, '${revenus.titre}','${revenus.montant}', '${revenus.idCategorieRevenu}', ${revenus.idBudget})`,
+  connection.query(`INSERT INTO Revenu VALUES (0,'${revenus.nom}')`,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);

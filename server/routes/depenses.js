@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
   // Mettre bonnes infos de connexion selon votre bd local
   host: 'localhost',
   user: 'root',
-  password: 'localhost',
+  password: 'Dekzspz1995',
   database: 'ProjetFinEtude',
   insecureAuth: true,
 });

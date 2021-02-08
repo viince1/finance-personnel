@@ -1,5 +1,8 @@
 import Vue from 'vue';
 import firebase from 'firebase';
+import 'firebase/firestore';
+import 'firebase/firebase-auth';
+import 'firebase/storage';
 import Buefy from 'buefy';
 import 'buefy/dist/buefy.css';
 import App from './App.vue';

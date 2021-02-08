@@ -44,7 +44,9 @@ CREATE TABLE Budget(
 CREATE TABLE CategorieRevenu(
     IdCategorieRevenu INT NOT NULL AUTO_INCREMENT,
     Nom VARCHAR(40) NOT NULL,
-    PRIMARY KEY (IdCategorieRevenu)
+    IdUtilisateur INT NOT NULL,
+    PRIMARY KEY (IdCategorieRevenu),
+    FOREIGN KEY (IdUtilisateur) REFERENCES Utilisateur(IdUtilisateur)
 );
 
 
@@ -52,7 +54,7 @@ CREATE TABLE Revenu(
     IdRevenu INT NOT NULL AUTO_INCREMENT,
     Titre VARCHAR(40) NOT NULL,
     Montant DECIMAL(13,2) NOT NULL,
-    IdCategorieRevenu INT NOT NULL,
+    IdCategorieRevenu INT,
     IdBudget INT NOT NULL,
     PRIMARY KEY (IdRevenu),
     FOREIGN KEY (IdCategorieRevenu) REFERENCES CategorieRevenu(IdCategorieRevenu),
@@ -62,7 +64,9 @@ CREATE TABLE Revenu(
 CREATE TABLE CategorieDepense(
     IdCategorieDepense INT NOT NULL AUTO_INCREMENT,
     Nom VARCHAR(40) NOT NULL,
-    PRIMARY KEY (IdCategorieDepense)
+    IdUtilisateur INT NOT NULL,
+    PRIMARY KEY (IdCategorieDepense),
+    FOREIGN KEY (IdUtilisateur) REFERENCES Utilisateur(IdUtilisateur)
 );
 
 CREATE TABLE DepenseFrequence(
@@ -75,7 +79,7 @@ CREATE TABLE Depense(
     IdDepense INT NOT NULL AUTO_INCREMENT,
     Titre VARCHAR(40) NOT NULL,
     Montant DECIMAL(13,2) NOT NULL,
-    IdCategorieDepense INT NOT NULL,
+    IdCategorieDepense INT,
     IdBudget INT NOT NULL,
     IdDepenseFrequence INT NOT NULL,
     PRIMARY KEY (IdDepense),

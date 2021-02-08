@@ -67,7 +67,7 @@ export default ({
       });
     },
     async getCategoriesDepense({ commit }) {
-      return axios.get('http://localhost:3000/depenses/categories')
+      return axios.get('http://localhost:3000/categoriesdepences')
         .then((response) => {
           commit('SET_CATEGORIES', response.data);
         });

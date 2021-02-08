@@ -32,18 +32,18 @@ INSERT INTO Budget VALUES (0,'Budget 2018',2);
 INSERT INTO Budget VALUES (0,'Budget 2019',3);
 INSERT INTO Budget VALUES (0,'Budget 2020',3);
 -- Donnees CategorieDepense
-INSERT INTO CategorieDepense VALUES (0,'Transport');
-INSERT INTO CategorieDepense VALUES (0,'Habitation');
-INSERT INTO CategorieDepense VALUES (0,'Utilitaires');
-INSERT INTO CategorieDepense VALUES (0,'Education');
-INSERT INTO CategorieDepense VALUES (0,'Alimentation');
-INSERT INTO CategorieDepense VALUES (0,'Personnel');
+INSERT INTO CategorieDepense VALUES (0,'Transport',1);
+INSERT INTO CategorieDepense VALUES (0,'Habitation',1);
+INSERT INTO CategorieDepense VALUES (0,'Utilitaires',1);
+INSERT INTO CategorieDepense VALUES (0,'Education',1);
+INSERT INTO CategorieDepense VALUES (0,'Alimentation',1);
+INSERT INTO CategorieDepense VALUES (0,'Personnel',1);
 -- Donnees CategorieRevenu
-INSERT INTO CategorieRevenu VALUES (0,'Salaire horaire');
-INSERT INTO CategorieRevenu VALUES (0,'Salaire annuel');
-INSERT INTO CategorieRevenu VALUES (0,'Comission');
-INSERT INTO CategorieRevenu VALUES (0,'Versement unique');
-INSERT INTO CategorieRevenu VALUES (0,'Bonus');
+INSERT INTO CategorieRevenu VALUES (0,'Salaire horaire',1);
+INSERT INTO CategorieRevenu VALUES (0,'Salaire annuel',1);
+INSERT INTO CategorieRevenu VALUES (0,'Comission',1);
+INSERT INTO CategorieRevenu VALUES (0,'Versement unique',1);
+INSERT INTO CategorieRevenu VALUES (0,'Bonus',1);
 -- Donnees Compte
 INSERT INTO COMPTE VALUES (0,'Compte #1 pour projet', 'Compte investi en bourse pour planifier mon projet dachat immobilier',1,1);
 INSERT INTO COMPTE VALUES (0,'Compte cheque', 'Compte de transactions regulieres',3,1);
@@ -114,9 +114,6 @@ INSERT INTO DepenseSuivi VALUES (0,40,'2021-01-19', 1,2, 'Paiement de cellulaire
 USE ProjetFinEtude;
 INSERT INTO RevenuSuivi VALUES (0,2000,'2021-01-21', 1,2,'Paie',null);
 INSERT INTO RevenuSuivi VALUES (0,1000,'2021-01-21', 1,2,'Comission',null);
-INSERT INTO RevenuSuivi VALUES (0,80,'2020-01-21', 7,2, 'Paiement de voiture',null);
-INSERT INTO RevenuSuivi VALUES (0,80,'2021-01-21', 7,2, 'Paiement de voiture',null);
-INSERT INTO RevenuSuivi VALUES (0,40,'2021-01-19', 7,2, 'Paiement de cellulaire',null);
 
 USE ProjetFinEtude;
 SELECT * FROM Budget WHERE IdUtilisateur = 1;
@@ -163,9 +160,4 @@ INNER JOIN CategorieDepense CD on D.IdCategorieDepense = CD.IdCategorieDepense
 INNER JOIN DepenseFrequence DF on D.IdDepenseFrequence = DF.IdDepenseFrequence
 WHERE D.IdBudget = 1
 ORDER BY CD.Nom;
-USE ProjetFinEtude
-
-INSERT INTO Depense VALUES (0, 'ttset', 23, 1, 2,)
-
-
-UPDATE Depense SET Titre
+USE ProjetFinEtude;
