@@ -25,10 +25,10 @@ export default ({
     },
   },
   actions: {
-    async getRevenus({ commit }) {
+    async getRevenus({ commit }, idBudget) {
       return axios.get('http://localhost:3000/revenus', {
         params: {
-          idBudget: 1,
+          idBudget,
         },
       }).then((response) => {
         commit('SET_REVENUS', response.data);

@@ -26,10 +26,10 @@ export default ({
     },
   },
   actions: {
-    async getDepenses({ commit }) {
+    async getDepenses({ commit }, idBudget) {
       return axios.get('http://localhost:3000/depenses', {
         params: {
-          idBudget: 1,
+          idBudget,
         },
       }).then((response) => {
         commit('SET_DEPENSES', response.data);

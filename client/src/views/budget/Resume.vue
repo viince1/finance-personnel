@@ -4,10 +4,10 @@
       <moyenne />
     </div>
     <div class="columns">
-      <div class="column is-6">
+      <div class="column is-7">
         <budget />
       </div>
-      <div class="column is-6">
+      <div class="column is-5">
         <progress-comp />
       </div>
     </div>

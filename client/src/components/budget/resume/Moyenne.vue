@@ -1,6 +1,28 @@
 <template>
   <div class="" id="moyenne">
-    <p class="title is-3">Resume</p>
+    <div class="level">
+      <div class="level-left">
+        <div class="level-item">
+          <h1 class="title is-4">Resume</h1>
+        </div>
+      </div>
+      <div class="level-right">
+        <div class="level-item">
+          <span class="select">
+            <select
+              v-model="idBudget"
+              v-on:change.prevent="updateBudget" >
+              <option :value="0" disabled>Selectionnez un budget</option>
+              <option
+                :value="budget.IdBudget"
+                v-for="budget in budgets"
+                :key="budget.IdBudget">{{budget.Nom}}
+              </option>
+            </select>
+          </span>
+        </div>
+      </div>
+    </div>
     <div class="columns flex">
       <div class="column is-4">
         <div class="revenus box has-background-success-dark has-text-white has-text-centered">
@@ -38,7 +60,16 @@ export default {
   name: 'Moyenne',
   data() {
     return {
+      idBudget: this.$store.state.budget.budgetIdCurr,
     };
+  },
+  methods: {
+    async updateBudget() {
+      await this.$store.dispatch('budget/setCurrentBudget', this.idBudget);
+      await this.$store.dispatch('budget/getSommeParCategories', this.idBudget);
+      await this.$store.dispatch('revenu/getRevenus', this.idBudget);
+      await this.$store.dispatch('depense/getDepenses', this.idBudget);
+    },
   },
   computed: {
     revenusYTD() {
@@ -51,6 +82,15 @@ export default {
       if (this.revenusYTD === 0) return 0;
       return ((this.revenusYTD - this.depensesYTD) / this.revenusYTD) * 100;
     },
+    budgets() {
+      return this.$store.state.budget.budgets;
+    },
+  },
+  async created() {
+    await this.$store.dispatch('budget/setCurrentBudget', this.idBudget);
+    await this.$store.dispatch('budget/getSommeParCategories', this.idBudget);
+    await this.$store.dispatch('revenu/getRevenus', this.idBudget);
+    await this.$store.dispatch('depense/getDepenses', this.idBudget);
   },
 };
 </script>

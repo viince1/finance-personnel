@@ -63,7 +63,7 @@ router.get('/sommeParCategories', (req, res, next) => {
           WHEN 1 THEN Montant * 52
           WHEN 2 THEN Montant * 26
           WHEN 3 THEN Montant * 12
-          WHEN 4 THEN Montant * 1
+          WHEN 4 THEN Montant * 1 
       END) as SommeParCategorie, CD.Nom, rapport.SommeDepenseSuivi
   FROM Depense d
   INNER JOIN Budget B on d.IdBudget = B.IdBudget
