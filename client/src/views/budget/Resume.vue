@@ -27,10 +27,6 @@ export default {
     Budget,
     ProgressComp,
   },
-  async mounted() {
-    await this.$store.dispatch('depense/getDepenses');
-    await this.$store.dispatch('revenu/getRevenus');
-  },
 };
 </script>
 

@@ -5,7 +5,7 @@
       <div class="level">
         <div class="level-left">
           <div class="level-item">
-            <h4>{{categorie.Nom}}</h4>
+            <h4 class="title is-6">{{categorie.Nom}}</h4>
           </div>
           <div class="level-item">
             <h4 class="is-size-7">{{categorie.SommeDepenseSuivi.toFixed(2)}}
@@ -20,7 +20,7 @@
         </div>
       </div>
       <progress
-      class="progress is-primary"
+       :class="progressStyle(categorie)"
        :value="categorie.SommeDepenseSuivi"
        :max="categorie.SommeParCategorie"></progress>
     </div>
@@ -34,6 +34,14 @@ export default {
   computed: {
     categories() {
       return this.$store.state.budget.sommeParCategories;
+    },
+  },
+  methods: {
+    progressStyle(categorie) {
+      const ratio = ((categorie.SommeDepenseSuivi / categorie.SommeParCategorie) * 100).toFixed(2);
+      if (ratio >= 90) return 'progress is-danger';
+      if (ratio >= 80) return 'progress is-warning';
+      return 'progress is-primary';
     },
   },
 };
