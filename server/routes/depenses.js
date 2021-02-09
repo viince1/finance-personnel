@@ -14,12 +14,10 @@ var connection = mysql.createConnection({
 connection.connect()
 
 router.get('/', (req,res, next) => {
-  const uid = req.query.uid;
-  console.log(uid);
+  const idBudget = req.query.idBudget;
   connection.query(`SELECT *
   FROM DepenseSuivi
-  INNER JOIN Compte C on DepenseSuivi.IdCompte = C.IdCompte
-  WHERE C.IdUtilisateur = ${uid};`,
+  WHERE IdBudget = ${idBudget};`,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);

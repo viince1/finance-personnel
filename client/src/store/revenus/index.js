@@ -25,11 +25,10 @@ export default ({
     },
   },
   actions: {
-    async getRevenus({ commit, rootState }) {
-      const uid = rootState.user.user.data.uid.data[0].IdUtilisateur;
+    async getRevenus({ commit }) {
       return axios.get('http://localhost:3000/revenus', {
         params: {
-          uid,
+          idBudget: 1,
         },
       }).then((response) => {
         commit('SET_REVENUS', response.data);

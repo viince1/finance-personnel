@@ -4,8 +4,11 @@
       <moyenne />
     </div>
     <div class="columns">
-      <div class="column is-12">
+      <div class="column is-6">
         <budget />
+      </div>
+      <div class="column is-6">
+        <progress-comp />
       </div>
     </div>
   </div>
@@ -15,12 +18,14 @@
 
 import Moyenne from '../../components/budget/resume/Moyenne.vue';
 import Budget from '../../components/budget/resume/Budget.vue';
+import ProgressComp from '../../components/budget/resume/Progress.vue';
 
 export default {
   name: 'Resume',
   components: {
     Moyenne,
     Budget,
+    ProgressComp,
   },
   async mounted() {
     await this.$store.dispatch('depense/getDepenses');

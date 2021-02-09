@@ -26,11 +26,10 @@ export default ({
     },
   },
   actions: {
-    async getDepenses({ commit, rootState }) {
-      const uid = rootState.user.user.data.uid.data[0].IdUtilisateur;
+    async getDepenses({ commit }) {
       return axios.get('http://localhost:3000/depenses', {
         params: {
-          uid,
+          idBudget: 1,
         },
       }).then((response) => {
         commit('SET_DEPENSES', response.data);
