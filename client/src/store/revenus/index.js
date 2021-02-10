@@ -8,6 +8,7 @@ export default ({
   namespaced: true,
   state: {
     revenus: [],
+    rev: [],
     categoriesRevenus: [],
     revenusBudget: [],
     yeartodate: Number,
@@ -32,6 +33,17 @@ export default ({
         },
       }).then((response) => {
         commit('SET_REVENUS', response.data);
+      });
+    },
+    async getRevenusSuivi({ commit }, idBudget, dateDebut, dateFin) {
+      return axios.get('http://localhost:3000/revenus/revenuSuivi', {
+        params: {
+          idBudget,
+          dateDebut,
+          dateFin,
+        },
+      }).then((response) => {
+        commit('SET_REVENUS_SUIVI', response.data);
       });
     },
     async getRevenusBudget({ commit }, idBudget) {
@@ -73,6 +85,9 @@ export default ({
   mutations: {
     SET_REVENUS(state, data) {
       state.revenus = data;
+    },
+    SET_REVENUS_SUIVI(state, data) {
+      state.rev = data;
     },
     SET_CATEGORIES_REVENUS(state, value) {
       state.categoriesRevenus = value;
