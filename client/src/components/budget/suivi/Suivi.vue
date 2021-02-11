@@ -38,11 +38,12 @@
             <p class="title is-3">Dépenses</p>
           </div>
           <div class="level-item">
-            <button class="button is-small is-link">Ajouter</button>
+            <button class="button is-small is-link" @click="openModalNewDepense">Ajouter</button>
           </div>
         </div>
       </div>
-      <div class="objectifsListe">
+      <div>
+          <depense-suivi-card v-for="d in depenses" :key="d.IdDepenseSuivi" :depenseSuivi="d"/>
       </div>
     </div>
   </div>
@@ -52,12 +53,15 @@
 
 <script>
 import RevenuSuiviCard from './RevenuSuiviCard.vue';
+import DepenseSuiviCard from './DepenseSuiviCard.vue';
 import RevenuModalNew from './RevenuModalNew.vue';
+import DepenseModalNew from './DepenseModalNew.vue';
 
 export default {
   name: 'Suivi',
   components: {
     RevenuSuiviCard,
+    DepenseSuiviCard,
   },
   data() {
     return {
@@ -70,6 +74,9 @@ export default {
     revenus() {
       return this.$store.state.revenu.revenuSuivis;
     },
+    depenses() {
+      return this.$store.state.depense.depensesSuivis;
+    },
   },
   methods: {
     openModalNewRevenu() {
@@ -81,8 +88,22 @@ export default {
         trapFocus: true,
       });
     },
+    openModalNewDepense() {
+      this.$buefy.modal.open({
+        parent: this,
+        component: DepenseModalNew,
+        hasModalCard: true,
+        customClass: 'custom-class custom-class-2',
+        trapFocus: true,
+      });
+    },
     affiche() {
       this.$store.dispatch('revenu/getRevenusSuivi', {
+        idBudget: this.idBudget,
+        dateDebut: this.dateDebut,
+        dateFin: this.dateFin,
+      });
+      this.$store.dispatch('depense/getDepensesSuivi', {
         idBudget: this.idBudget,
         dateDebut: this.dateDebut,
         dateFin: this.dateFin,
@@ -91,6 +112,7 @@ export default {
   },
   created() {
     this.$store.dispatch('revenu/getRevenusBudget', this.idBudget);
+    this.$store.dispatch('depense/getDepensesBudget', this.idBudget);
   },
 };
 </script>

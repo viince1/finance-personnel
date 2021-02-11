@@ -42,7 +42,7 @@ router.get('/depenseSuivi', (req,res, next) => {
   console.log(dateFin);
   connection.query(`SELECT *
   FROM DepenseSuivi
-  WHERE IdBudget = ${idBudget} AND DateEntree BETWEEN ${dateDebut} AND ${dateFin};`,
+  WHERE IdBudget = ${idBudget} AND DateEntree BETWEEN '${dateDebut}' AND '${dateFin}';`,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);
@@ -85,7 +85,7 @@ router.put('/update', (req,res, next) => {
 router.put('/updateDepenseSuivi', (req,res, next) => {
   console.log(req.body);
   const depenseSuivi = req.body;
-  connection.query(`UPDATE DepenseSuivi SET Montant = '${depenseSuivi.Montant}', DateEntree = ${depenseSuivi.DateEntree}, Nom = ${depenseSuivi.Nom}, Description = ${depenseSuivi.Description} WHERE IdDepenseSuivi = ${depenseSuivi.idDepenseSuivi}`,
+  connection.query(`UPDATE DepenseSuivi SET Montant = '${depenseSuivi.Montant}', DateEntree = '${depenseSuivi.DateEntree}', IdDepense = '${depenseSuivi.IdDepense}', Nom = '${depenseSuivi.Nom}', Description = '${depenseSuivi.Description}' WHERE IdDepenseSuivi = ${depenseSuivi.IdDepenseSuivi}`,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);
@@ -117,7 +117,7 @@ router.delete('/delete', (req,res, next) => {
 });
 router.delete('/deleteDepenseSuivi', (req,res, next) => {
   const idDepenseSuivi = req.body.idDepenseSuivi;
-  connection.query(`DELETE FROM DepenseSuivi WHERE IdDepenseSuivi = ${idDepenseSuivi};`,
+  connection.query(`DELETE FROM DepenseSuivi WHERE IdDepenseSuivi = '${idDepenseSuivi}';`,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);
