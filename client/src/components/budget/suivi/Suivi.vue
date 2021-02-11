@@ -1,8 +1,17 @@
 <template>
 <div>
-  <input type="date" v-model="dateDebut">
-  <input type="date" v-model="dateFin">
-  <button @click="affiche">Afficher</button>
+    <label class="label">Dates</label>
+    <div class="level">
+      <p>Du</p>
+      <div class="level-item">
+        <input class="input" type="date" v-model="dateDebut">
+      </div>
+      <div class="level-item">
+        <p class="">Au</p>
+        <input class="input" type="date" v-model="dateFin">
+      </div>
+    </div>
+    <button class="button is-link" @click="affiche">Afficher</button>
 <div class="columns">
   <div class="column is-6">
     <div class="container box" id="objectifs">
@@ -12,12 +21,12 @@
             <p class="title is-3">Revenus</p>
           </div>
           <div class="level-item">
-            <button class="button is-small is-link">Ajouter</button>
+            <button class="button is-small is-link" @click="openModalNewRevenu">Ajouter</button>
           </div>
         </div>
       </div>
       <div>
-        <revenu-suivi-card v-for="r in revenus" :key="r.idRevenuSuivi" :revenuSuivi="r"/>
+        <revenu-suivi-card v-for="r in revenus" :key="r.IdRevenuSuivi" :revenuSuivi="r"/>
       </div>
     </div>
   </div>
@@ -43,6 +52,7 @@
 
 <script>
 import RevenuSuiviCard from './RevenuSuiviCard.vue';
+import RevenuModalNew from './RevenuModalNew.vue';
 
 export default {
   name: 'Suivi',
@@ -58,13 +68,29 @@ export default {
   },
   computed: {
     revenus() {
-      return this.$store.state.revenu.rev;
+      return this.$store.state.revenu.revenuSuivis;
     },
   },
   methods: {
-    affiche() {
-      this.$store.dispatch('revenu/getRevenusSuivi', this.idBudget, this.dateDebut, this.dateFin);
+    openModalNewRevenu() {
+      this.$buefy.modal.open({
+        parent: this,
+        component: RevenuModalNew,
+        hasModalCard: true,
+        customClass: 'custom-class custom-class-2',
+        trapFocus: true,
+      });
     },
+    affiche() {
+      this.$store.dispatch('revenu/getRevenusSuivi', {
+        idBudget: this.idBudget,
+        dateDebut: this.dateDebut,
+        dateFin: this.dateFin,
+      });
+    },
+  },
+  created() {
+    this.$store.dispatch('revenu/getRevenusBudget', this.idBudget);
   },
 };
 </script>

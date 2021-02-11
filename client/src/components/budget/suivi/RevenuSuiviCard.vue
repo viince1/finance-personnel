@@ -1,6 +1,6 @@
 <template>
   <div class="container" id="revenuSuivi">
-    <a href="">
+    <a href="" v-on:click.prevent="openModalEdit">
       <div class="card">
         <div class="card-content">
           <div class="media">
@@ -26,10 +26,24 @@
 </template>
 
 <script>
+import RevenuModalEdit from './RevenuModalEdit.vue';
+
 export default {
   name: 'RevenuSuiviCard',
   props: {
     revenuSuivi: Object,
+  },
+  methods: {
+    openModalEdit() {
+      this.$buefy.modal.open({
+        parent: this,
+        component: RevenuModalEdit,
+        props: this.revenuSuivi,
+        hasModalCard: true,
+        customClass: 'custom-class custom-class-2',
+        trapFocus: true,
+      });
+    },
   },
 };
 </script>
