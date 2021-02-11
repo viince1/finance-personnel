@@ -1,17 +1,19 @@
 <template>
 <div>
-    <label class="label">Dates</label>
+    <p class="title is-5">Dates</p>
     <div class="level">
-      <p>Du</p>
       <div class="level-item">
+        <p>Du</p>
         <input class="input" type="date" v-model="dateDebut">
       </div>
       <div class="level-item">
         <p class="">Au</p>
         <input class="input" type="date" v-model="dateFin">
       </div>
+      <div class="level-item">
+        <button class="button is-link" @click="affiche">Afficher</button>
+      </div>
     </div>
-    <button class="button is-link" @click="affiche">Afficher</button>
 <div class="columns">
   <div class="column is-6">
     <div class="container box" id="objectifs">
@@ -43,7 +45,7 @@
         </div>
       </div>
       <div>
-          <depense-suivi-card v-for="d in depenses" :key="d.IdDepenseSuivi" :depenseSuivi="d"/>
+          <depense-suivi-card v-for="d in depenses" :key="d.nom" :depenseSuivi="d"/>
       </div>
     </div>
   </div>

@@ -80,7 +80,7 @@ export default ({
     },
     async updateRevenuSuivi({ commit }, revenuSuivi) {
       return axios.put('http://localhost:3000/revenus/updateRevenuSuivi', revenuSuivi).then(() => {
-        commit('UPDATE_REVENUS_SUIVI', { revenuSuivi });
+        commit('UPDATE_REVENUS_SUIVI', revenuSuivi);
       });
     },
     async delete({ commit }, idRevenu) {

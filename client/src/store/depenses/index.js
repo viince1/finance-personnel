@@ -77,7 +77,7 @@ export default ({
     },
     async updateDepenseSuivi({ commit }, depenseSuivi) {
       return axios.put('http://localhost:3000/depenses/updateDepenseSuivi', depenseSuivi).then(() => {
-        commit('UPDATE_DEPENSES_SUIVI', { depenseSuivi });
+        commit('UPDATE_DEPENSES_SUIVI', depenseSuivi);
       });
     },
     async getDepensesBudget({ commit }, idBudget) {

@@ -29,7 +29,7 @@ router.get('/revenuSuivi', (req,res, next) => {
   const dateFin = req.query.dateFin;
   console.log(dateDebut);
   console.log(dateFin);
-  connection.query(`SELECT *
+  connection.query(`SELECT IdRevenuSuivi, Montant, DATE_FORMAT(DateEntree, '%Y-%m-%d') as DateEntree, IdRevenu, IdBudget, Nom, Description
   FROM RevenuSuivi
   WHERE IdBudget = ${idBudget} AND DateEntree BETWEEN '${dateDebut}' AND '${dateFin}';`,
   (error, results) => {

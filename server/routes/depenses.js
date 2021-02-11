@@ -40,7 +40,7 @@ router.get('/depenseSuivi', (req,res, next) => {
   const dateFin = req.query.dateFin;
   console.log(dateDebut);
   console.log(dateFin);
-  connection.query(`SELECT *
+  connection.query(`SELECT IdDepenseSuivi, Montant, DATE_FORMAT(DateEntree, '%Y-%m-%d') as DateEntree, IdDepense, IdBudget, Nom, Description
   FROM DepenseSuivi
   WHERE IdBudget = ${idBudget} AND DateEntree BETWEEN '${dateDebut}' AND '${dateFin}';`,
   (error, results) => {
@@ -85,7 +85,7 @@ router.put('/update', (req,res, next) => {
 router.put('/updateDepenseSuivi', (req,res, next) => {
   console.log(req.body);
   const depenseSuivi = req.body;
-  connection.query(`UPDATE DepenseSuivi SET Montant = '${depenseSuivi.Montant}', DateEntree = '${depenseSuivi.DateEntree}', IdDepense = '${depenseSuivi.IdDepense}', Nom = '${depenseSuivi.Nom}', Description = '${depenseSuivi.Description}' WHERE IdDepenseSuivi = ${depenseSuivi.IdDepenseSuivi}`,
+  connection.query(`UPDATE DepenseSuivi SET Montant = '${depenseSuivi.Montant}', DateEntree = '${depenseSuivi.DateEntree}', IdDepense = '${depenseSuivi.IdDepense}', Nom = '${depenseSuivi.Nom}', Description = '${depenseSuivi.Description}' WHERE IdDepenseSuivi = '${depenseSuivi.IdDepenseSuivi}'`,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);
