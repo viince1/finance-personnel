@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
   // Mettre bonnes infos de connexion selon votre bd local
   host: 'localhost',
   user: 'root',
-  password: 'localhost',
+  password: 'root',
   database: 'ProjetFinEtude',
   insecureAuth: true,
 });
@@ -34,7 +34,20 @@ router.get('/categories', (req,res, next) => {
     if (results) res.json(results);
   })
 });
-
+router.get('/depenseSuivi', (req,res, next) => {
+  const idBudget = req.query.idBudget;
+  const dateDebut = req.query.dateDebut;
+  const dateFin = req.query.dateFin;
+  console.log(dateDebut);
+  console.log(dateFin);
+  connection.query(`SELECT IdDepenseSuivi, Montant, DATE_FORMAT(DateEntree, '%Y-%m-%d') as DateEntree, IdDepense, IdBudget, Nom, Description
+  FROM DepenseSuivi
+  WHERE IdBudget = ${idBudget} AND DateEntree BETWEEN '${dateDebut}' AND '${dateFin}';`,
+  (error, results) => {
+    if (error) res.status(501).send(error);
+    if (results) res.json(results);
+  })
+});
 router.get('/frequences', (req,res, next) => {
   const uid = req.query.uid;
   console.log(uid);
@@ -69,7 +82,15 @@ router.put('/update', (req,res, next) => {
     if (results) res.json(results);
   })
 });
-
+router.put('/updateDepenseSuivi', (req,res, next) => {
+  console.log(req.body);
+  const depenseSuivi = req.body;
+  connection.query(`UPDATE DepenseSuivi SET Montant = '${depenseSuivi.Montant}', DateEntree = '${depenseSuivi.DateEntree}', IdDepense = '${depenseSuivi.IdDepense}', Nom = '${depenseSuivi.Nom}', Description = '${depenseSuivi.Description}' WHERE IdDepenseSuivi = '${depenseSuivi.IdDepenseSuivi}'`,
+  (error, results) => {
+    if (error) res.status(501).send(error);
+    if (results) res.json(results);
+  })
+});
 router.post('/add', (req,res, next) => {
   const depense = req.body;
   connection.query(`INSERT INTO Depense VALUES (0, '${depense.nom}', ${depense.montant}, ${depense.idCategorieDepense}, ${depense.idBudget}, ${depense.idDepenseFrequence})`,
@@ -78,7 +99,14 @@ router.post('/add', (req,res, next) => {
     if (results) res.json(results);
   })
 });
-
+router.post('/addDepenseSuivi', (req,res, next) => {
+  const depenseSuivi = req.body;
+  connection.query(`INSERT INTO DepenseSuivi VALUES (0, '${depenseSuivi.Montant}','${depenseSuivi.DateEntree}', '${depenseSuivi.IdDepense}', ${depenseSuivi.IdBudget},'${depenseSuivi.Nom}','${depenseSuivi.Description}')`,
+  (error, results) => {
+    if (error) res.status(501).send(error);
+    if (results) res.json(results);
+  })
+});
 router.delete('/delete', (req,res, next) => {
   const idDepense = req.body.idDepense;
   connection.query(`DELETE FROM Depense WHERE IdDepense = ${idDepense} `,
@@ -87,5 +115,12 @@ router.delete('/delete', (req,res, next) => {
     if (results) res.json(results);
   })
 });
-
+router.delete('/deleteDepenseSuivi', (req,res, next) => {
+  const idDepenseSuivi = req.body.idDepenseSuivi;
+  connection.query(`DELETE FROM DepenseSuivi WHERE IdDepenseSuivi = '${idDepenseSuivi}';`,
+  (error, results) => {
+    if (error) res.status(501).send(error);
+    if (results) res.json(results);
+  })
+});
 module.exports = router;
