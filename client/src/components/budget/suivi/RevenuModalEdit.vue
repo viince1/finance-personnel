@@ -63,7 +63,7 @@
     <footer class="modal-card-foot">
       <button
         class="button"
-        @click="edit"
+        v-on:click.prevent="edit"
         >Modifier</button>
         <button
         class="button is-danger"
@@ -98,8 +98,8 @@ export default {
       this.errorMessage = [];
       if (this.revenuSuivi.DateEntree === '') this.errorMessage.push('Vous n\' pas entrer de Date');
       if (this.revenuSuivi.Nom === '') this.errorMessage.push('Vous n\'avez pas entrer de Nom');
-      if (this.revenuSuivi.Montant === '') this.errorMessage.push('Vous n\'avez pas entrer de Montant');
-      if (this.revenuSuivi.IdRevenu === '') this.errorMessage.push('Vous n\'avez pas entrer de revenu');
+      if (this.revenuSuivi.Montant <= 0) this.errorMessage.push('Vous n\'avez pas entrer un montant valide');
+      if (this.revenuSuivi.IdRevenu === 0) this.errorMessage.push('Vous n\'avez pas entrer de revenu');
       if (this.errorMessage.length !== 0) return;
       await this.$store.dispatch('revenu/updateRevenuSuivi', this.revenuSuivi);
       this.$emit('close');

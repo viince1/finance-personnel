@@ -52,6 +52,8 @@ export default {
 #objectifs {
   padding: 10px;
   margin: 10px 0px 10px 10px;
+}
+.objectifsListe {
   min-height: 90vh;
   max-height: 90vh;
   overflow-y: scroll;

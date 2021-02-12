@@ -52,6 +52,8 @@ export default {
 #comptes {
   padding: 10px;
   margin: 10px 10px 10px 0px;
+}
+.comptesListe {
   min-height: 55vh;
   max-height: 55vh;
   overflow-y: scroll;

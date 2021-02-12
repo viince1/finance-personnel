@@ -93,8 +93,8 @@ export default {
       this.errorMessage = [];
       if (this.depenseSuivi.DateEntree === '') this.errorMessage.push('Vous n\' pas entrer de Date');
       if (this.depenseSuivi.Nom === '') this.errorMessage.push('Vous n\'avez pas entrer de Nom');
-      if (this.depenseSuivi.Montant === '') this.errorMessage.push('Vous n\'avez pas entrer de Montant');
-      if (this.depenseSuivi.IdDepense === '') this.errorMessage.push('Vous n\'avez pas entrer de depense');
+      if (this.depenseSuivi.Montant <= 0) this.errorMessage.push('Vous n\'avez pas entrer de Montant');
+      if (this.depenseSuivi.IdDepense === 0) this.errorMessage.push('Vous n\'avez pas entrer de depense');
       if (this.errorMessage.length !== 0) return;
       await this.$store.dispatch('depense/createDepenseSuivi', this.depenseSuivi);
       this.$emit('close');

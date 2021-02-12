@@ -5,7 +5,7 @@
         <div class="card-header-title">{{compte.NomCompte}} - {{typeCompte}}</div>
       </div>
       <div class="card-footer">
-        <a href="" class="card-footer-item" v-on:click.prevent="">
+        <a href="" class="card-footer-item" v-on:click.prevent="seeInvestissements()">
           Planifiez vos investissements
         </a>
         <a href="" class="card-footer-item" v-on:click.prevent="updateCompte">
@@ -43,6 +43,9 @@ export default {
         customClass: 'custom-class custom-class-2',
         trapFocus: true,
       });
+    },
+    seeInvestissements() {
+      this.$router.push({ name: 'Portefeuille' });
     },
   },
 };
