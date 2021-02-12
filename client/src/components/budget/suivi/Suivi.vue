@@ -1,20 +1,49 @@
 <template>
   <div>
-    <p class="title is-5 has-text-centered">Choisissez la plage de dates pour laquelle
-      vous voulez voir les revenus et dépenses
-    </p>
+    <div class="box mt-3">
+      <h4 class="title is-4">Choisir une plage de date</h4>
     <div class="level">
-      <div class="level-item">
-        <p>Du</p>
-        <input class="input" type="date" v-model="dateDebut">
+      <div class="level-left">
+        <div class="level-item">
+          <div class="field">
+            <label for="" class="label">Du : </label>
+            <div class="control">
+              <input class="input" type="date" v-model="dateDebut">
+            </div>
+          </div>
+        </div>
+        <div class="level-item">
+          <div class="field">
+            <label for="" class="label">Au : </label>
+            <div class="control">
+              <input class="input" type="date" v-model="dateFin">
+            </div>
+          </div>
+        </div>
+        <div class="level-item">
+          <div class="field">
+            <div class="control">
+              <label for="" class="label"></label>
+              <button class="button is-link" @click="affiche">Afficher</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="level-item">
-        <p class="">Au</p>
-        <input class="input" type="date" v-model="dateFin">
+      <div class="level-right">
+        <span class="select">
+            <select
+              v-model="idBudget"
+              v-on:change.prevent="updateBudget" >
+              <option :value="0" disabled>Selectionnez un budget</option>
+              <option
+                :value="budget.IdBudget"
+                v-for="budget in budgets"
+                :key="budget.IdBudget">{{budget.Nom}}
+              </option>
+            </select>
+          </span>
       </div>
-      <div class="level-item">
-        <button class="button is-link" @click="affiche">Afficher</button>
-      </div>
+    </div>
     </div>
   <div class="columns">
     <div class="column is-6">
@@ -108,6 +137,9 @@ export default {
     depenses() {
       return this.$store.state.depense.depensesSuivis;
     },
+    budgets() {
+      return this.$store.state.budget.budgets;
+    },
   },
   methods: {
     openModalNewRevenu() {
@@ -118,6 +150,13 @@ export default {
         customClass: 'custom-class custom-class-2',
         trapFocus: true,
       });
+    },
+    async updateBudget() {
+      this.$store.dispatch('revenu/resetRevenusSuivi');
+      this.$store.dispatch('depense/resetDepensesSuivi');
+      this.$store.dispatch('budget/setCurrentBudget', this.idBudget);
+      await this.$store.dispatch('revenu/getRevenusBudget', this.idBudget);
+      await this.$store.dispatch('depense/getDepensesBudget', this.idBudget);
     },
     openModalNewDepense() {
       this.$buefy.modal.open({
@@ -165,9 +204,10 @@ export default {
       }
     },
   },
-  created() {
-    this.$store.dispatch('revenu/getRevenusBudget', this.idBudget);
-    this.$store.dispatch('depense/getDepensesBudget', this.idBudget);
+  async created() {
+    await this.$store.dispatch('budget/getBudgets');
+    await this.$store.dispatch('revenu/getRevenusBudget', this.idBudget);
+    await this.$store.dispatch('depense/getDepensesBudget', this.idBudget);
   },
 };
 </script>

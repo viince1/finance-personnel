@@ -1,6 +1,6 @@
 <template>
   <tr>
-    <td>{{depensesTitre}}</td>
+    <td>{{depensesTitre.nom}}</td>
     <td class="has-text-right">{{depenseSuivi.Montant.toFixed(2)}} $</td>
     <td class="has-text-right">{{depenseSuivi.DateEntree}}</td>
     <td class="has-text-centered">{{depenseSuivi.Description}}</td>
@@ -19,7 +19,7 @@ export default {
   computed: {
     depensesTitre() {
       const depensesTitre = this.$store.state.depense.depensesBudget;
-      return depensesTitre.find((depense) => depense.IdDepense === this.depenseSuivi.IdDepense).nom;
+      return depensesTitre.find((depense) => depense.IdDepense === this.depenseSuivi.IdDepense);
     },
   },
   methods: {

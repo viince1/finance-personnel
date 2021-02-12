@@ -111,6 +111,9 @@ export default ({
           commit('DELETE_DEPENSE_SUIVI', idDepenseSuivi);
         });
     },
+    resetDepensesSuivi({ commit }) {
+      commit('RESET_DEPENSES_SUIVIS');
+    },
   },
   mutations: {
     SET_DEPENSES(state, data) {
@@ -158,6 +161,9 @@ export default ({
     DELETE_DEPENSE_SUIVI(state, idDepenseSuivi) {
       const index = state.depensesSuivis.findIndex((r) => r.idDepenseSuivi === idDepenseSuivi);
       state.depensesSuivis.splice(index, 1);
+    },
+    RESET_DEPENSES_SUIVIS(state) {
+      state.depensesSuivis.length = 0;
     },
   },
 });

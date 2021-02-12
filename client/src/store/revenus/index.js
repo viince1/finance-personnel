@@ -103,6 +103,9 @@ export default ({
           commit('DELETE_REVENU_SUIVI', idRevenuSuivi);
         });
     },
+    resetRevenusSuivi({ commit }) {
+      commit('RESET_REVENUS_SUIVI');
+    },
   },
   mutations: {
     SET_REVENUS(state, data) {
@@ -147,6 +150,9 @@ export default ({
     DELETE_REVENU_SUIVI(state, idRevenuSuivi) {
       const index = state.revenuSuivis.findIndex((r) => r.idRevenuSuivi === idRevenuSuivi);
       state.revenuSuivis.splice(index, 1);
+    },
+    RESET_REVENUS_SUIVI(state) {
+      state.revenuSuivis.length = 0;
     },
   },
 });
