@@ -126,7 +126,7 @@ export default ({
     ADD_REVENU_SUIVI(state, { data, revenuSuivi }) {
       state.revenuSuivis.push({
         ...revenuSuivi,
-        idRevenuSuivi: data.insertId,
+        IdRevenuSuivi: data.insertId,
       });
     },
     UPDATE_REVENUS(state, { revenu }) {
@@ -136,7 +136,7 @@ export default ({
     },
     UPDATE_REVENUS_SUIVI(state, revenuSuivi) {
       const index = state.revenuSuivis.findIndex(
-        (r) => r.idRevenuSuivi === revenuSuivi.IdRevenuSuivi,
+        (r) => r.IdRevenuSuivi === revenuSuivi.IdRevenuSuivi,
       );
       if (index >= 0) state.revenuSuivis.splice(index, 1, revenuSuivi);
     },

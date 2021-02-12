@@ -1,12 +1,7 @@
 <template>
   <div class="modal-card" id="depenseSuivi">
     <div class="modal-card-head">
-      <input class="input is-5 mr-4 is-size-5" placeholder="Entrez le Nom"
-      type="text" v-model="depenseSuivi.Nom">
-      <button
-        type="button"
-        class="delete"
-        @click="$emit('close')"/>
+      <h4 class="title is-4">Modification d'une depense</h4>
     </div>
     <div class="modal-card-body">
       <div class="message is-danger" v-if="errorMessage.length !== 0">
@@ -85,7 +80,6 @@ export default {
         DateEntree: this.$attrs.DateEntree,
         IdDepense: this.$attrs.IdDepense,
         IdBudget: this.$attrs.IdBudget,
-        Nom: this.$attrs.Nom,
         Description: this.$attrs.Description,
       },
       depensesPlanifies: this.$store.state.depense.depensesBudget,
@@ -96,13 +90,19 @@ export default {
   methods: {
     async edit() {
       this.errorMessage = [];
+      this.depenseSuivi.Montant = parseFloat(this.depenseSuivi.Montant, 10);
       if (this.depenseSuivi.DateEntree === '') this.errorMessage.push('Vous n\' pas entrer de Date');
-      if (this.depenseSuivi.Nom === '') this.errorMessage.push('Vous n\'avez pas entrer de Nom');
       if (this.depenseSuivi.Montant <= 0) this.errorMessage.push('Vous n\'avez pas entrer de Montant');
       if (this.depenseSuivi.IdDepense === 0) this.errorMessage.push('Vous n\'avez pas entrer de depense');
       if (this.errorMessage.length !== 0) return;
-      await this.$store.dispatch('depense/updateDepenseSuivi', this.depenseSuivi);
-      this.$emit('close');
+      await this.$store.dispatch('depense/updateDepenseSuivi', this.depenseSuivi)
+        .then(() => {
+          this.$buefy.notification.open({
+            message: 'Modification effectuee',
+            type: 'is-success',
+          });
+          this.$emit('close');
+        });
     },
     async deleteIt() {
       this.$store.dispatch('depense/deleteDepenseSuivi', this.depenseSuivi.IdDepenseSuivi);

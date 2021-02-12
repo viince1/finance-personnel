@@ -1,12 +1,7 @@
 <template>
   <div class="modal-card" id="revenuSuivi">
     <div class="modal-card-head">
-      <input class="input is-5 mr-4 is-size-5" placeholder="Entrez le Nom"
-      type="text" v-model="revenuSuivi.Nom">
-      <button
-        type="button"
-        class="delete"
-        @click="$emit('close')"/>
+      <h4 class="title is-4">Ajout d'un revenu</h4>
     </div>
     <div class="modal-card-body">
       <div class="message is-danger" v-if="errorMessage.length !== 0">
@@ -37,7 +32,7 @@
             min="0.01"
             step="any"
             class="input has-text-centered"
-            placeholder="Montant de la depense Ex: 1.99"
+            placeholder="$"
             v-model="revenuSuivi.Montant">
         </div>
         <div class="control">
@@ -54,7 +49,7 @@
           :key="r.idRevenu"
           v-bind:value="r.idRevenu"
           >
-          {{ r.Nom }}
+          {{ r.titre }}
           </option>
       </select>
         </div>
@@ -80,7 +75,6 @@ export default {
         DateEntree: '',
         IdRevenu: 0,
         IdBudget: this.$store.state.budget.budgetIdCurr,
-        Nom: '',
         Description: '',
       },
       revenusPlanifies: this.$store.state.revenu.revenusBudget,
@@ -91,13 +85,19 @@ export default {
   methods: {
     async ajout() {
       this.errorMessage = [];
+      this.revenuSuivi.Montant = parseFloat(this.revenuSuivi.Montant, 10);
       if (this.revenuSuivi.DateEntree === '') this.errorMessage.push('Vous n\' pas entrer de Date');
-      if (this.revenuSuivi.Nom === '') this.errorMessage.push('Vous n\'avez pas entrer de Nom');
       if (this.revenuSuivi.Montant <= 0) this.errorMessage.push('Vous n\'avez pas entrer un montant valide');
       if (this.revenuSuivi.IdRevenu === 0) this.errorMessage.push('Vous n\'avez pas entrer de revenu');
       if (this.errorMessage.length !== 0) return;
-      await this.$store.dispatch('revenu/createRevenuSuivi', this.revenuSuivi);
-      this.$emit('close');
+      await this.$store.dispatch('revenu/createRevenuSuivi', this.revenuSuivi)
+        .then(() => {
+          this.$buefy.notification.open({
+            message: 'Ajout completée',
+            type: 'is-success',
+          });
+          this.$emit('close');
+        });
     },
   },
 };

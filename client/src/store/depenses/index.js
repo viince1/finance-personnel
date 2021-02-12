@@ -137,7 +137,7 @@ export default ({
     ADD_DEPENSE_SUIVI(state, { data, depenseSuivi }) {
       state.depensesSuivis.push({
         ...depenseSuivi,
-        idDepenseSuivi: data.insertId,
+        IdDepenseSuivi: data.insertId,
       });
     },
     UPDATE_DEPENSES_SUIVI(state, depenseSuivi) {

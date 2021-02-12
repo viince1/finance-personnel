@@ -1,28 +1,11 @@
 <template>
-  <div class="container" id="revenuSuivi">
-    <a href="" v-on:click.prevent="openModalEdit">
-      <div class="card">
-        <div class="card-content">
-          <div class="media">
-            <div class="media-content">
-              <p class="title is-5">{{ revenuSuivi.Nom }}</p>
-            </div>
-          </div>
-          <div class="content">
-              Montant: {{revenuSuivi.Montant}} $
-              <br>
-              <div class="level">
-                <div class="level-left">
-                  <time class="level-item" datetime="2016-1-1">
-                    {{revenuSuivi.DateEntree}}
-                  </time>
-                </div>
-              </div>
-          </div>
-        </div>
-      </div>
-    </a>
-  </div>
+  <tr>
+    <td>{{revenusTitre}}</td>
+    <td class="has-text-right">{{revenuSuivi.Montant.toFixed(2)}} $</td>
+    <td class="has-text-right">{{revenuSuivi.DateEntree}}</td>
+    <td class="has-text-centered">{{revenuSuivi.Description}}</td>
+    <td><a href="" v-on:click.prevent="openModalEdit">Modifier / Voir plus </a></td>
+  </tr>
 </template>
 
 <script>
@@ -32,6 +15,12 @@ export default {
   name: 'RevenuSuiviCard',
   props: {
     revenuSuivi: Object,
+  },
+  computed: {
+    revenusTitre() {
+      const revenusPlanifies = this.$store.state.revenu.revenusBudget;
+      return revenusPlanifies.find((revenu) => revenu.idRevenu === this.revenuSuivi.IdRevenu).titre;
+    },
   },
   methods: {
     openModalEdit() {

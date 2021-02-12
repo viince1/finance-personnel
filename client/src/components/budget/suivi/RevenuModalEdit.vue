@@ -1,12 +1,7 @@
 <template>
   <div class="modal-card" id="revenuSuivi">
     <div class="modal-card-head">
-      <input class="input is-5 mr-4 is-size-5" placeholder="Entrez le Nom"
-      type="text" v-model="revenuSuivi.Nom">
-      <button
-        type="button"
-        class="delete"
-        @click="$emit('close')"/>
+      <h4 class="title is-4">Modification d'un revenu</h4>
     </div>
     <div class="modal-card-body">
       <div class="message is-danger" v-if="errorMessage.length !== 0">
@@ -54,7 +49,7 @@
           :key="r.idRevenu"
           v-bind:value="r.idRevenu"
           >
-          {{ r.Nom }}
+          {{ r.titre }}
           </option>
       </select>
         </div>
@@ -85,7 +80,6 @@ export default {
         DateEntree: this.$attrs.DateEntree,
         IdRevenu: this.$attrs.IdRevenu,
         IdBudget: this.$attrs.IdBudget,
-        Nom: this.$attrs.Nom,
         Description: this.$attrs.Description,
       },
       revenusPlanifies: this.$store.state.revenu.revenusBudget,
@@ -96,13 +90,19 @@ export default {
   methods: {
     async edit() {
       this.errorMessage = [];
+      this.revenuSuivi.Montant = parseFloat(this.revenuSuivi.Montant, 10);
       if (this.revenuSuivi.DateEntree === '') this.errorMessage.push('Vous n\' pas entrer de Date');
-      if (this.revenuSuivi.Nom === '') this.errorMessage.push('Vous n\'avez pas entrer de Nom');
       if (this.revenuSuivi.Montant <= 0) this.errorMessage.push('Vous n\'avez pas entrer un montant valide');
       if (this.revenuSuivi.IdRevenu === 0) this.errorMessage.push('Vous n\'avez pas entrer de revenu');
       if (this.errorMessage.length !== 0) return;
-      await this.$store.dispatch('revenu/updateRevenuSuivi', this.revenuSuivi);
-      this.$emit('close');
+      await this.$store.dispatch('revenu/updateRevenuSuivi', this.revenuSuivi)
+        .then(() => {
+          this.$buefy.notification.open({
+            message: 'Modification effectue',
+            type: 'is-success',
+          });
+          this.$emit('close');
+        });
     },
     async deleteIt() {
       this.$store.dispatch('revenu/deleteRevenuSuivi', this.revenuSuivi.IdRevenuSuivi);

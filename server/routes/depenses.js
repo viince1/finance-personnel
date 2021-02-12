@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
   // Mettre bonnes infos de connexion selon votre bd local
   host: 'localhost',
   user: 'root',
-  password: 'root',
+  password: 'localhost',
   database: 'ProjetFinEtude',
   insecureAuth: true,
 });
@@ -40,9 +40,10 @@ router.get('/depenseSuivi', (req,res, next) => {
   const dateFin = req.query.dateFin;
   console.log(dateDebut);
   console.log(dateFin);
-  connection.query(`SELECT IdDepenseSuivi, Montant, DATE_FORMAT(DateEntree, '%Y-%m-%d') as DateEntree, IdDepense, IdBudget, Nom, Description
-  FROM DepenseSuivi
-  WHERE IdBudget = ${idBudget} AND DateEntree BETWEEN '${dateDebut}' AND '${dateFin}';`,
+  connection.query(`SELECT ds.IdDepenseSuivi, ds.Montant, DATE_FORMAT(ds.DateEntree, '%Y-%m-%d') as DateEntree, ds.IdDepense, ds.IdBudget, ds.Description, d.Titre as DepenseNom
+  FROM DepenseSuivi ds
+  INNER JOIN Depense d ON d.IdDepense = ds.IdDepense
+  WHERE ds.IdBudget = ${idBudget} AND ds.DateEntree BETWEEN '${dateDebut}' AND '${dateFin}';`,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);
@@ -85,7 +86,7 @@ router.put('/update', (req,res, next) => {
 router.put('/updateDepenseSuivi', (req,res, next) => {
   console.log(req.body);
   const depenseSuivi = req.body;
-  connection.query(`UPDATE DepenseSuivi SET Montant = '${depenseSuivi.Montant}', DateEntree = '${depenseSuivi.DateEntree}', IdDepense = '${depenseSuivi.IdDepense}', Nom = '${depenseSuivi.Nom}', Description = '${depenseSuivi.Description}' WHERE IdDepenseSuivi = '${depenseSuivi.IdDepenseSuivi}'`,
+  connection.query(`UPDATE DepenseSuivi SET Montant = '${depenseSuivi.Montant}', DateEntree = '${depenseSuivi.DateEntree}', IdDepense = '${depenseSuivi.IdDepense}', Description = '${depenseSuivi.Description}' WHERE IdDepenseSuivi = '${depenseSuivi.IdDepenseSuivi}'`,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);
@@ -101,7 +102,7 @@ router.post('/add', (req,res, next) => {
 });
 router.post('/addDepenseSuivi', (req,res, next) => {
   const depenseSuivi = req.body;
-  connection.query(`INSERT INTO DepenseSuivi VALUES (0, '${depenseSuivi.Montant}','${depenseSuivi.DateEntree}', '${depenseSuivi.IdDepense}', ${depenseSuivi.IdBudget},'${depenseSuivi.Nom}','${depenseSuivi.Description}')`,
+  connection.query(`INSERT INTO DepenseSuivi VALUES (0, '${depenseSuivi.Montant}','${depenseSuivi.DateEntree}', '${depenseSuivi.IdDepense}', ${depenseSuivi.IdBudget},'${depenseSuivi.Description}')`,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);
