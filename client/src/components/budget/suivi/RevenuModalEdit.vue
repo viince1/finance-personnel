@@ -90,6 +90,7 @@ export default {
   methods: {
     async edit() {
       this.errorMessage = [];
+      this.revenuSuivi.Montant = parseFloat(this.revenuSuivi.Montant, 10);
       if (this.revenuSuivi.DateEntree === '') this.errorMessage.push('Vous n\' pas entrer de Date');
       if (this.revenuSuivi.Montant <= 0) this.errorMessage.push('Vous n\'avez pas entrer un montant valide');
       if (this.revenuSuivi.IdRevenu === 0) this.errorMessage.push('Vous n\'avez pas entrer de revenu');

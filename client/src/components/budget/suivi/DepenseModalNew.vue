@@ -85,6 +85,7 @@ export default {
   methods: {
     async ajout() {
       this.errorMessage = [];
+      this.depenseSuivi.Montant = parseFloat(this.depenseSuivi.Montant);
       if (this.depenseSuivi.DateEntree === '') this.errorMessage.push('Vous n\' pas entrer de Date');
       if (this.depenseSuivi.Montant <= 0) this.errorMessage.push('Vous n\'avez pas entrer de Montant');
       if (this.depenseSuivi.IdDepense === 0) this.errorMessage.push('Vous n\'avez pas entrer de depense');

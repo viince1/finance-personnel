@@ -32,7 +32,7 @@
             min="0.01"
             step="any"
             class="input has-text-centered"
-            placeholder="Montant de la depense Ex: 1.99"
+            placeholder="$"
             v-model="revenuSuivi.Montant">
         </div>
         <div class="control">
@@ -85,6 +85,7 @@ export default {
   methods: {
     async ajout() {
       this.errorMessage = [];
+      this.revenuSuivi.Montant = parseFloat(this.revenuSuivi.Montant, 10);
       if (this.revenuSuivi.DateEntree === '') this.errorMessage.push('Vous n\' pas entrer de Date');
       if (this.revenuSuivi.Montant <= 0) this.errorMessage.push('Vous n\'avez pas entrer un montant valide');
       if (this.revenuSuivi.IdRevenu === 0) this.errorMessage.push('Vous n\'avez pas entrer de revenu');

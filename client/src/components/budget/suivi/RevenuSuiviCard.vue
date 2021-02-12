@@ -1,6 +1,6 @@
 <template>
   <tr>
-    <td>{{revenuSuivi.RevenuNom}}</td>
+    <td>{{revenusTitre}}</td>
     <td class="has-text-right">{{revenuSuivi.Montant.toFixed(2)}} $</td>
     <td class="has-text-right">{{revenuSuivi.DateEntree}}</td>
     <td class="has-text-centered">{{revenuSuivi.Description}}</td>
@@ -15,6 +15,12 @@ export default {
   name: 'RevenuSuiviCard',
   props: {
     revenuSuivi: Object,
+  },
+  computed: {
+    revenusTitre() {
+      const revenusPlanifies = this.$store.state.revenu.revenusBudget;
+      return revenusPlanifies.find((revenu) => revenu.idRevenu === this.revenuSuivi.IdRevenu).titre;
+    },
   },
   methods: {
     openModalEdit() {
