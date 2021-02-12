@@ -90,8 +90,14 @@ export default {
       if (this.depenseSuivi.Montant <= 0) this.errorMessage.push('Vous n\'avez pas entrer de Montant');
       if (this.depenseSuivi.IdDepense === 0) this.errorMessage.push('Vous n\'avez pas entrer de depense');
       if (this.errorMessage.length !== 0) return;
-      await this.$store.dispatch('depense/createDepenseSuivi', this.depenseSuivi);
-      this.$emit('close');
+      await this.$store.dispatch('depense/createDepenseSuivi', this.depenseSuivi)
+        .then(() => {
+          this.$buefy.notification.open({
+            message: 'Ajout completée',
+            type: 'is-success',
+          });
+          this.$emit('close');
+        });
     },
   },
 };

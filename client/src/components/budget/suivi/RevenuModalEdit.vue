@@ -95,8 +95,14 @@ export default {
       if (this.revenuSuivi.Montant <= 0) this.errorMessage.push('Vous n\'avez pas entrer un montant valide');
       if (this.revenuSuivi.IdRevenu === 0) this.errorMessage.push('Vous n\'avez pas entrer de revenu');
       if (this.errorMessage.length !== 0) return;
-      await this.$store.dispatch('revenu/updateRevenuSuivi', this.revenuSuivi);
-      this.$emit('close');
+      await this.$store.dispatch('revenu/updateRevenuSuivi', this.revenuSuivi)
+        .then(() => {
+          this.$buefy.notification.open({
+            message: 'Modification effectue',
+            type: 'is-success',
+          });
+          this.$emit('close');
+        });
     },
     async deleteIt() {
       this.$store.dispatch('revenu/deleteRevenuSuivi', this.revenuSuivi.IdRevenuSuivi);

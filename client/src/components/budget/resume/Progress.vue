@@ -50,6 +50,7 @@ export default {
 <style scoped>
 .box {
   min-height: 40vh;
-  max-height: 40vh;
+  max-height: 50vh;
+  overflow-y: scroll;
 }
 </style>

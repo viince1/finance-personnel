@@ -95,8 +95,14 @@ export default {
       if (this.depenseSuivi.Montant <= 0) this.errorMessage.push('Vous n\'avez pas entrer de Montant');
       if (this.depenseSuivi.IdDepense === 0) this.errorMessage.push('Vous n\'avez pas entrer de depense');
       if (this.errorMessage.length !== 0) return;
-      await this.$store.dispatch('depense/updateDepenseSuivi', this.depenseSuivi);
-      this.$emit('close');
+      await this.$store.dispatch('depense/updateDepenseSuivi', this.depenseSuivi)
+        .then(() => {
+          this.$buefy.notification.open({
+            message: 'Modification effectuee',
+            type: 'is-success',
+          });
+          this.$emit('close');
+        });
     },
     async deleteIt() {
       this.$store.dispatch('depense/deleteDepenseSuivi', this.depenseSuivi.IdDepenseSuivi);

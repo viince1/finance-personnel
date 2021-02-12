@@ -4,7 +4,7 @@
     <td class="has-text-right">{{depenseSuivi.Montant.toFixed(2)}} $</td>
     <td class="has-text-right">{{depenseSuivi.DateEntree}}</td>
     <td class="has-text-centered">{{depenseSuivi.Description}}</td>
-    <td><a href="" v-on:click.prevent="openModalEdit">Voir plus </a></td>
+    <td><a href="" v-on:click.prevent="openModalEdit">Modifier / Voir plus </a></td>
   </tr>
 </template>
 
