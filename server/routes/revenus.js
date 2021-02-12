@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
   // Mettre bonnes infos de connexion selon votre bd local
   host: 'localhost',
   user: 'root',
-  password: 'root',
+  password: 'localhost',
   database: 'ProjetFinEtude',
   insecureAuth: true,
 });
@@ -29,9 +29,10 @@ router.get('/revenuSuivi', (req,res, next) => {
   const dateFin = req.query.dateFin;
   console.log(dateDebut);
   console.log(dateFin);
-  connection.query(`SELECT IdRevenuSuivi, Montant, DATE_FORMAT(DateEntree, '%Y-%m-%d') as DateEntree, IdRevenu, IdBudget, Nom, Description
-  FROM RevenuSuivi
-  WHERE IdBudget = ${idBudget} AND DateEntree BETWEEN '${dateDebut}' AND '${dateFin}';`,
+  connection.query(`SELECT rs.IdRevenuSuivi, rs.Montant, DATE_FORMAT(rs.DateEntree, '%Y-%m-%d') as DateEntree, rs.IdRevenu, rs.IdBudget, rs.Description, r.Titre as RevenuNom
+  FROM RevenuSuivi rs
+  INNER JOIN Revenu r ON r.IdRevenu = rs.IdRevenu
+  WHERE rs.IdBudget = ${idBudget} AND DateEntree BETWEEN '${dateDebut}' AND '${dateFin}';`,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);
@@ -67,7 +68,7 @@ router.post('/add', (req,res, next) => {
 });
 router.post('/addRevenuSuivi', (req,res, next) => {
   const revenuSuivi = req.body;
-  connection.query(`INSERT INTO RevenuSuivi VALUES (0, '${revenuSuivi.Montant}','${revenuSuivi.DateEntree}', '${revenuSuivi.IdRevenu}', ${revenuSuivi.IdBudget},'${revenuSuivi.Nom}','${revenuSuivi.Description}')`,
+  connection.query(`INSERT INTO RevenuSuivi VALUES (0, '${revenuSuivi.Montant}','${revenuSuivi.DateEntree}', '${revenuSuivi.IdRevenu}', ${revenuSuivi.IdBudget},'${revenuSuivi.Description}')`,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);
@@ -85,7 +86,7 @@ router.put('/update', (req,res, next) => {
 router.put('/updateRevenuSuivi', (req,res, next) => {
   console.log(req.body);
   const revenuSuivi = req.body;
-  connection.query(`UPDATE RevenuSuivi SET Montant = '${revenuSuivi.Montant}', DateEntree = '${revenuSuivi.DateEntree}', IdRevenu = '${revenuSuivi.IdRevenu}', Nom = '${revenuSuivi.Nom}', Description = '${revenuSuivi.Description}' WHERE IdRevenuSuivi = '${revenuSuivi.IdRevenuSuivi}'`,
+  connection.query(`UPDATE RevenuSuivi SET Montant = '${revenuSuivi.Montant}', DateEntree = '${revenuSuivi.DateEntree}', IdRevenu = '${revenuSuivi.IdRevenu}', Description = '${revenuSuivi.Description}' WHERE IdRevenuSuivi = '${revenuSuivi.IdRevenuSuivi}'`,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);

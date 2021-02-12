@@ -30,7 +30,20 @@
           </div>
         </div>
         <div class="revenuListe">
-          <revenu-suivi-card v-for="r in revenus" :key="r.IdRevenuSuivi" :revenuSuivi="r"/>
+          <table class="table is-fullwidth">
+            <thead>
+              <tr class="has-text-centered">
+                <th>Depense</th>
+                <th>Montant</th>
+                <th>Date</th>
+                <th>Description</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <revenu-suivi-card v-for="r in revenus" :key="r.IdRevenuSuivi" :revenuSuivi="r"/>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -47,7 +60,20 @@
           </div>
         </div>
         <div class="depenseListe">
-            <depense-suivi-card v-for="d in depenses" :key="d.nom" :depenseSuivi="d"/>
+          <table class="table is-fullwidth">
+            <thead>
+              <tr>
+                <th>Depense</th>
+                <th>Montant</th>
+                <th>Date</th>
+                <th>Description</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <depense-suivi-card v-for="d in depenses" :key="d.nom" :depenseSuivi="d"/>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

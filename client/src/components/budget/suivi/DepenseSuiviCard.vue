@@ -1,28 +1,11 @@
 <template>
-  <div class="container" id="revenuSuivi">
-    <a href="" v-on:click.prevent="openModalEdit">
-      <div class="card">
-        <div class="card-content">
-          <div class="media">
-            <div class="media-content">
-              <p class="title is-5">{{ depenseSuivi.Nom }}</p>
-            </div>
-          </div>
-          <div class="content">
-              Montant: {{depenseSuivi.Montant}} $
-              <br>
-              <div class="level">
-                <div class="level-left">
-                  <time class="level-item" datetime="2016-1-1">
-                    {{depenseSuivi.DateEntree}}
-                  </time>
-                </div>
-              </div>
-          </div>
-        </div>
-      </div>
-    </a>
-  </div>
+  <tr>
+    <td>{{depenseSuivi.DepenseNom}}</td>
+    <td class="has-text-right">{{depenseSuivi.Montant.toFixed(2)}} $</td>
+    <td class="has-text-right">{{depenseSuivi.DateEntree}}</td>
+    <td class="has-text-centered">{{depenseSuivi.Description}}</td>
+    <td><a href="" v-on:click.prevent="openModalEdit">Voir plus </a></td>
+  </tr>
 </template>
 
 <script>
