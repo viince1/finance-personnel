@@ -1,6 +1,8 @@
 <template>
-<div>
-    <p class="title is-5">Dates</p>
+  <div>
+    <p class="title is-5 has-text-centered">Choisissez la plage de dates pour laquelle
+      vous voulez voir les revenus et dépenses
+    </p>
     <div class="level">
       <div class="level-item">
         <p>Du</p>
@@ -14,42 +16,42 @@
         <button class="button is-link" @click="affiche">Afficher</button>
       </div>
     </div>
-<div class="columns">
-  <div class="column is-6">
-    <div class="container box" id="revenu">
-      <div class="level">
-        <div class="level-left">
-          <div class="level-item">
-            <p class="title is-3">Revenus</p>
-          </div>
-          <div class="level-item">
-            <button class="button is-small is-link" @click="openModalNewRevenu">Ajouter</button>
-          </div>
-        </div>
-      </div>
-      <div>
-        <revenu-suivi-card v-for="r in revenus" :key="r.IdRevenuSuivi" :revenuSuivi="r"/>
-      </div>
-    </div>
-  </div>
+  <div class="columns">
     <div class="column is-6">
-    <div class="container box" id="depense">
-      <div class="level">
-        <div class="level-left">
-          <div class="level-item">
-            <p class="title is-3">Dépenses</p>
-          </div>
-          <div class="level-item">
-            <button class="button is-small is-link" @click="openModalNewDepense">Ajouter</button>
+      <div class="container box" id="revenu">
+        <div class="level">
+          <div class="level-left">
+            <div class="level-item">
+              <p class="title is-3">Revenus</p>
+            </div>
+            <div class="level-item">
+              <button class="button is-small is-link" @click="openModalNewRevenu">Ajouter</button>
+            </div>
           </div>
         </div>
+        <div class="revenuListe">
+          <revenu-suivi-card v-for="r in revenus" :key="r.IdRevenuSuivi" :revenuSuivi="r"/>
+        </div>
       </div>
-      <div>
-          <depense-suivi-card v-for="d in depenses" :key="d.nom" :depenseSuivi="d"/>
+    </div>
+      <div class="column is-6">
+      <div class="container box" id="depense">
+        <div class="level">
+          <div class="level-left">
+            <div class="level-item">
+              <p class="title is-3">Dépenses</p>
+            </div>
+            <div class="level-item">
+              <button class="button is-small is-link" @click="openModalNewDepense">Ajouter</button>
+            </div>
+          </div>
+        </div>
+        <div class="depenseListe">
+            <depense-suivi-card v-for="d in depenses" :key="d.nom" :depenseSuivi="d"/>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </div>
 </template>
 
@@ -149,5 +151,15 @@ export default {
 #suivi {
   padding: 10px;
   margin: 10px 10px 10px 0px;
+}
+.revenuListe {
+  min-height: 90vh;
+  max-height: 90vh;
+  overflow-y: scroll;
+}
+.depenseListe {
+  min-height: 90vh;
+  max-height: 90vh;
+  overflow-y: scroll;
 }
 </style>

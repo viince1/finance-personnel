@@ -135,7 +135,6 @@ export default ({
       if (index >= 0) state.revenusBudget.splice(index, 1, revenu);
     },
     UPDATE_REVENUS_SUIVI(state, revenuSuivi) {
-      console.log(revenuSuivi);
       const index = state.revenuSuivis.findIndex(
         (r) => r.idRevenuSuivi === revenuSuivi.IdRevenuSuivi,
       );
