@@ -1,6 +1,6 @@
 <template>
   <tr>
-    <td>{{depensesTitre}}</td>
+    <td>{{depenseSuivi.DepenseNom}}</td>
     <td class="has-text-right">{{depenseSuivi.Montant.toFixed(2)}} $</td>
     <td class="has-text-right">{{depenseSuivi.DateEntree}}</td>
     <td class="has-text-centered">{{depenseSuivi.Description}}</td>
@@ -15,12 +15,6 @@ export default {
   name: 'DepenseSuiviCard',
   props: {
     depenseSuivi: Object,
-  },
-  computed: {
-    depensesTitre() {
-      const depensesTitre = this.$store.state.depense.depensesBudget;
-      return depensesTitre.find((depense) => depense.IdDepense === this.depenseSuivi.IdDepense).nom;
-    },
   },
   methods: {
     openModalEdit() {
