@@ -62,7 +62,7 @@
           <table class="table is-fullwidth">
             <thead>
               <tr class="has-text-centered">
-                <th>Depense</th>
+                <th>Revenu</th>
                 <th>Montant</th>
                 <th>Date</th>
                 <th>Description</th>
@@ -125,8 +125,8 @@ export default {
   data() {
     return {
       idBudget: this.$store.state.budget.budgetIdCurr,
-      dateDebut: '',
-      dateFin: '',
+      dateDebut: this.$store.state.user.suivi.dateDebut,
+      dateFin: this.$store.state.user.suivi.dateFin,
       error: false,
     };
   },
@@ -155,6 +155,8 @@ export default {
       this.$store.dispatch('revenu/resetRevenusSuivi');
       this.$store.dispatch('depense/resetDepensesSuivi');
       this.$store.dispatch('budget/setCurrentBudget', this.idBudget);
+      this.$store.dispatch('user/setDateDebut', this.dateDebut);
+      this.$store.dispatch('user/setDateFin', this.dateFin);
       await this.$store.dispatch('revenu/getRevenusBudget', this.idBudget);
       await this.$store.dispatch('depense/getDepensesBudget', this.idBudget);
     },

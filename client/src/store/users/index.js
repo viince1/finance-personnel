@@ -11,6 +11,10 @@ export default ({
       loggedIn: false,
       data: null,
     },
+    suivi: {
+      dateDebut: '',
+      dateFin: '',
+    },
   },
   actions: {
     async fetchUser({ commit }, user) {
@@ -26,6 +30,12 @@ export default ({
         commit('SET_USER', null);
       }
     },
+    setDateDebut({ commit }, date) {
+      commit('SET_DATE_DEBUT', date);
+    },
+    setDateFin({ commit }, date) {
+      commit('SET_DATE_FIN', date);
+    },
   },
   mutations: {
     SET_LOGGED_IN(state, value) {
@@ -33,6 +43,12 @@ export default ({
     },
     SET_USER(state, data) {
       state.user.data = data;
+    },
+    SET_DATE_DEBUT(state, data) {
+      state.suivi.dateDebut = data;
+    },
+    SET_DATE_FIN(state, data) {
+      state.suivi.dateFin = data;
     },
   },
 });
