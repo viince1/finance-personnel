@@ -1,6 +1,6 @@
 <template>
   <tr>
-    <td>{{depenseSuivi.DepenseNom}}</td>
+    <td>{{depenseNom.nom}}</td>
     <td class="has-text-right">{{depenseSuivi.Montant.toFixed(2)}} $</td>
     <td class="has-text-right">{{depenseSuivi.DateEntree}}</td>
     <td class="has-text-centered">{{depenseSuivi.Description}}</td>
@@ -13,8 +13,19 @@ import DepenseModalEdit from './DepenseModalEdit.vue';
 
 export default {
   name: 'DepenseSuiviCard',
+  data() {
+    return {
+      depensesBudget: this.$store.state.depense.depensesBudget,
+    };
+  },
   props: {
     depenseSuivi: Object,
+  },
+  computed: {
+    depenseNom() {
+      const index = this.depensesBudget.find((d) => d.IdDepense === this.depenseSuivi.IdDepense);
+      return index;
+    },
   },
   methods: {
     openModalEdit() {
@@ -27,6 +38,9 @@ export default {
         trapFocus: true,
       });
     },
+  },
+  async created() {
+    this.depensesBudget = this.$store.state.depense.depensesBudget;
   },
 };
 </script>

@@ -144,10 +144,8 @@ export default ({
       });
     },
     UPDATE_DEPENSES_SUIVI(state, depenseSuivi) {
-      console.log(depenseSuivi);
-      const index = state.depensesSuivis.findIndex(
-        (r) => r.idDepenseSuivi === depenseSuivi.depenseSuivi,
-      );
+      const index = state.depensesSuivis
+        .findIndex((r) => r.IdDepenseSuivi === depenseSuivi.IdDepenseSuivi);
       if (index >= 0) state.depensesSuivis.splice(index, 1, depenseSuivi);
     },
     DELETE_DEPENSE(state, { IdDepense }) {

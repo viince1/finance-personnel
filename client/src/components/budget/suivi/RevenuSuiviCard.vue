@@ -1,6 +1,6 @@
 <template>
   <tr>
-    <td>{{revenuSuivi.RevenuNom}}</td>
+    <td>{{revenusTitre.titre}}</td>
     <td class="has-text-right">{{revenuSuivi.Montant.toFixed(2)}} $</td>
     <td class="has-text-right">{{revenuSuivi.DateEntree}}</td>
     <td class="has-text-centered">{{revenuSuivi.Description}}</td>
@@ -13,8 +13,19 @@ import RevenuModalEdit from './RevenuModalEdit.vue';
 
 export default {
   name: 'RevenuSuiviCard',
+  data() {
+    return {
+      revenusType: this.$store.state.revenu.revenusBudget,
+    };
+  },
   props: {
     revenuSuivi: Object,
+  },
+  computed: {
+    revenusTitre() {
+      const index = this.revenusType.find((r) => r.idRevenu === this.revenuSuivi.IdRevenu);
+      return index;
+    },
   },
   methods: {
     openModalEdit() {
