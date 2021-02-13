@@ -44,3 +44,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.budget {
+  min-height: 40vh;
+  max-height: 40vh;
+}
+</style>

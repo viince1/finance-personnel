@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div>
-            <button type="submit" class="button is-primary"
+            <button type="submit" class="button is-info is-rounded"
             v-on:click.prevent="updatePassword()">
               Modifier mot de pass
             </button>
@@ -232,6 +232,8 @@ export default {
       }).catch((error) => {
         console.log(error);
       });
+      this.profile.oldPassword = null;
+      this.profile.password = null;
     },
     openCategorieDepenseUpdate(c) {
       const data = {

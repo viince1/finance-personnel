@@ -106,6 +106,7 @@ INSERT INTO Objectif VALUES (0,'Amasser 10 000$','Payer la carte de credit','202
 -- Mettre le no de priorite dans objectif a place de objectif status
 -- Donnees DepenseSuivi
 -- Rajouter une description facultative de la depense
+<<<<<<< HEAD
 INSERT INTO DepenseSuivi VALUES (0,199.99,'2020-01-21', 1,2,'Immatriculation',null);
 INSERT INTO DepenseSuivi VALUES (0,70,'2020-01-21', 1,2,'Paiement de voiture',null);
 INSERT INTO DepenseSuivi VALUES (0,80,'2020-01-21', 7,8, 'Paiement de voiture',null);
@@ -114,14 +115,36 @@ INSERT INTO DepenseSuivi VALUES (0,40,'2021-01-19', 1,2, 'Paiement de cellulaire
 USE ProjetFinEtude;
 INSERT INTO RevenuSuivi VALUES (0,2000,'2021-01-21', 1,2,'Paie',null);
 INSERT INTO RevenuSuivi VALUES (0,1000,'2021-01-21', 1,2,'Comission',null);
+=======
+INSERT INTO DepenseSuivi VALUES (0,199.99,'2020-01-21', 1,1,'Immatriculation');
+INSERT INTO DepenseSuivi VALUES (0,20.99,'2020-01-21', 10,1,'Test');
+INSERT INTO DepenseSuivi VALUES (0,400.99,'2020-01-21', 20,1,'Ordinateur');
+INSERT INTO DepenseSuivi VALUES (0,12.99,'2020-01-21', 23,1,'Clopes');
+
+INSERT INTO DepenseSuivi VALUES (0,199.99,'2021-01-21', 1,1,'Immatriculation');
+INSERT INTO DepenseSuivi VALUES (0,20.99,'2021-01-21', 10,1,'Test');
+INSERT INTO DepenseSuivi VALUES (0,400.99,'2021-01-21', 20,1,'Ordinateur');
+INSERT INTO DepenseSuivi VALUES (0,12.99,'2021-01-21', 23,1,'Clopes');
+
+
+
+SELECT * FROM DepenseSuivi
+INNER JOIN Depense D on DepenseSuivi.IdDepense = D.IdDepense
+INNER JOIN CategorieDepense CD on D.IdCategorieDepense = CD.IdCategorieDepense;
+>>>>>>> 2ff05cc7bff6cab098acfb0e221b1aad57047df3
 
 USE ProjetFinEtude;
-SELECT * FROM Budget WHERE IdUtilisateur = 1;
-DELETE FROM Budget WHERE IdBudget = 9;
--- Donnees RevenusSuivi
+INSERT INTO RevenuSuivi VALUES (0,2000,'2021-01-21', 1,1,'Paie');
+INSERT INTO RevenuSuivi VALUES (0,1000,'2021-01-21', 1,1,'Comission');
+INSERT INTO RevenuSuivi VALUES (0,80,'2020-01-21', 1, 1, 'Paiement de voiture');
+INSERT INTO RevenuSuivi VALUES (0,80,'2021-01-21', 1, 2, 'Paiement de voiture');
+INSERT INTO RevenuSuivi VALUES (0,40,'2021-01-19', 1,2, 'Paiement de cellulaire');
+
+
 
 USE ProjetFinEtude;
 
+<<<<<<< HEAD
 SELECT obj.IdObjectif, obj.Titre, obj.Description, obj.DateButoir, objs.Nom, objs.NoStatus
 FROM Objectif obj
 JOIN ObjectifStatut objs
@@ -161,3 +184,59 @@ INNER JOIN DepenseFrequence DF on D.IdDepenseFrequence = DF.IdDepenseFrequence
 WHERE D.IdBudget = 1
 ORDER BY CD.Nom;
 USE ProjetFinEtude;
+=======
+-- Montant planifie pour une categorie de depense
+SELECT d.IdCategorieDepense, sum(
+      CASE d.IdDepenseFrequence
+          WHEN 1 THEN Montant * 52
+          WHEN 2 THEN Montant * 26
+          WHEN 3 THEN Montant * 12
+          WHEN 4 THEN Montant * 1
+      END) as SommeParCategorie, CD.Nom
+  FROM Depense d
+  INNER JOIN Budget B on d.IdBudget = B.IdBudget
+  INNER JOIN CategorieDepense CD on d.IdCategorieDepense = CD.IdCategorieDepense
+  WHERE B.IdBudget = 1
+  GROUP BY IdCategorieDepense
+  ORDER BY IdCategorieDepense;
+
+-- Montant actuel par categorie depense
+SELECT d.IdCategorieDepense, sum(ds.Montant) as SommeDepenseSuivi, CD.Nom
+FROM DepenseSuivi ds
+INNER JOIN Depense d ON d.IdDepense = ds.IdDepense
+INNER JOIN CategorieDepense CD on d.IdCategorieDepense = CD.IdCategorieDepense
+WHERE ds.IdBudget = 1
+GROUP BY d.IdCategorieDepense, CD.Nom
+ORDER BY d.IdCategorieDepense;
+
+
+
+
+
+-- TESTSESETESTSESETESTSTESES
+
+SELECT d.IdCategorieDepense, sum(
+      CASE d.IdDepenseFrequence
+          WHEN 1 THEN Montant * 52
+          WHEN 2 THEN Montant * 26
+          WHEN 3 THEN Montant * 12
+          WHEN 4 THEN Montant * 1
+      END) as SommeParCategorie, CD.Nom, rapport.SommeDepenseSuivi
+  FROM Depense d
+  INNER JOIN Budget B on d.IdBudget = B.IdBudget
+  INNER JOIN CategorieDepense CD on d.IdCategorieDepense = CD.IdCategorieDepense
+INNER JOIN (SELECT d.IdCategorieDepense, sum(ds.Montant) as SommeDepenseSuivi
+                FROM DepenseSuivi ds
+                INNER JOIN Depense d ON d.IdDepense = ds.IdDepense
+                INNER JOIN CategorieDepense CD on d.IdCategorieDepense = CD.IdCategorieDepense
+                WHERE ds.IdBudget = 1
+                GROUP BY d.IdCategorieDepense, CD.Nom
+                ORDER BY d.IdCategorieDepense)
+as rapport ON rapport.IdCategorieDepense = d.IdCategorieDepense
+  WHERE B.IdBudget = 1
+  GROUP BY d.IdCategorieDepense, CD.Nom
+  ORDER BY d.IdCategorieDepense;
+
+
+SELECT * FROM Depense
+>>>>>>> 2ff05cc7bff6cab098acfb0e221b1aad57047df3

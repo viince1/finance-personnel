@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="field">
-        <label class="label">Date buttoir</label>
+        <label class="label">Date butoir</label>
         <div class="control">
           <input class="input" type="date" v-model="objectif.DateButoir">
         </div>

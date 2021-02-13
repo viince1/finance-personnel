@@ -143,12 +143,11 @@ CREATE TABLE RevenuSuivi(
     Montant DECIMAL (13,2),
     DateEntree DATE NOT NULL,
     IdRevenu INT NOT NULL,
-    IdCompte INT NOT NULL ,
-    Nom VARCHAR(60) NOT NULL,
+    IdBudget INT NOT NULL ,
     Description VARCHAR(150),
     PRIMARY KEY (IdRevenuSuivi),
     FOREIGN KEY (IdRevenu) REFERENCES Revenu(IdRevenu),
-    FOREIGN KEY (IdCompte) REFERENCES Compte(IdCompte)
+    FOREIGN KEY (IdBudget) REFERENCES Budget(IdBudget)
 );
 
 CREATE TABLE DepenseSuivi(
@@ -156,10 +155,9 @@ CREATE TABLE DepenseSuivi(
     Montant DECIMAL (13,2),
     DateEntree DATE NOT NULL,
     IdDepense INT NOT NULL,
-    IdCompte INT NOT NULL ,
-    Nom VARCHAR(60) NOT NULL,
+    IdBudget INT NOT NULL ,
     Description VARCHAR(150),
     PRIMARY KEY (IdDepenseSuivi),
     FOREIGN KEY (IdDepense) REFERENCES Depense(IdDepense),
-    FOREIGN KEY (IdCompte) REFERENCES Compte(IdCompte)
+    FOREIGN KEY (IdBUdget) REFERENCES Budget(IdBudget)
 );

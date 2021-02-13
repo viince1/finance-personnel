@@ -5,8 +5,8 @@
         <div class="card-header-title">{{compte.NomCompte}} - {{typeCompte}}</div>
       </div>
       <div class="card-footer">
-        <a href="" class="card-footer-item" v-on:click.prevent="openTransactions">
-          Afficher les transactions
+        <a href="" class="card-footer-item" v-on:click.prevent="seeInvestissements()">
+          Planifiez vos investissements
         </a>
         <a href="" class="card-footer-item" v-on:click.prevent="updateCompte">
           Modifier le compte
@@ -17,8 +17,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-import TransactionCompte from './CompteTransactions.vue';
 import CompteEdit from './CompteEdit.vue';
 
 export default {
@@ -36,22 +34,6 @@ export default {
     },
   },
   methods: {
-    async openTransactions() {
-      const transactions = await axios.get('http://localhost:3000/comptes/transactions', {
-        params: {
-          IdCompte: this.compte.IdCompte,
-        },
-      }).then(() => {
-        this.$buefy.modal.open({
-          parent: this,
-          component: TransactionCompte,
-          props: transactions,
-          hasModalCard: true,
-          customClass: 'custom-class custom-class-2',
-          trapFocus: true,
-        });
-      });
-    },
     updateCompte() {
       this.$buefy.modal.open({
         parent: this,
@@ -61,6 +43,9 @@ export default {
         customClass: 'custom-class custom-class-2',
         trapFocus: true,
       });
+    },
+    seeInvestissements() {
+      this.$router.push({ name: 'Portefeuille' });
     },
   },
 };

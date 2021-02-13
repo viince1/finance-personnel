@@ -14,12 +14,10 @@ var connection = mysql.createConnection({
 connection.connect()
 
 router.get('/', (req,res, next) => {
-  const uid = req.query.uid;
-  console.log(uid);
+  const idBudget = req.query.idBudget;
   connection.query(`SELECT *
   FROM DepenseSuivi
-  INNER JOIN Compte C on DepenseSuivi.IdCompte = C.IdCompte
-  WHERE C.IdUtilisateur = ${uid};`,
+  WHERE IdBudget = ${idBudget};`,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);
@@ -36,7 +34,21 @@ router.get('/categories', (req,res, next) => {
     if (results) res.json(results);
   })
 });
-
+router.get('/depenseSuivi', (req,res, next) => {
+  const idBudget = req.query.idBudget;
+  const dateDebut = req.query.dateDebut;
+  const dateFin = req.query.dateFin;
+  console.log(dateDebut);
+  console.log(dateFin);
+  connection.query(`SELECT ds.IdDepenseSuivi, ds.Montant, DATE_FORMAT(ds.DateEntree, '%Y-%m-%d') as DateEntree, ds.IdDepense, ds.IdBudget, ds.Description, d.Titre as DepenseNom
+  FROM DepenseSuivi ds
+  INNER JOIN Depense d ON d.IdDepense = ds.IdDepense
+  WHERE ds.IdBudget = ${idBudget} AND ds.DateEntree BETWEEN '${dateDebut}' AND '${dateFin}';`,
+  (error, results) => {
+    if (error) res.status(501).send(error);
+    if (results) res.json(results);
+  })
+});
 router.get('/frequences', (req,res, next) => {
   const uid = req.query.uid;
   console.log(uid);
@@ -71,7 +83,15 @@ router.put('/update', (req,res, next) => {
     if (results) res.json(results);
   })
 });
-
+router.put('/updateDepenseSuivi', (req,res, next) => {
+  console.log(req.body);
+  const depenseSuivi = req.body;
+  connection.query(`UPDATE DepenseSuivi SET Montant = '${depenseSuivi.Montant}', DateEntree = '${depenseSuivi.DateEntree}', IdDepense = '${depenseSuivi.IdDepense}', Description = '${depenseSuivi.Description}' WHERE IdDepenseSuivi = '${depenseSuivi.IdDepenseSuivi}'`,
+  (error, results) => {
+    if (error) res.status(501).send(error);
+    if (results) res.json(results);
+  })
+});
 router.post('/add', (req,res, next) => {
   const depense = req.body;
   connection.query(`INSERT INTO Depense VALUES (0, '${depense.nom}', ${depense.montant}, ${depense.idCategorieDepense}, ${depense.idBudget}, ${depense.idDepenseFrequence})`,
@@ -80,7 +100,14 @@ router.post('/add', (req,res, next) => {
     if (results) res.json(results);
   })
 });
-
+router.post('/addDepenseSuivi', (req,res, next) => {
+  const depenseSuivi = req.body;
+  connection.query(`INSERT INTO DepenseSuivi VALUES (0, '${depenseSuivi.Montant}','${depenseSuivi.DateEntree}', '${depenseSuivi.IdDepense}', ${depenseSuivi.IdBudget},'${depenseSuivi.Description}')`,
+  (error, results) => {
+    if (error) res.status(501).send(error);
+    if (results) res.json(results);
+  })
+});
 router.delete('/delete', (req,res, next) => {
   const idDepense = req.body.idDepense;
   connection.query(`DELETE FROM Depense WHERE IdDepense = ${idDepense} `,
@@ -89,5 +116,12 @@ router.delete('/delete', (req,res, next) => {
     if (results) res.json(results);
   })
 });
-
+router.delete('/deleteDepenseSuivi', (req,res, next) => {
+  const idDepenseSuivi = req.body.idDepenseSuivi;
+  connection.query(`DELETE FROM DepenseSuivi WHERE IdDepenseSuivi = '${idDepenseSuivi}';`,
+  (error, results) => {
+    if (error) res.status(501).send(error);
+    if (results) res.json(results);
+  })
+});
 module.exports = router;

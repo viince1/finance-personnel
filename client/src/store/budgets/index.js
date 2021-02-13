@@ -8,7 +8,8 @@ export default ({
   namespaced: true,
   state: {
     budgets: [],
-    budgetIdCurr: 0,
+    budgetIdCurr: 1,
+    sommeParCategories: [],
   },
   actions: {
     async getBudgets({ commit, rootState }) {
@@ -52,6 +53,15 @@ export default ({
           commit('UPDATE_BUDGETS', budget.budget);
         });
     },
+    async getSommeParCategories({ commit }, idBudget) {
+      return axios.get('http://localhost:3000/budgets/sommeParCategories', {
+        params: {
+          idBudget,
+        },
+      }).then((response) => {
+        commit('SET_SOMME_PAR_CATEGORIES', response.data);
+      });
+    },
     setCurrentBudget({ commit }, id) {
       commit('SET_CURRENT_BUDGET', id);
     },
@@ -73,6 +83,12 @@ export default ({
     UPDATE_BUDGETS(state, budget) {
       const index = state.budgets.findIndex((b) => b.IdBudget === budget.IdBudget);
       if (index >= 0) state.budgets.splice(index, 1, budget);
+    },
+    SET_SOMME_PAR_CATEGORIES(state, data) {
+      state.sommeParCategories = data;
+    },
+    SET_SOMME_SUIVI_CATEGORIES(state, data) {
+      state.sommeSuiviParCategories = data;
     },
   },
 });
