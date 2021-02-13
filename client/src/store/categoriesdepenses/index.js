@@ -14,7 +14,7 @@ export default ({
       const uid = rootState.user.user.data.uid.data[0].IdUtilisateur;
       return axios.post('http://localhost:3000/categoriesdepenses/add', {
         data: {
-          Nom: categoriedepense.Nom,
+          Nom: categoriedepense,
           uid,
         },
       })

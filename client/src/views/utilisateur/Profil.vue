@@ -10,6 +10,22 @@
                 </div>
             </div>
             <div class="field">
+              <div class="control">
+                <label for="" class="label">Old password</label>
+                <div class="control">
+                  <input type="password"
+                  class="input"
+                  placeholder="********"
+                 v-model="profile.oldPassword">
+                </div>
+              </div>
+            </div>
+           <div class="message is-danger" v-if="errormdp !== null">
+            <div class="message-body has-icons-left" style="padding:6px;">
+              Erreur : {{errormdp}}
+            </div>
+          </div>
+            <div class="field">
                 <label class="label">Password</label>
                 <div class="control">
                 <input
@@ -19,103 +35,140 @@
                 placeholder="********">
                 </div>
             </div>
+            <div>
+            <button type="submit" class="button is-primary"
+            v-on:click.prevent="updatePassword()">
+              Modifier mot de pass
+            </button>
+            </div>
         </form>
     </section>
     <section class="section">
-        <div class="field has-addons">
-            <div class="control is-expanded">
-                <div class="select is-fullwidth">
-                <select name="" id="" v-model="selectedCategorieDepense" class="select">
-                    <option value="0">Categories</option>
-                    <option :value="c.IdCategorieDepense"
-                      v-for="(c, index) in categoriesDepenses" :key="index">
-                      {{c.Nom}}
-                    </option>
-                </select>
-                </div>
-                <div class="control">
-                    <input
-                    class="input"
-                    type="text"
-                    v-model="categorieDepense.Nom"
-                    placeholder="Text input">
-                </div>
-            </div>
+      <div class="columns">
+      <div class="column">
+      <form class="box">
+         <table v-if="categoriesRevenu.length!=0" class="table">
+           <label  class="label">Categories de revenus</label>
+            <tbody>
+                <tr v-for="c in categoriesRevenu" :key="c.IdCategorieRevenu" >
+                    <td v-for="x in c" :key="x.IdCategorieRevenu"> {{x}} </td>
+                    <td>
+                        <p class="buttons">
+                            <a class="button is-small is-primary"
+                            @click="openCategorieRevenuUpdate(c)">
+                              Edit
+                            </a>
+                            <a class="button is-small is-danger"
+                            @click="deleteCategorieRevenu(c.IdCategorieRevenu)">
+                            Delete
+                            </a>
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div v-else class="notification is-danger">
+            Warning !<strong> No Data to Show</strong>
         </div>
-         <div class="control">
-            <button type="submit" class="button is-primary"
-            v-on:click.prevent="updateCategorieDepense()">
-              UPDATE
-            </button>
-            <button type="submit" class="button is-primary"
-            v-on:click.prevent="addCategorieDepense()">
-              CREATE
-            </button>
-            <button type="submit" class="button is-primary"
-             v-on:click.prevent="deleteCategorieDepense()">
-              DELETE
-            </button>
+          <div class="field">
+          <label class="label">Ajouter la categorie de revenu</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Nom de la categorie revenu"
+            v-model="categorieRevenuNom">
+          </div>
+          <div class="mt-3">
+            <button v-on:click.prevent="addCategorieRevenu()"
+            class="button is-success">
+          <span class="icon is-small">
+            <i class="fas fa-check"></i>
+          </span>
+          <span>Ajouter</span>
+        </button>
+          </div>
+          <div class="message is-danger" v-if="errorMessage.length !== 0">
+        <div v-for="(m, index) in errorMessage"
+            :key="index"
+              class="message-body has-icons-left"
+                style="padding:6px;">
+            Erreur : {{m}}
         </div>
-    </section>
-    <section class="section">
-        <div class="field has-addons">
-            <div class="control is-expanded">
-                <div class="select is-fullwidth">
-                    <select v-model="selectedCategorieRevenue" name="categorie de revenue">
-                      <option :value="0" selected>Choisir une categorie</option>
-                        <option v-for="(c, index) in categoriesRevenu"
-                           :key="index"
-                           v-bind:value="c.IdCategorieRevenu">
-                           {{ c.Nom }}
-                        </option>
-                    </select>
-                </div>
-                <div class="control">
-                    <input class="input" v-model="categorieRevenu.Nom" type="text">
-                    {{ categorieRevenu.Nom }}
-                </div>
-            </div>
         </div>
-        <div class="control">
-            <button type="submit" class="button is-primary"
-            v-on:click.prevent="updateCategorieRevenu()">
-              UPDATE
-            </button>
-            <button type="submit" class="button is-primary"
-            v-on:click.prevent="addCategorieRevenu()">
-              CREATE
-            </button>
-            <button type="submit" class="button is-primary"
-             v-on:click.prevent="deleteCategorieRevenu()">
-              DELETE
-            </button>
+       </div>
+      </form>
+      </div>
+      <div class="column">
+        <form class="box">
+            <table v-if="categoriesDepenses.length!=0" class="table">
+           <label  class="label">Categories de depenses</label>
+            <tbody>
+                <tr v-for="c in categoriesDepenses" :key="c.IdCategorieRevenu" >
+                    <td v-for="x in c" :key="x.IdCategorieRevenu"> {{x}} </td>
+                    <td>
+                        <p class="buttons">
+                            <a class="button is-small is-primary"
+                            @click="openCategorieDepenseUpdate(c)">
+                              Edit
+                            </a>
+                            <a class="button is-small is-danger"
+                            @click="deleteCategorieDepense(c.IdCategorieDepense)">
+                            Delete
+                            </a>
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div v-else class="notification is-danger">
+            Warning !<strong> No Data to Show</strong>
         </div>
-    <transition name="fade">
-        <p class="success">profile updated</p>
-      </transition>
+        <div class="field">
+          <label class="label">Ajouter la categorie de depense</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="Nom de la categorie Depense"
+            v-model="categorieDepenseNom">
+          </div>
+          <div class="mt-3">
+            <button v-on:click.prevent="addCategorieDepense()"
+            class="button is-success">
+          <span class="icon is-small">
+            <i class="fas fa-check"></i>
+          </span>
+          <span>Ajouter</span>
+        </button>
+          </div>
+          <div class="message is-danger" v-if="errorMessage.length !== 0">
+        <div v-for="(m, index) in errorMessage"
+            :key="index"
+              class="message-body has-icons-left"
+                style="padding:6px;">
+            Erreur : {{m}}
+        </div>
+        </div>
+        </div>
+        </form>
+      </div>
+      </div>
   </section>
 </div>
 </template>
 <script>
 import firebase from 'firebase';
+import EditCategoryDepenseModal from '../../components/Profil/EditCategoryDepenseModal.vue';
+import EditCategoryRevenuModal from '../../components/Profil/EditCategoryRevenuModal.vue';
 
 export default {
   name: 'Profil',
   data() {
     return {
       profile: {
-        email: null,
+        email: firebase.auth().currentUser.email,
         password: null,
+        oldPassword: null,
       },
-      categorieDepense: {
-        Nom: '',
-      },
-      categorieRevenu: {
-        Nom: '',
-      },
-      selectedCategorieRevenue: 0,
-      selectedCategorieDepense: 0,
-      error: false,
+      categorieDepenseNom: '',
+      categorieRevenuNom: '',
+      errorMessage: [],
+      errormdp: null,
     };
   },
   computed: {
@@ -127,73 +180,30 @@ export default {
     },
   },
   methods: {
-    async deleteCategorieDepense() {
-      if (this.selectedCategorieDepense !== 0) {
-        await this.$store.dispatch('categoriesdepenses/deleteCategorieDepense', this.selectedCategorieDepense);
+    async deleteCategorieDepense(id) {
+      console.log(id);
+      if (this.categorieDepense !== null) {
+        await this.$store.dispatch('categoriesdepenses/deleteCategorieDepense', id);
       }
     },
-    async deleteCategorieRevenu() {
-      if (this.selectedCategorieRevenue !== 0) {
-        await this.$store.dispatch('categoriesrevenus/deleteCategorieRevenu', this.selectedCategorieRevenue);
+    async deleteCategorieRevenu(id) {
+      if (this.categorieRevenu !== null) {
+        await this.$store.dispatch('categoriesrevenus/deleteCategorieRevenu', id);
       }
     },
     async addCategorieDepense() {
-      this.error = false;
-      let message = '<h2 style="font-weight:bold">Insertion incomplete</h2>';
-      if (this.categorieDepense.Nom === '') {
-        this.error = true;
-        message += '<p>Le champ nom est vide </p>';
-      }
-      if (this.error === true) {
-        return this.$buefy.notification.open({
-          duration: 5000,
-          message,
-          position: 'is-top-right',
-          type: 'is-danger',
-        });
-      }
-      await this.$store.dispatch('categoriesdepenses/ajouterCategorieDepense', this.categorieDepense);
-      this.categorieDepense.Nom = '';
-      return this.$buefy.notification.open({
-        message: '<h2 style="font-weight:bold">Insertion completee</h2>',
-        type: 'is-success',
-      });
+      this.errorMessage = [];
+      if (this.categorieDepenseNom === '') this.errorMessage.push('Le champ Nom est requis');
+      if (this.errorMessage.length !== 0) return;
+      await this.$store.dispatch('categoriesdepenses/ajouterCategorieDepense', this.categorieDepenseNom);
+      this.$emit('close');
     },
     async addCategorieRevenu() {
-      this.error = false;
-      let message = '<h2 style="font-weight:bold">Insertion incomplete</h2>';
-      if (this.categorieRevenu.Nom === '') {
-        this.error = true;
-        message += '<p>Le champ nom est vide </p>';
-      }
-      if (this.error === true) {
-        return this.$buefy.notification.open({
-          duration: 5000,
-          message,
-          position: 'is-top-right',
-          type: 'is-danger',
-        });
-      }
+      this.errorMessage = [];
+      if (this.categorieRevenu.Nom === '') this.errorMessage.push('Le champ Nom est requis');
+      if (this.errorMessage.length !== 0) return;
       await this.$store.dispatch('categoriesrevenus/ajouterCategorieRevenu', this.categorieRevenu);
-      this.categorieRevenu.Nom = '';
-      return this.$buefy.notification.open({
-        message: '<h2 style="font-weight:bold">Insertion completee</h2>',
-        type: 'is-success',
-      });
-    },
-    async updateCategorieRevenu() {
-      const data = {
-        Nom: this.categorieRevenu.Nom,
-        IdCategorieRevenu: this.selectedCategorieRevenue,
-      };
-      this.$store.dispatch('categoriesrevenus/updateСategorieRevenu', data);
-    },
-    async updateCategorieDepense() {
-      const data = {
-        Nom: this.categorieDepense.Nom,
-        IdCategorieDepense: this.selectedCategorieDepense,
-      };
-      this.$store.dispatch('categoriesdepenses/updateСategorieDepense', data);
+      this.$emit('close');
     },
     updateEmail() {
       const user = firebase.auth().currentUser;
@@ -204,15 +214,53 @@ export default {
       });
     },
     updatePassword() {
+      console.log(this.profile.oldPassword);
+      this.error = null;
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.profile.email, this.profile.oldPassword)
+        .then((userCredential) => {
+          this.$store.dispatch('user/fetchUser', userCredential.user);
+        })
+        .catch((err) => {
+          this.errormdp = err.message;
+          this.profil.oldPassword = null;
+        });
       const user = firebase.auth().currentUser;
-
       user.updatePassword(this.profile.password).then(() => {
         // Update successful.
       }).catch((error) => {
         console.log(error);
       });
     },
-
+    openCategorieDepenseUpdate(c) {
+      const data = {
+        Nom: c.Nom,
+        IdCategorieDepense: c.IdCategorieDepense,
+      };
+      this.$buefy.modal.open({
+        parent: this,
+        component: EditCategoryDepenseModal,
+        props: data,
+        hasModalCard: true,
+        customClass: 'custom-class custom-class-2',
+        trapFocus: true,
+      });
+    },
+    openCategorieRevenuUpdate(c) {
+      const data = {
+        Nom: c.Nom,
+        IdCategorieRevenu: c.IdCategorieRevenu,
+      };
+      this.$buefy.modal.open({
+        parent: this,
+        component: EditCategoryRevenuModal,
+        props: data,
+        hasModalCard: true,
+        customClass: 'custom-class custom-class-2',
+        trapFocus: true,
+      });
+    },
   },
   async created() {
     await this.$store.dispatch('categoriesdepenses/getCategoriesDepenses');
