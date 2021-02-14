@@ -22,7 +22,7 @@
           <input class="input"
           type="text"
           placeholder="Donnez un nom descriptif a votre categorie depense"
-          v-model="data.Nom">
+          v-model="categoriedepense.Nom">
         </div>
       </div>
     </div>
@@ -41,7 +41,7 @@ export default {
   name: 'EditCategoryDepenseModal',
   data() {
     return {
-      data: {
+      categoriedepense: {
         Nom: this.$attrs.Nom,
         IdCategorieDepense: this.$attrs.IdCategorieDepense,
       },
@@ -50,12 +50,10 @@ export default {
   },
   methods: {
     async editCategorieDepense() {
-      console.log(this.$attrs);
       this.errorMessage = [];
-      console.log(this.data.IdCategorieDepense);
-      if (this.data.Nom === '') this.errorMessage.push('Le champ Nom est requis');
+      if (this.categoriedepense.Nom === '') this.errorMessage.push('Le champ Nom est requis');
       if (this.errorMessage.length !== 0) return;
-      this.$store.dispatch('categoriesdepenses/updateСategorieDepense', this.data);
+      this.$store.dispatch('categoriesdepenses/updateСategorieDepense', { categoriedepense: this.categoriedepense });
       this.$emit('close');
     },
   },

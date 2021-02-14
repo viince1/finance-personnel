@@ -106,16 +106,6 @@ INSERT INTO Objectif VALUES (0,'Amasser 10 000$','Payer la carte de credit','202
 -- Mettre le no de priorite dans objectif a place de objectif status
 -- Donnees DepenseSuivi
 -- Rajouter une description facultative de la depense
-<<<<<<< HEAD
-INSERT INTO DepenseSuivi VALUES (0,199.99,'2020-01-21', 1,2,'Immatriculation',null);
-INSERT INTO DepenseSuivi VALUES (0,70,'2020-01-21', 1,2,'Paiement de voiture',null);
-INSERT INTO DepenseSuivi VALUES (0,80,'2020-01-21', 7,8, 'Paiement de voiture',null);
-INSERT INTO DepenseSuivi VALUES (0,80,'2021-01-21', 1,2, 'Paiement de voiture',null);
-INSERT INTO DepenseSuivi VALUES (0,40,'2021-01-19', 1,2, 'Paiement de cellulaire',null);
-USE ProjetFinEtude;
-INSERT INTO RevenuSuivi VALUES (0,2000,'2021-01-21', 1,2,'Paie',null);
-INSERT INTO RevenuSuivi VALUES (0,1000,'2021-01-21', 1,2,'Comission',null);
-=======
 INSERT INTO DepenseSuivi VALUES (0,199.99,'2020-01-21', 1,1,'Immatriculation');
 INSERT INTO DepenseSuivi VALUES (0,20.99,'2020-01-21', 10,1,'Test');
 INSERT INTO DepenseSuivi VALUES (0,400.99,'2020-01-21', 20,1,'Ordinateur');
@@ -131,7 +121,6 @@ INSERT INTO DepenseSuivi VALUES (0,12.99,'2021-01-21', 23,1,'Clopes');
 SELECT * FROM DepenseSuivi
 INNER JOIN Depense D on DepenseSuivi.IdDepense = D.IdDepense
 INNER JOIN CategorieDepense CD on D.IdCategorieDepense = CD.IdCategorieDepense;
->>>>>>> 2ff05cc7bff6cab098acfb0e221b1aad57047df3
 
 USE ProjetFinEtude;
 INSERT INTO RevenuSuivi VALUES (0,2000,'2021-01-21', 1,1,'Paie');
@@ -144,47 +133,6 @@ INSERT INTO RevenuSuivi VALUES (0,40,'2021-01-19', 1,2, 'Paiement de cellulaire'
 
 USE ProjetFinEtude;
 
-<<<<<<< HEAD
-SELECT obj.IdObjectif, obj.Titre, obj.Description, obj.DateButoir, objs.Nom, objs.NoStatus
-FROM Objectif obj
-JOIN ObjectifStatut objs
-    on obj.IdObjectifStatus = objs.IdObjectifStatus
-WHERE IdUtilisateur = 1;
-
-SELECT obj.IdObjectif, obj.Titre, obj.Description, obj.DateButoir, objs.Nom, objs.NoStatus
-    FROM Objectif obj
-    JOIN ObjectifStatut objs
-        on obj.IdObjectifStatus = objs.IdObjectifStatus
-    WHERE IdUtilisateur = 1;
-
-SELECT co.Nom, co.IdType, tc.Nom, tc.Description
-FROM Compte co
-INNER JOIN TypeCompte tc
-    ON co.IdType = tc.IdTypeCompte
-WHERE IdUtilisateur = 1;
-
-SELECT co.IdCompte, co.Nom, co.IdType, tc.Nom, tc.Description FROM Compte co INNER JOIN TypeCompte tc
-  ON co.IdType = tc.IdTypeCompte WHERE IdUtilisateur = 1;
-
-SELECT ds.Montant, ds.DateEntree, cs.Nom
-FROM Compte co
-    INNER JOIN DepenseSuivi ds
-    ON co.IdCompte = ds.IdCompte
-    INNER JOIN Depense dp
-    ON ds.IdDepense = dp.IdDepense
-    INNER JOIN CategorieDepense cs
-    ON cs.IdCategorieDepense = dp.IdCategorieDepense
-WHERE co.IdCompte = 1;
-SELECT * FROM Utilisateur;
-
-SELECT D.IdCategorieDepense, D.IdDepense, D.Titre, D.Montant, D.IdBudget, CD.Nom, DF.Nom, D.IdDepenseFrequence
-FROM Depense D
-INNER JOIN CategorieDepense CD on D.IdCategorieDepense = CD.IdCategorieDepense
-INNER JOIN DepenseFrequence DF on D.IdDepenseFrequence = DF.IdDepenseFrequence
-WHERE D.IdBudget = 1
-ORDER BY CD.Nom;
-USE ProjetFinEtude;
-=======
 -- Montant planifie pour une categorie de depense
 SELECT d.IdCategorieDepense, sum(
       CASE d.IdDepenseFrequence
@@ -239,4 +187,3 @@ as rapport ON rapport.IdCategorieDepense = d.IdCategorieDepense
 
 
 SELECT * FROM Depense
->>>>>>> 2ff05cc7bff6cab098acfb0e221b1aad57047df3

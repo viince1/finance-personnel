@@ -10,16 +10,21 @@ export default ({
     categories: [],
   },
   actions: {
-    async ajouterCategorieDepense({ commit, rootState }, categoriedepense) {
+    async ajouterCategorieDepense({ commit, rootState }, { categoriedepense }) {
       const uid = rootState.user.user.data.uid.data[0].IdUtilisateur;
       return axios.post('http://localhost:3000/categoriesdepenses/add', {
         data: {
-          Nom: categoriedepense,
+          categoriedepense,
           uid,
         },
       })
         .then((response) => {
-          commit('ADD_CATEGORIE_DEPENSE', { data: response.data, categoriedepense });
+          const data = {
+            IdUtilisateur: uid,
+            IdCategorieDepense: response.data.insertId,
+            ...categoriedepense,
+          };
+          commit('ADD_CATEGORIE_DEPENSE', { data });
         });
     },
     async deleteCategorieDepense({ commit }, IdCategorieDepense) {
@@ -32,10 +37,10 @@ export default ({
       });
     },
     async updateСategorieDepense({ commit }, categoriedepense) {
-      console.log(categoriedepense);
       return axios.put('http://localhost:3000/categoriesdepenses/update', categoriedepense)
-        .then((response) => {
-          commit('UPDATE_CATEGORIE_DEPENSE', { response, categoriedepense });
+        .then(() => {
+          console.log(categoriedepense);
+          commit('UPDATE_CATEGORIE_DEPENSE', categoriedepense.categoriedepense);
         });
     },
     async getCategoriesDepenses({ commit, rootState }) {
@@ -54,11 +59,8 @@ export default ({
     SET_CATEGORIES_DEPENSES(state, data) {
       state.categories = data;
     },
-    ADD_CATEGORIE_DEPENSE(state, { data, categoriedepense }) {
-      state.categories.push({
-        ...categoriedepense,
-        IdDepense: data.insertId,
-      });
+    ADD_CATEGORIE_DEPENSE(state, { data }) {
+      state.categories.push(data);
     },
     DELETE_CATEGORIE_DEPENSE(state, { IdCategorieDepense }) {
       const index = state.categories.findIndex(
@@ -66,9 +68,9 @@ export default ({
       );
       if (index >= 0) state.categories.splice(index, 1);
     },
-    UPDATE_CATEGORIE_DEPENSE(state, { categoriedepense }) {
+    UPDATE_CATEGORIE_DEPENSE(state, categoriedepense) {
       const index = state.categories.findIndex(
-        (d) => d.IdCategorieDepense === categoriedepense.IdCategorieDepense,
+        (c) => c.IdCategorieDepense === categoriedepense.IdCategorieDepense,
       );
       if (index >= 0) state.categories.splice(index, 1, categoriedepense);
     },

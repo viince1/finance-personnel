@@ -10,16 +10,21 @@ export default ({
     categories: [],
   },
   actions: {
-    async ajouterCategorieRevenu({ commit, rootState }, categorierevenu) {
+    async ajouterCategorieRevenu({ commit, rootState }, { categorierevenu }) {
       const uid = rootState.user.user.data.uid.data[0].IdUtilisateur;
       return axios.post('http://localhost:3000/categoriesrevenus/add', {
         data: {
-          Nom: categorierevenu.Nom,
+          categorierevenu,
           uid,
         },
       })
         .then((response) => {
-          commit('ADD_CATEGORIE_REVENUS', { data: response.data, categorierevenu });
+          const data = {
+            IdUtilisateur: uid,
+            IdCategorieRevenu: response.data.insertId,
+            ...categorierevenu,
+          };
+          commit('ADD_CATEGORIE_REVENUS', { data });
         });
     },
     async deleteCategorieRevenu({ commit }, IdCategorieRevenu) {
@@ -59,11 +64,8 @@ export default ({
     SET_CATEGORIES_REVENUS(state, data) {
       state.categories = data;
     },
-    ADD_CATEGORIE_REVENUS(state, { data, categorierevenu }) {
-      state.categories.push({
-        ...categorierevenu,
-        IdCategorieRevenu: data.insertId,
-      });
+    ADD_CATEGORIE_REVENUS(state, { data }) {
+      state.categories.push(data);
     },
     DELETE_CATEGORIE_REVENU(state, { IdCategorieRevenu }) {
       const index = state.categories.findIndex(

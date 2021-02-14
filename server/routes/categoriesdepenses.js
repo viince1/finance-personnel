@@ -16,7 +16,6 @@ connection.connect()
 
 router.get('/', (req,res, next) => {
   const uid = req.query.uid;
-  console.log(uid);
   connection.query(`SELECT *
   FROM CategorieDepense WHERE CategorieDepense.IdUtilisateur = ${uid};`,
   (error, results) => {
@@ -27,8 +26,7 @@ router.get('/', (req,res, next) => {
 
 
 router.put('/update', (req,res, next) => {
-  const categoriedepense = req.body;
-  console.log(categoriedepense)
+  const categoriedepense = req.body.categoriedepense;
   connection.query(`UPDATE CategorieDepense SET Nom = '${categoriedepense.Nom}' WHERE IdCategorieDepense = ${categoriedepense.IdCategorieDepense}`,
   (error, results) => {
     if (error) res.status(501).send(error);
@@ -37,9 +35,11 @@ router.put('/update', (req,res, next) => {
 });
 
 router.post('/add', (req,res, next) => {
-  const data = req.body;
-  console.log(data)
-  connection.query(`INSERT INTO CategorieDepense VALUES (0, '${data.data.Nom}', '${data.data.uid}')`,
+  const categoriedepense = req.body.data.categoriedepense;
+  const uid = req.body.data.uid;
+  console.log(categoriedepense)
+  console.log(uid)
+  connection.query(`INSERT INTO CategorieDepense VALUES (0, '${categoriedepense.Nom}', '${uid}')`,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);
@@ -47,9 +47,9 @@ router.post('/add', (req,res, next) => {
 });
 
 router.delete('/delete', (req,res, next) => {
-  const idCategorieDepense = req.body.idCategorieDepense;
-  connection.query(`UPDATE Depense SET IdCategorieDepense = NULL WHERE IdCategorieDepense = ${idCategorieDepense}`)
-  connection.query(`DELETE FROM CategorieDepense WHERE IdCategorieDepense = ${idCategorieDepense}`,
+  const IdCategorieDepense = req.body.idCategorieDepense;
+  connection.query(`UPDATE Depense SET IdCategorieDepense = NULL WHERE IdCategorieDepense = ${IdCategorieDepense}`)
+  connection.query(`DELETE FROM CategorieDepense WHERE IdCategorieDepense = ${IdCategorieDepense}`,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);

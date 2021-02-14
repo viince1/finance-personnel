@@ -1,7 +1,9 @@
 <template>
 <div>
     <section class="section">
-        <form class="box">
+      <div class="columns">
+        <div class="column is-one-quarter">
+          <form class="box">
             <div class="field">
                 <label class="label">Email</label>
                 <div class="control">
@@ -20,37 +22,78 @@
                 </div>
               </div>
             </div>
-           <div class="message is-danger" v-if="errormdp !== null">
-            <div class="message-body has-icons-left" style="padding:6px;">
-              Erreur : {{errormdp}}
-            </div>
-          </div>
             <div class="field">
-                <label class="label">Password</label>
+                <label class="label">New Password</label>
                 <div class="control">
-                <input
-                class="input"
-                v-model="profile.password"
-                type="password"
-                placeholder="********">
+                  <input
+                  class="input"
+                  v-model="profile.password"
+                  type="password"
+                  placeholder="********">
+                </div>
+            </div>
+              <div class="field">
+                <label class="label">Confrim New Password</label>
+                <div class="control">
+                  <input
+                  class="input"
+                  v-model="profile.confirmpassword"
+                  type="password"
+                  placeholder="********">
                 </div>
             </div>
             <div>
-            <button type="submit" class="button is-info is-rounded"
-            v-on:click.prevent="updatePassword()">
-              Modifier mot de pass
-            </button>
+              <button type="submit" class="button is-info is-rounded"
+              v-on:click.prevent="updatePassword()">
+                Modifier
+              </button>
             </div>
+            <div class="message is-danger" v-if="errormdp !== null">
+              <div class="message-body has-icons-left" style="padding:6px;">
+                Erreur : {{errormdp}}
+            </div>
+          </div>
         </form>
-    </section>
+      </div>
+      <div class="column is-one-quarter">
+        <form class="box">
+          <div class="field">
+            <label class="label">Old Email</label>
+              <div class="control">
+                <input class="input" v-model="profile.email"
+                    type="email" placeholder="e.g. alex@example.com">
+                </div>
+            </div>
+          <div class="field">
+            <label class="label">New Email</label>
+            <div class="control">
+              <input class="input" v-model="profile.newEmail"
+              type="email" placeholder="e.g. alex@example.com">
+            </div>
+          </div>
+          <div>
+             <div class="message is-danger" v-if="erroremail !== null">
+                <div class="message-body has-icons-left" style="padding:6px;">
+                  Erreur : {{erroremail}}
+                </div>
+            </div>
+            <button type="submit" class="button is-info is-rounded"
+              v-on:click.prevent="updateEmail()">
+              Modifier
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
     <section class="section">
       <div class="columns">
-      <div class="column">
-      <form class="box">
-         <table v-if="categoriesRevenu.length!=0" class="table">
-           <label  class="label">Categories de revenus</label>
-            <tbody>
-                <tr v-for="c in categoriesRevenu" :key="c.IdCategorieRevenu" >
+        <div class="column">
+          <form class="box">
+            <table v-if="categoriesRevenu.length!=0" class="table">
+              <label  class="label">Categories de revenus</label>
+                  <tbody>
+                    <tr v-for="c in categoriesRevenu" :key="c.IdCategorieRevenu" >
                     <td v-for="x in c" :key="x.IdCategorieRevenu"> {{x}} </td>
                     <td>
                         <p class="buttons">
@@ -72,38 +115,38 @@
         </div>
           <div class="field">
           <label class="label">Ajouter la categorie de revenu</label>
-          <div class="control">
-            <input class="input" type="text" placeholder="Nom de la categorie revenu"
-            v-model="categorieRevenuNom">
+            <div class="control">
+              <input class="input" type="text" placeholder="Nom de la categorie revenu"
+              v-model="categorieRevenuNom">
           </div>
           <div class="mt-3">
             <button v-on:click.prevent="addCategorieRevenu()"
-            class="button is-success">
-          <span class="icon is-small">
-            <i class="fas fa-check"></i>
-          </span>
-          <span>Ajouter</span>
-        </button>
+              class="button is-success">
+              <span class="icon is-small">
+              <i class="fas fa-check"></i>
+              </span>
+              <span>Ajouter</span>
+            </button>
           </div>
           <div class="message is-danger" v-if="errorMessage.length !== 0">
-        <div v-for="(m, index) in errorMessage"
-            :key="index"
-              class="message-body has-icons-left"
+            <div v-for="(m, index) in errorMessage"
+                :key="index"
+                class="message-body has-icons-left"
                 style="padding:6px;">
             Erreur : {{m}}
         </div>
-        </div>
-       </div>
-      </form>
       </div>
-      <div class="column">
-        <form class="box">
-            <table v-if="categoriesDepenses.length!=0" class="table">
-           <label  class="label">Categories de depenses</label>
-            <tbody>
-                <tr v-for="c in categoriesDepenses" :key="c.IdCategorieRevenu" >
-                    <td v-for="x in c" :key="x.IdCategorieRevenu"> {{x}} </td>
-                    <td>
+    </div>
+  </form>
+</div>
+<div class="column">
+  <form class="box">
+      <table v-if="categoriesDepenses.length!=0" class="table">
+        <label  class="label">Categories de depenses</label>
+          <tbody>
+            <tr v-for="c in categoriesDepenses" :key="c.IdCategorieDepense" >
+                <td v-for="x in c" :key="x.IdCategorieDepense"> {{x}} </td>
+                <td>
                         <p class="buttons">
                             <a class="button is-small is-primary"
                             @click="openCategorieDepenseUpdate(c)">
@@ -114,40 +157,40 @@
                             Delete
                             </a>
                         </p>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <div v-else class="notification is-danger">
+                </td>
+              </tr>
+          </tbody>
+      </table>
+      <div v-else class="notification is-danger">
             Warning !<strong> No Data to Show</strong>
+      </div>
+      <div class="field">
+        <label class="label">Ajouter la categorie de depense</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Nom de la categorie Depense"
+          v-model="categorieDepenseNom">
         </div>
-        <div class="field">
-          <label class="label">Ajouter la categorie de depense</label>
-          <div class="control">
-            <input class="input" type="text" placeholder="Nom de la categorie Depense"
-            v-model="categorieDepenseNom">
-          </div>
-          <div class="mt-3">
-            <button v-on:click.prevent="addCategorieDepense()"
-            class="button is-success">
+        <div class="mt-3">
+          <button v-on:click.prevent="addCategorieDepense()"
+          class="button is-success">
           <span class="icon is-small">
             <i class="fas fa-check"></i>
           </span>
           <span>Ajouter</span>
-        </button>
-          </div>
-          <div class="message is-danger" v-if="errorMessage.length !== 0">
-        <div v-for="(m, index) in errorMessage"
+          </button>
+        </div>
+        <div class="message is-danger" v-if="errorMessage.length !== 0">
+          <div v-for="(m, index) in errorMessage"
             :key="index"
               class="message-body has-icons-left"
                 style="padding:6px;">
             Erreur : {{m}}
         </div>
-        </div>
-        </div>
-        </form>
       </div>
-      </div>
+    </div>
+   </form>
+  </div>
+  </div>
   </section>
 </div>
 </template>
@@ -162,13 +205,16 @@ export default {
     return {
       profile: {
         email: firebase.auth().currentUser.email,
+        newEmail: null,
         password: null,
+        confirmpassword: null,
         oldPassword: null,
       },
       categorieDepenseNom: '',
       categorieRevenuNom: '',
       errorMessage: [],
       errormdp: null,
+      erroremail: null,
     };
   },
   computed: {
@@ -181,59 +227,75 @@ export default {
   },
   methods: {
     async deleteCategorieDepense(id) {
-      console.log(id);
-      if (this.categorieDepense !== null) {
+      if (id !== null) {
         await this.$store.dispatch('categoriesdepenses/deleteCategorieDepense', id);
       }
     },
     async deleteCategorieRevenu(id) {
-      if (this.categorieRevenu !== null) {
+      if (id !== null) {
         await this.$store.dispatch('categoriesrevenus/deleteCategorieRevenu', id);
       }
     },
     async addCategorieDepense() {
+      const categoriedepense = {
+        Nom: this.categorieDepenseNom,
+      };
       this.errorMessage = [];
       if (this.categorieDepenseNom === '') this.errorMessage.push('Le champ Nom est requis');
       if (this.errorMessage.length !== 0) return;
-      await this.$store.dispatch('categoriesdepenses/ajouterCategorieDepense', this.categorieDepenseNom);
+      await this.$store.dispatch('categoriesdepenses/ajouterCategorieDepense', { categoriedepense });
       this.$emit('close');
     },
     async addCategorieRevenu() {
+      const categorierevenu = {
+        Nom: this.categorieRevenuNom,
+      };
       this.errorMessage = [];
-      if (this.categorieRevenu.Nom === '') this.errorMessage.push('Le champ Nom est requis');
+      if (this.categorieRevenuNom === '') this.errorMessage.push('Le champ Nom est requis');
       if (this.errorMessage.length !== 0) return;
-      await this.$store.dispatch('categoriesrevenus/ajouterCategorieRevenu', this.categorieRevenu);
+      await this.$store.dispatch('categoriesrevenus/ajouterCategorieRevenu', { categorierevenu });
       this.$emit('close');
     },
+    validateEmail(email) {
+      const re = /\S+@\S+\.\S+/;
+      return re.test(email);
+    },
     updateEmail() {
-      const user = firebase.auth().currentUser;
-      user.updateEmail(this.profile.email).then(() => {
+      if (this.validateEmail(this.profile.newEmail)) {
+        const user = firebase.auth().currentUser;
+        user.updateEmail(this.profile.newEmail).then(() => {
         // Update successful.
-      }).catch((error) => {
-        console.log(error);
-      });
+        }).catch((error) => {
+          console.log(error);
+        });
+      } else {
+        this.erroremail = 'email is invalid';
+      }
     },
     updatePassword() {
-      console.log(this.profile.oldPassword);
       this.error = null;
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.profile.email, this.profile.oldPassword)
-        .then((userCredential) => {
-          this.$store.dispatch('user/fetchUser', userCredential.user);
-        })
-        .catch((err) => {
-          this.errormdp = err.message;
-          this.profil.oldPassword = null;
-        });
-      const user = firebase.auth().currentUser;
-      user.updatePassword(this.profile.password).then(() => {
+      if (this.profile.password === this.profile.confirmpassword) {
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(this.profile.email, this.profile.oldPassword)
+          .then((userCredential) => {
+            this.$store.dispatch('user/fetchUser', userCredential.user);
+          })
+          .catch((err) => {
+            this.errormdp = err.message;
+            this.profil.oldPassword = null;
+          });
+        const user = firebase.auth().currentUser;
+        user.updatePassword(this.profile.password).then(() => {
         // Update successful.
-      }).catch((error) => {
-        console.log(error);
-      });
-      this.profile.oldPassword = null;
-      this.profile.password = null;
+        }).catch((error) => {
+          console.log(error);
+        });
+        this.profile.oldPassword = null;
+        this.profile.password = null;
+      } else {
+        this.errormdp = 'les mots de passes differe';
+      }
     },
     openCategorieDepenseUpdate(c) {
       const data = {

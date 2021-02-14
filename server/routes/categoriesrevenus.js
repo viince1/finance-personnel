@@ -41,9 +41,9 @@ router.put('/update', (req,res, next) => {
   })
 });
 router.delete('/delete', (req,res, next) => {
-  const idCategorieRevenu = req.body.idCategorieRevenu;
-  connection.query(`UPDATE Revenu SET IdCategorieRevenu = NULL WHERE IdCategorieRevenu = ${idCategorieRevenu}`)
-  connection.query(`DELETE FROM categorierevenu WHERE IdCategorieRevenu = ${idCategorieRevenu};`,
+  const IdCategorieRevenu = req.body.idCategorieRevenu;
+  connection.query(`UPDATE Revenu SET IdCategorieRevenu = NULL WHERE IdCategorieRevenu = ${IdCategorieRevenu}`)
+  connection.query(`DELETE FROM categorierevenu WHERE IdCategorieRevenu = ${IdCategorieRevenu};`,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);

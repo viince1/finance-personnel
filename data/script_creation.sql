@@ -36,7 +36,7 @@ CREATE TABLE Objectif(
 CREATE TABLE Budget(
     IdBudget INT NOT NULL AUTO_INCREMENT,
     Nom VARCHAR(40) NOT NULL,
-    IdUtilisateur INT NOT NULL,
+    IdUtilisateur INT,
     PRIMARY KEY (IdBudget),
     FOREIGN KEY (IdUtilisateur) REFERENCES Utilisateur(IdUtilisateur)
 );
@@ -44,7 +44,7 @@ CREATE TABLE Budget(
 CREATE TABLE CategorieRevenu(
     IdCategorieRevenu INT NOT NULL AUTO_INCREMENT,
     Nom VARCHAR(40) NOT NULL,
-    IdUtilisateur INT NOT NULL,
+    IdUtilisateur INT,
     PRIMARY KEY (IdCategorieRevenu),
     FOREIGN KEY (IdUtilisateur) REFERENCES Utilisateur(IdUtilisateur)
 );
@@ -64,7 +64,7 @@ CREATE TABLE Revenu(
 CREATE TABLE CategorieDepense(
     IdCategorieDepense INT NOT NULL AUTO_INCREMENT,
     Nom VARCHAR(40) NOT NULL,
-    IdUtilisateur INT NOT NULL,
+    IdUtilisateur INT,
     PRIMARY KEY (IdCategorieDepense),
     FOREIGN KEY (IdUtilisateur) REFERENCES Utilisateur(IdUtilisateur)
 );
