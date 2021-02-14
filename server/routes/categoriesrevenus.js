@@ -24,8 +24,9 @@ router.get('/', (req,res, next) => {
   })
 });
 router.post('/add', (req,res, next) => {
-  const data = req.body;
-  connection.query(`INSERT INTO categorierevenu VALUES (0,'${data.data.Nom}', '${data.data.uid}')`,
+  const data = req.body.data;
+  console.log(data)
+  connection.query(`INSERT INTO categorierevenu VALUES (0,'${data.categorierevenu.Nom}', '${data.uid}')`,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);
