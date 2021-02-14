@@ -144,10 +144,8 @@ export default ({
       });
     },
     UPDATE_DEPENSES_SUIVI(state, depenseSuivi) {
-      console.log(depenseSuivi);
-      const index = state.depensesSuivis.findIndex(
-        (r) => r.idDepenseSuivi === depenseSuivi.depenseSuivi,
-      );
+      const index = state.depensesSuivis
+        .findIndex((r) => r.IdDepenseSuivi === depenseSuivi.IdDepenseSuivi);
       if (index >= 0) state.depensesSuivis.splice(index, 1, depenseSuivi);
     },
     DELETE_DEPENSE(state, { IdDepense }) {
@@ -159,7 +157,8 @@ export default ({
       if (index >= 0) state.depensesBudget.splice(index, 1, depense);
     },
     DELETE_DEPENSE_SUIVI(state, idDepenseSuivi) {
-      const index = state.depensesSuivis.findIndex((r) => r.idDepenseSuivi === idDepenseSuivi);
+      const index = state.depensesSuivis.findIndex((r) => r.IdDepenseSuivi === idDepenseSuivi);
+      console.log(index);
       state.depensesSuivis.splice(index, 1);
     },
     RESET_DEPENSES_SUIVIS(state) {
