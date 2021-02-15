@@ -90,11 +90,11 @@
       <div class="columns">
         <div class="column">
           <form class="box">
-            <table v-if="categoriesRevenu.length!=0" class="table">
+            <table v-if="categoriesRevenu.length!=0" class="table is-fullwidth is-bordered">
               <label  class="label">Categories de revenus</label>
                   <tbody>
-                    <tr v-for="c in categoriesRevenu" :key="c.IdCategorieRevenu" >
-                    <td v-for="x in c" :key="x.IdCategorieRevenu"> {{x}} </td>
+                    <tr v-for="(c, index) in categoriesRevenu" :key="index">
+                    <td :key="index"> {{c.Nom}} </td>
                     <td>
                         <p class="buttons">
                             <a class="button is-small is-primary"
@@ -115,11 +115,14 @@
         </div>
           <div class="field">
           <label class="label">Ajouter la categorie de revenu</label>
+          <div class="columns">
+            <div class="column is-two-thirds">
             <div class="control">
               <input class="input" type="text" placeholder="Nom de la categorie revenu"
               v-model="categorieRevenuNom">
           </div>
-          <div class="mt-3">
+          </div>
+          <div class="column">
             <button v-on:click.prevent="addCategorieRevenu()"
               class="button is-success">
               <span class="icon is-small">
@@ -127,6 +130,7 @@
               </span>
               <span>Ajouter</span>
             </button>
+          </div>
           </div>
           <div class="message is-danger" v-if="errorMessage.length !== 0">
             <div v-for="(m, index) in errorMessage"
@@ -141,11 +145,11 @@
 </div>
 <div class="column">
   <form class="box">
-      <table v-if="categoriesDepenses.length!=0" class="table">
+      <table v-if="categoriesDepenses.length!=0" class="table is-fullwidth is-bordered">
         <label  class="label">Categories de depenses</label>
           <tbody>
-            <tr v-for="c in categoriesDepenses" :key="c.IdCategorieDepense" >
-                <td v-for="x in c" :key="x.IdCategorieDepense"> {{x}} </td>
+            <tr v-for="(c, index) in categoriesDepenses" :key="index" >
+                <td :key="index"> {{c.Nom}} </td>
                 <td>
                         <p class="buttons">
                             <a class="button is-small is-primary"
@@ -166,11 +170,15 @@
       </div>
       <div class="field">
         <label class="label">Ajouter la categorie de depense</label>
+        <div class="columns">
+        <div class="column is-two-thirds">
         <div class="control">
           <input class="input" type="text" placeholder="Nom de la categorie Depense"
           v-model="categorieDepenseNom">
         </div>
-        <div class="mt-3">
+        </div>
+        <div class="column">
+        <div>
           <button v-on:click.prevent="addCategorieDepense()"
           class="button is-success">
           <span class="icon is-small">
@@ -179,6 +187,7 @@
           <span>Ajouter</span>
           </button>
         </div>
+        </div>
         <div class="message is-danger" v-if="errorMessage.length !== 0">
           <div v-for="(m, index) in errorMessage"
             :key="index"
@@ -186,6 +195,7 @@
                 style="padding:6px;">
             Erreur : {{m}}
         </div>
+      </div>
       </div>
     </div>
    </form>

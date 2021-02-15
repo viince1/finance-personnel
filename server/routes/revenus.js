@@ -60,12 +60,13 @@ router.get('/categoriesrevenus', (req,res, next) => {
 });
 router.post('/add', (req,res, next) => {
   const revenus = req.body;
-  connection.query(`INSERT INTO Revenu VALUES (0,'${revenus.nom}')`,
+  connection.query(`INSERT INTO Revenu VALUES (0, '${revenus.titre}','${revenus.montant}', '${revenus.idCategorieRevenu}', ${revenus.idBudget})`,
   (error, results) => {
     if (error) res.status(501).send(error);
     if (results) res.json(results);
   })
 });
+
 router.post('/addRevenuSuivi', (req,res, next) => {
   const revenuSuivi = req.body;
   connection.query(`INSERT INTO RevenuSuivi VALUES (0, '${revenuSuivi.Montant}','${revenuSuivi.DateEntree}', '${revenuSuivi.IdRevenu}', ${revenuSuivi.IdBudget},'${revenuSuivi.Description}')`,
