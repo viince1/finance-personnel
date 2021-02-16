@@ -29,6 +29,7 @@
             <router-link to="/budget/suivi" class="navbar-item">Suivi</router-link>
           </div>
         </div>
+        <router-link to="/investissement" class="navbar-item">Investissement</router-link>
         <div class="navbar-item has-dropdown is-hoverable">
           <router-link to="/budget/resume" class="navbar-link">Calculatrices</router-link>
           <div class="navbar-dropdown">
@@ -36,15 +37,6 @@
             <router-link to="/" class="navbar-item">Calculatrice 2</router-link>
             <router-link to="/" class="navbar-item">Calculatrice 3</router-link>
             <router-link to="/" class="navbar-item">Calculatrice 4</router-link>
-          </div>
-        </div>
-        <div class="navbar-item has-dropdown is-hoverable">
-          <router-link to="/budget/resume" class="navbar-link">Investissement</router-link>
-          <div class="navbar-dropdown">
-            <router-link to="/" class="navbar-item">Resume</router-link>
-            <router-link to="/" class="navbar-item">Portefeuille</router-link>
-            <router-link to="/" class="navbar-item">Ordre d'achats</router-link>
-            <router-link to="/" class="navbar-item">Suivi</router-link>
           </div>
         </div>
     </div>
