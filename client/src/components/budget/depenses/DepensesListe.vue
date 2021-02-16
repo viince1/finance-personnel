@@ -133,7 +133,7 @@ export default {
       return this.$store.state.depense.depensesBudget;
     },
     categories() {
-      return this.$store.state.depense.categories;
+      return this.$store.state.categoriesdepenses.categories;
     },
     frequences() {
       return this.$store.state.depense.frequences;
@@ -183,7 +183,7 @@ export default {
   },
   async created() {
     await this.$store.dispatch('depense/getFrequencesDepense');
-    await this.$store.dispatch('depense/getCategoriesDepense');
+    await this.$store.dispatch('categoriesdepenses/getCategoriesDepenses');
     await this.$store.dispatch('depense/getDepensesBudget', this.depense.idBudget);
     await this.$store.dispatch('budget/getBudgets');
   },

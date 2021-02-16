@@ -55,7 +55,7 @@ export default {
   name: 'Revenus',
   data() {
     return {
-      categories: this.$store.state.revenu.categoriesRevenus,
+      categories: this.$store.state.categoriesrevenus.categories,
       error: false,
     };
   },

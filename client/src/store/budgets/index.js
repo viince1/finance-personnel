@@ -8,7 +8,7 @@ export default ({
   namespaced: true,
   state: {
     budgets: [],
-    budgetIdCurr: 1,
+    budgetIdCurr: 0,
     sommeParCategories: [],
   },
   actions: {

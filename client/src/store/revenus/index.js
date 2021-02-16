@@ -57,7 +57,7 @@ export default ({
       });
     },
     async getCategoriesRevenus({ commit }) {
-      return axios.get('http://localhost:3000/revenus/categoriesrevenus').then((response) => {
+      return axios.get('http://localhost:3000/categoriesrevenus').then((response) => {
         commit('SET_CATEGORIES_REVENUS', response.data);
       });
     },

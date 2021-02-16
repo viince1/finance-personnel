@@ -8,6 +8,7 @@ import Depenses from '@/views/budget/Depenses.vue';
 import Suivi from '@/views/budget/Suivi.vue';
 import SignUp from '@/views/authentication/SignUp.vue';
 import Login from '@/views/Login.vue';
+import Profil from '@/views/utilisateur/Profil.vue';
 import store from '../store';
 
 Vue.use(VueRouter);
@@ -69,6 +70,15 @@ const routes = [
     meta: {
       requiresAuth: true,
     },
+  },
+  {
+    path: '/profil',
+    name: 'Profil',
+    component: Profil,
+    meta: {
+      requiresAuth: true,
+    },
+
   },
 ];
 

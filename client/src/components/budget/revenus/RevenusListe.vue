@@ -122,7 +122,7 @@ export default {
       return this.$store.state.revenu.revenusBudget;
     },
     categories() {
-      return this.$store.state.revenu.categoriesRevenus;
+      return this.$store.state.categoriesrevenus.categories;
     },
   },
   methods: {
@@ -163,7 +163,7 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch('revenu/getCategoriesRevenus');
+    this.$store.dispatch('categoriesrevenus/getCategoriesRevenus');
     this.$store.dispatch('revenu/getRevenusBudget', this.revenu.idBudget);
     this.$store.dispatch('budget/getBudgets');
   },

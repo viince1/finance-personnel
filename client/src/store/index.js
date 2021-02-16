@@ -7,6 +7,8 @@ import compte from './comptes';
 import depense from './depenses';
 import revenu from './revenus';
 import budget from './budgets';
+import categoriesrevenus from './categoriesrevenus';
+import categoriesdepenses from './categoriesdepenses';
 
 Vue.use(Vuex);
 
@@ -18,6 +20,8 @@ export default new Vuex.Store({
     depense,
     revenu,
     budget,
+    categoriesrevenus,
+    categoriesdepenses,
   },
   plugins: [createPersistedState({
     paths: ['user'],

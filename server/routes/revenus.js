@@ -66,6 +66,7 @@ router.post('/add', (req,res, next) => {
     if (results) res.json(results);
   })
 });
+
 router.post('/addRevenuSuivi', (req,res, next) => {
   const revenuSuivi = req.body;
   connection.query(`INSERT INTO RevenuSuivi VALUES (0, '${revenuSuivi.Montant}','${revenuSuivi.DateEntree}', '${revenuSuivi.IdRevenu}', ${revenuSuivi.IdBudget},'${revenuSuivi.Description}')`,
