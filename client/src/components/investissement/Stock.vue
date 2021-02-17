@@ -6,10 +6,10 @@
           </div>
           <div class="level-right">
             <div class="level-item">
-              <button class="button is-primary" v-on:click="updateStock()">Modifier</button>
+              <button class="button is-primary">Modifier</button>
             </div>
             <div class="level-item">
-              <button class="button is-danger" v-on:click="deleteStock()">Supprimer</button>
+              <button class="button is-danger" v-on:click="deleteStock">Supprimer</button>
             </div>
             <div class="level-item">
               {{stock.Poids * 100}} %
