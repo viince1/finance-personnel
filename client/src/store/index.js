@@ -9,6 +9,7 @@ import revenu from './revenus';
 import budget from './budgets';
 import categoriesrevenus from './categoriesrevenus';
 import categoriesdepenses from './categoriesdepenses';
+import investissement from './investissement';
 
 Vue.use(Vuex);
 
@@ -22,6 +23,7 @@ export default new Vuex.Store({
     budget,
     categoriesrevenus,
     categoriesdepenses,
+    investissement,
   },
   plugins: [createPersistedState({
     paths: ['user'],

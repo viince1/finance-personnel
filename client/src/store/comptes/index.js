@@ -9,6 +9,7 @@ export default ({
   state: {
     comptes: [],
     typescomptes: [],
+    compteCurrId: 0,
   },
   actions: {
     async getComptes({ commit, rootState }) {
@@ -56,6 +57,9 @@ export default ({
           commit('UPDATE_COMPTE', compte);
         });
     },
+    setCurrCompteId({ commit }, idCompte) {
+      commit('SET_CURRENT_COMPTE_ID', idCompte);
+    },
   },
   mutations: {
     SET_COMPTES(state, value) {
@@ -77,6 +81,9 @@ export default ({
     UPDATE_COMPTE(state, compte) {
       const index = state.comptes.findIndex((c) => c.IdCompte === compte.IdCompte);
       if (index >= 0) state.comptes.splice(index, 1, compte);
+    },
+    SET_CURRENT_COMPTE_ID(state, idCompte) {
+      state.compteCurrId = idCompte;
     },
   },
 });
