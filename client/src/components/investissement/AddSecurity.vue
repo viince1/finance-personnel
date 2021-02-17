@@ -18,14 +18,25 @@
       </div>
      <div class="field">
        <div class="control">
-         <label for="" class="label">Titre (ex. : APPL)</label>
-         <input type="text" class="input" v-model="stock.TitreCours">
+         <label for="" class="label">Titre (ex. : AAPL)</label>
+         <b-autocomplete
+                v-model="query"
+                placeholder="ex. : AAPL"
+                :data="suggestions"
+                field="symbol"
+                @select="option => (selected = option)"
+                @input="getSuggestions"
+            >
+              <template slot-scope="props">
+                {{props.option.symbol}} - {{props.option.name}}
+              </template>
+            </b-autocomplete>
        </div>
      </div>
      <div class="field">
        <div class="control">
          <label for="" class="label">Nom du titre (ex. : Apple Inc.)</label>
-         <input type="text" class="input" v-model="stock.TitreLong">
+         <input type="text" class="input" v-model="stock.TitreLong" disabled>
        </div>
      </div>
      <div class="field">
@@ -36,14 +47,23 @@
      </div>
      <div class="field">
        <div class="control">
-         <label for="" class="label">Region ( ex: US )</label>
-         <input type="text" class="input" v-model="stock.Region" disabled>
+         <label for="" class="label">Region</label>
+         <div class="select">
+           <select name="" id="" class="input" v-model="stock.Region">
+             <option value="">Choisir une region</option>
+             <option value="CA">Canada</option>
+             <option value="US">Etats-Unis</option>
+             <option value="EMG">Pays emergents</option>
+             <option value="EU">Europe</option>
+             <option value="AS">Asie</option>
+           </select>
+         </div>
        </div>
      </div>
      <div class="field">
        <div class="control">
          <label for="" class="label">Devise ( ex: USD )</label>
-         <input type="text" class="input" v-model="stock.Devise" disabled>
+         <input type="text" class="input" v-model="stock.Devise">
        </div>
      </div>
    </div>
@@ -54,6 +74,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'AddSecurity',
   data() {
@@ -66,6 +88,9 @@ export default {
         Devise: 'USD',
       },
       errorMessage: [],
+      suggestions: [],
+      query: '',
+      selected: null,
     };
   },
   methods: {
@@ -74,6 +99,7 @@ export default {
       if (this.stock.TitreCours === '') this.errorMessage.push('Le champ TitreCours est requis');
       if (this.stock.TitreLong === '') this.errorMessage.push('Le champ TitreLong est requis');
       if (this.stock.Poids <= 0 || this.stock.Poids > 100) this.errorMessage.push('Le champ poids doit se situe entre 0.01 et 100');
+      if (this.stock.Region === '') this.errorMessage.push('Vous devez specifier une region');
       if (this.errorMessage.length > 0) return;
       this.stock.Poids /= 100;
       if (this.errorMessage.length === 0) {
@@ -84,6 +110,22 @@ export default {
           type: 'is-success',
         });
       }
+    },
+    async getSuggestions() {
+      if (this.query !== '') {
+        return axios.get(`https://ticker-2e1ica8b9.now.sh//keyword/${this.query}`)
+          .then((response) => {
+            this.suggestions = response.data;
+          });
+      }
+      return [];
+    },
+  },
+  watch: {
+    selected(newValue) {
+      this.stock.TitreCours = newValue.symbol;
+      this.stock.TitreLong = newValue.name;
+      console.log(newValue);
     },
   },
 };
