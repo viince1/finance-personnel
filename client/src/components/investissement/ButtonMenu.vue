@@ -3,7 +3,7 @@
     <div class="level">
       <div class="level-item">
         <div class="select is-fullwidth">
-          <select name="" id="" v-model="idCompte">
+          <select name="" id="" v-model="idCompte" v-on:change="updateCurrCompte()">
             <option :value="0" disabled>Choisir un compte</option>
             <!-- Rajouter un champ dans BD pour compte (Investissement) -->
             <!-- Get seulement les comptes marquer du boolean Investissement -->
@@ -38,12 +38,18 @@ export default {
   name: 'ButtonMenu',
   data() {
     return {
-      idCompte: 0,
+      idCompte: this.$store.state.compte.compteCurrId,
     };
   },
   computed: {
     comptes() {
       return this.$store.state.compte.comptes;
+    },
+  },
+  methods: {
+    async updateCurrCompte() {
+      await this.$store.dispatch('compte/setCurrCompteId', this.idCompte);
+      await this.$store.dispatch('investissement/getStocks');
     },
   },
   async created() {

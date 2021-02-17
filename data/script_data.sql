@@ -185,5 +185,10 @@ as rapport ON rapport.IdCategorieDepense = d.IdCategorieDepense
   GROUP BY d.IdCategorieDepense, CD.Nom
   ORDER BY d.IdCategorieDepense;
 
+USE ProjetFinEtude;
+INSERT INTO TitreBoursier VALUES(0,'APPL','Apple Inc.', 0.25, 'US', 'USD', 1);
+INSERT INTO TitreBoursier VALUES(0,'MSFT','Microsoft Corp..', 0.40, 'US', 'USD', 1);
 
 SELECT * FROM Depense
+
+SELECT * FROM TitreBoursier;

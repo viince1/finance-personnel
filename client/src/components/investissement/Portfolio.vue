@@ -11,8 +11,17 @@
       </div>
     </div>
     <div class="element">
-      <progress class="progress is-info" value="45" max="100">45%</progress>
-      <p class="titre">VCN - Vanguard Investments Canada Inc</p>
+      <div class="stock" v-for="(s, index) in stocks" :key="index">
+        <progress class="progress is-info" :value="s.Poids" max="1">{{s.Poids}}</progress>
+        <div class="level">
+          <div class="level-left">
+            <span class="titre">{{s.TitreCours}} - {{s.TitreLong}}</span>
+          </div>
+          <div class="level-right">
+            {{s.Poids * 100}} %
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -22,14 +31,14 @@ import AddSecurity from './AddSecurity.vue';
 
 export default {
   name: 'Portfolio',
-  data() {
-    return {
-      stonks: [],
-    };
-  },
   components: {
     // eslint-disable-next-line vue/no-unused-components
     AddSecurity,
+  },
+  computed: {
+    stocks() {
+      return this.$store.state.investissement.stocks;
+    },
   },
   methods: {
     addSecurity() {
@@ -41,8 +50,12 @@ export default {
         trapFocus: true,
       });
     },
-    getStonks() {
+    getStocks() {
+      this.$store.dispatch('investissement/getStocks');
     },
+  },
+  created() {
+    this.getStocks();
   },
 };
 </script>

@@ -106,15 +106,6 @@ CREATE TABLE Compte(
     FOREIGN KEY (IdUtilisateur) REFERENCES Utilisateur(IdUtilisateur)
 );
 
-CREATE TABLE Portefeuille(
-    IdPortefeuille INT NOT NULL AUTO_INCREMENT,
-    Nom VARCHAR(40) NOT NULL,
-    Description VARCHAR(200) NOT NULL,
-    IdCompte INT NOT NULL,
-    PRIMARY KEY (IdPortefeuille),
-    FOREIGN KEY (IdCompte) REFERENCES Compte(IdCompte)
-);
-
 CREATE TABLE TitreBoursier(
     IdTitreBoursier INT NOT NULL AUTO_INCREMENT,
     TitreCours VARCHAR(10) NOT NULL,
@@ -122,10 +113,9 @@ CREATE TABLE TitreBoursier(
     Poids DECIMAL(3,2) NOT NULL,
     Region VARCHAR(4) NOT NULL,
     Devise VARCHAR(4) NOT NULL,
-    Bourse VARCHAR(10) NOT NULL,
-    IdPortefeuille INT NOT NULL,
+    IdCompte INT NOT NULL,
     PRIMARY KEY (IdTitreBoursier),
-    FOREIGN KEY (IdPortefeuille) REFERENCES Portefeuille(IdPortefeuille)
+    FOREIGN KEY (IdCompte) REFERENCES Compte(IdCompte)
 );
 
 
