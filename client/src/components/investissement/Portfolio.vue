@@ -6,7 +6,8 @@
           <h4 class="title is-4">Portefeuille visé pour ce compte</h4>
         </div>
         <div class="level-item">
-          <button class="button is-info is-small" @click="addSecurity()">Ajouter</button>
+          <button v-if="idCompte !== 0"
+          class="button is-info is-small" @click="addSecurity()">Ajouter</button>
         </div>
       </div>
     </div>
@@ -18,7 +19,15 @@
             <span class="titre">{{s.TitreCours}} - {{s.TitreLong}}</span>
           </div>
           <div class="level-right">
-            {{s.Poids * 100}} %
+            <div class="level-item">
+              <button class="button" v-on:click="updateStock(s)">modifier</button>
+            </div>
+            <div class="level-item">
+              <button class="button" v-on:click="deleteStock(s)">delete</button>
+            </div>
+            <div class="level-item">
+              {{s.Poids * 100}} %
+            </div>
           </div>
         </div>
       </div>
@@ -39,6 +48,9 @@ export default {
     stocks() {
       return this.$store.state.investissement.stocks;
     },
+    idCompte() {
+      return this.$store.state.compte.compteCurrId;
+    },
   },
   methods: {
     addSecurity() {
@@ -49,6 +61,9 @@ export default {
         customClass: 'custom-class custom-class-2',
         trapFocus: true,
       });
+    },
+    async deleteStock(s) {
+      await this.$store.dispatch('investissement/deleteStock', { IdTitreBoursier: s.IdTitreBoursier });
     },
     getStocks() {
       this.$store.dispatch('investissement/getStocks');
