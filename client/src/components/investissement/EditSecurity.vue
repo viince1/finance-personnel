@@ -1,7 +1,7 @@
 <template>
 <div class="modal-card">
    <header class="modal-card-head">
-      <p class="modal-card-title">Ajouter un titre</p>
+      <p class="modal-card-title">Modifier un titre</p>
       <button
          type="button"
          class="delete"
@@ -68,7 +68,7 @@
      </div>
    </div>
    <footer class="modal-card-foot">
-    <button class="button" @click="addSecurity()">Ajouter</button>
+    <button class="button is-info" @click="updateSecurity()">Modifier</button>
    </footer>
 </div>
 </template>
@@ -81,34 +81,38 @@ export default {
   data() {
     return {
       stock: {
-        TitreCours: '',
-        TitreLong: '',
-        Poids: 0,
-        Region: 'US',
-        Devise: 'USD',
+        TitreCours: this.$attrs.TitreCours,
+        TitreLong: this.$attrs.TitreLong,
+        Poids: this.$attrs.Poids * 100,
+        Region: this.$attrs.Region,
+        Devise: this.$attrs.Devise,
+        IdTitreBoursier: this.$attrs.IdTitreBoursier,
       },
       errorMessage: [],
       suggestions: [],
-      query: '',
+      query: this.$attrs.TitreCours,
       selected: null,
     };
   },
   methods: {
-    async addSecurity() {
+    async updateSecurity() {
       this.errorMessage = [];
-      if (this.stock.TitreCours === '') this.errorMessage.push('Le champ TitreCours est requis');
+      console.log(this.stock);
+      if (this.query === '') this.errorMessage.push('Le champ TitreCours est requis');
       if (this.stock.TitreLong === '') this.errorMessage.push('Le champ TitreLong est requis');
       if (this.stock.Poids <= 0 || this.stock.Poids > 100) this.errorMessage.push('Le champ poids doit se situe entre 0.01 et 100');
       if (this.stock.Region === '') this.errorMessage.push('Vous devez specifier une region');
       if (this.errorMessage.length > 0) return;
       this.stock.Poids /= 100;
       if (this.errorMessage.length === 0) {
-        await this.$store.dispatch('investissement/addStock', { stock: this.stock });
-        this.$emit('close');
-        this.$buefy.notification.open({
-          message: 'Ajout completée',
-          type: 'is-success',
-        });
+        await this.$store.dispatch('investissement/updateStock', { stock: this.stock })
+          .then(() => {
+            this.$emit('close');
+            this.$buefy.notification.open({
+              message: 'Modification completée',
+              type: 'is-success',
+            });
+          });
       }
     },
     async getSuggestions() {
