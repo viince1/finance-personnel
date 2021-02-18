@@ -191,4 +191,5 @@ INSERT INTO TitreBoursier VALUES(0,'MSFT','Microsoft Corp..', 0.40, 'US', 'USD',
 
 SELECT * FROM Depense
 
+USE ProjetFinEtude;
 SELECT * FROM TitreBoursier;

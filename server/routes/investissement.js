@@ -42,4 +42,12 @@ router.delete('/stocks', (req, res, next) => {
   })
 })
 
+router.put('/stocks', (req, res, next) => {
+  const stock = req.body;
+  connection.query(`UPDATE TitreBoursier SET TitreCours = '${stock.TitreCours}', TitreLong = '${stock.TitreLong}',Poids = ${stock.Poids}, Region = '${stock.Region}', Devise = '${stock.Devise}' WHERE IdTitreBoursier = ${stock.IdTitreBoursier};`, (error, results) => {
+    if (error) res.send(error);
+    if (results) res.send(results);
+  })
+});
+
 module.exports = router;

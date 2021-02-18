@@ -37,6 +37,12 @@ export default ({
         commit('DELETE_STOCK', { IdTitreBoursier });
       });
     },
+    async updateStock({ commit }, { stock }) {
+      return axios.put('http://localhost:3000/investissement/stocks', stock)
+        .then(() => {
+          commit('UPDATE_STOCK', stock);
+        });
+    },
   },
   mutations: {
     SET_STOCKS(state, data) {
@@ -50,9 +56,15 @@ export default ({
       console.log(stock);
       state.stocks.push(newStock);
     },
-    DELETE_STOCK(state, IdTitreBoursier) {
+    DELETE_STOCK(state, { IdTitreBoursier }) {
       const index = state.stocks.findIndex((s) => s.IdTitreBoursier === IdTitreBoursier);
       state.stocks.splice(index, 1);
+    },
+    UPDATE_STOCK(state, stock) {
+      console.log(stock);
+      const index = state.stocks.findIndex((s) => s.IdTitreBoursier === stock.IdTitreBoursier);
+      console.log(index);
+      if (index >= 0) state.stocks.splice(index, 1, stock);
     },
   },
 });

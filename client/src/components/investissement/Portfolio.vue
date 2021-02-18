@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="element">
-      <stock :stock="s" v-for="(s, index) in stocks" :key="index" />
+      <stock :stock="s" v-for="s in stocks" :key="s.IdTitreBoursier" />
     </div>
   </div>
 </template>
