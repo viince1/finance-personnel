@@ -50,6 +50,7 @@ export default {
     async updateCurrCompte() {
       await this.$store.dispatch('compte/setCurrCompteId', this.idCompte);
       await this.$store.dispatch('investissement/getStocks');
+      await this.$store.dispatch('ordreAchat/getOrdresAchat');
     },
   },
   async created() {

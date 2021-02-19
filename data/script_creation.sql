@@ -1,6 +1,5 @@
 -- Creation de la base de donnees
 CREATE DATABASE ProjetFinEtude;
-
 -- Utilisation de la base de donnees
 USE ProjetFinEtude;
 
@@ -122,6 +121,8 @@ CREATE TABLE TitreBoursier(
 CREATE TABLE OrdreAchat(
     IdOrdreAchat INT NOT NULL AUTO_INCREMENT,
     DateAcquisition DATE NOT NULL,
+    Titre VARCHAR(10) NOT NULL,
+    Prix DECIMAL (13,2),
     Quantite INT NOT NULL,
     IdCompte INT NOT NULL,
     PRIMARY KEY (IdOrdreAchat),

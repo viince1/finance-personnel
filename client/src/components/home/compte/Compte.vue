@@ -45,7 +45,7 @@ export default {
       });
     },
     seeInvestissements() {
-      this.$router.push({ name: 'Portefeuille' });
+      this.$router.push({ name: 'Investissement' });
     },
   },
 };
