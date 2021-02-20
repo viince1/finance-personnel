@@ -18,7 +18,16 @@
       <div class="level-item">
         <div class="field">
           <div class="control">
-            <button class="button is-primary">Ajouter des ordres d'achats</button>
+            <button class="button is-primary"
+            v-if="this.ordreAchatActif === false"
+            @click="showOrdreAchat">
+            Ajouter des ordres d'achats
+          </button>
+          <button class="button is-primary"
+            v-if="this.ordreAchatActif === true"
+            @click="showOrdreAchat">
+            Ajouter des cibles au portefeuille
+          </button>
           </div>
         </div>
       </div>
@@ -39,6 +48,7 @@ export default {
   data() {
     return {
       idCompte: this.$store.state.compte.compteCurrId,
+      ordreAchatActif: false,
     };
   },
   computed: {
@@ -51,6 +61,10 @@ export default {
       await this.$store.dispatch('compte/setCurrCompteId', this.idCompte);
       await this.$store.dispatch('investissement/getStocks');
       await this.$store.dispatch('ordreAchat/getOrdresAchat');
+    },
+    showOrdreAchat() {
+      this.$emit('show-ordre-achat');
+      this.ordreAchatActif = !this.ordreAchatActif;
     },
   },
   async created() {
