@@ -42,15 +42,19 @@
       v-if="editActif === false">
       Modifier
       </button>
-      <button class="button is-small is-success"
-      @click="editOrdreAchat"
-      v-if="editActif === true"
-      >
-      Sauvegarder
-      </button>
-      <button class="button is-small is-danger"
-      @click="deleteOrdreAchat"
-      v-if="editActif === true">Supprimer</button>
+      <div class="buttons">
+        <button class="button is-small is-success"
+        @click="editOrdreAchat"
+        v-if="editActif === true"
+        >
+        Sauvegarder
+        </button>
+        <button class="button is-small is-danger"
+        @click="deleteOrdreAchat"
+        v-if="editActif === true">
+        Supprimer
+        </button>
+      </div>
     </td>
   </tr>
 </template>

@@ -1,9 +1,9 @@
 <template>
-    <div class="container box" id="ordreAchat">
+    <div class="container" id="ordreAchat">
         <div class="level">
           <div class="level-left">
             <div class="level-item">
-              <p class="title is-3">Ordres d'achats</p>
+              <p class="title is-4">Ordres d'achats</p>
             </div>
           </div>
         </div>
