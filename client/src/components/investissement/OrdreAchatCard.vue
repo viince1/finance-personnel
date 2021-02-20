@@ -37,14 +37,15 @@
     </td>
     <td class="has-text-center">{{ total.toFixed(2) }} $</td>
     <td>
-      <button class="button is-small"
+      <button class="button is-small  is-primary"
       v-on:click="changeValue"
       v-if="editActif === false">
       Modifier
       </button>
       <button class="button is-small is-success"
       @click="editOrdreAchat"
-      v-if="editActif === true">
+      v-if="editActif === true"
+      >
       Sauvegarder
       </button>
       <button class="button is-small is-danger"
