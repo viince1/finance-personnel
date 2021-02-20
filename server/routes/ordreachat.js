@@ -26,9 +26,9 @@ router.get('/ordreAchat', (req, res, next) => {
   });
   
 router.post('/ordreAchat', (req, res, next) => {
-    const ordreAchat = req.body;
-    const idCompte = req.body.idCompte;
-    connection.query(`INSERT INTO OrdreAchat VALUES (0,'${ordreAchat.DateAcquisition}','${ordreAchat.Titre}', '${ordreAchat.Prix}', '${ordreAchat.Quantite}', ${idCompte})`,
+    const ordreAchat = req.body.params.OrdreAchat;
+    const idCompte = req.body.params.idCompte;
+    connection.query(`INSERT INTO OrdreAchat VALUES (0, '${ordreAchat.DateAcquisition}','${ordreAchat.Titre}', '${ordreAchat.Prix}', '${ordreAchat.Quantite}', ${idCompte})`,
     (error, results) => {
       if(error) res.send(error);
       if(results) res.send(results);
@@ -47,7 +47,7 @@ router.delete('/ordreAchat', (req, res, next) => {
 
   router.put('/ordreAchat', (req, res, next) => {
     const ordreAchat = req.body;
-    connection.query(`UPDATE OrdreAchat SET DateAcquisition = '${ordreAchat.DateAcquisition}', Titre = '${ordreAchat.Titre}', Prix = ${ordreAchat.Prix}, Quantite = '${ordreAchat.Quantite}' WHERE IdTitreBoursier = ${ordreAchat.IdOrdreAchat};`, (error, results) => {
+    connection.query(`UPDATE OrdreAchat SET DateAcquisition = '${ordreAchat.DateAcquisition}', Titre = '${ordreAchat.Titre}', Prix = '${ordreAchat.Prix}', Quantite = '${ordreAchat.Quantite}' WHERE IdTitreBoursier = ${ordreAchat.IdOrdreAchat};`, (error, results) => {
       if (error) res.send(error);
       if (results) res.send(results);
     })

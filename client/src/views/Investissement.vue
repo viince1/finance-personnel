@@ -20,7 +20,7 @@
     <div class="columns">
       <div class="column is-8">
         <div class="box">
-          <ordre-achat-liste />
+          <portfolio />
         </div>
       </div>
       <div class="column is-4">
@@ -36,9 +36,9 @@
 import Precision from '../components/investissement/Precision.vue';
 import ValeurTotal from '../components/investissement/ValeurTotal.vue';
 import ButtonMenu from '../components/investissement/ButtonMenu.vue';
-// import Portfolio from '../components/investissement/Portfolio.vue';
+import Portfolio from '../components/investissement/Portfolio.vue';
 import Recommendation from '../components/investissement/Recommendation.vue';
-import OrdreAchatListe from '../components/investissement/OrdreAchatListe.vue';
+// import OrdreAchatListe from '../components/investissement/OrdreAchatListe.vue';
 
 export default {
   name: 'Investissement',
@@ -46,9 +46,9 @@ export default {
     Precision,
     ValeurTotal,
     ButtonMenu,
-    // Portfolio,
+    Portfolio,
     Recommendation,
-    OrdreAchatListe,
+    // OrdreAchatListe,
   },
 };
 </script>

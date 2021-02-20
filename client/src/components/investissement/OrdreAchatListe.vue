@@ -29,7 +29,6 @@
                 <th>
                   <div class="select">
                     <select class="select" v-model="newOrdreAchat.Titre">
-                      <option>Choisir un titre</option>
                       <option
                       v-for="t in titres"
                       :key="t.IdTitreBoursier"
@@ -57,10 +56,13 @@
                     placeholder="Quantité"
                     v-model="newOrdreAchat.Quantite">
                 </th>
+                <th></th>
+                <th>
+                  <button class="button is-small is-link" @click="ajoutOrdreAchat">Ajouter</button>
+                </th>
               </tr>
             </tfoot>
           </table>
-          <button class="button is-link" @click="ajoutOrdreAchat">Ajouter</button>
         </div>
       </div>
 </template>
@@ -78,9 +80,10 @@ export default {
       newOrdreAchat: {
         DateAcquisition: '',
         Titre: '',
-        Prix: null,
-        Quantite: null,
+        Prix: 0,
+        Quantite: 0,
       },
+      error: false,
     };
   },
   computed: {
@@ -93,9 +96,39 @@ export default {
   },
   methods: {
     async ajoutOrdreAchat() {
+      this.error = false;
+      let message = '<h2 style="font-weight:bold">Modification non reussie</h2>';
+      if (this.newOrdreAchat.DateAcquisition === '') {
+        this.error = true;
+        message += '<p>La date est vide </p>';
+      }
+      if (this.newOrdreAchat.Prix <= 0.0) {
+        this.error = true;
+        message += '<p>Le champ Prix est vide ou invalide</p>';
+      }
+      if (this.newOrdreAchat.Titre === '') {
+        this.error = true;
+        message += '<p>Le champ Titre est vide</p>';
+      }
+      if (this.newOrdreAchat.Quantite <= 0) {
+        this.error = true;
+        message += '<p>Le champ quantite est vide ou invalide</p>';
+      }
+      if (this.error === true) {
+        return this.$buefy.notification.open({
+          duration: 5000,
+          message,
+          position: 'is-top-right',
+          type: 'is-danger',
+        });
+      }
       await this.$store.dispatch('ordreAchat/addOrdreAchat', { ordreAchat: this.newOrdreAchat });
-      this.$buefy.notification.open({
-        message: 'Ajout completée',
+      this.newOrdreAchat.DateAcquisition = '';
+      this.newOrdreAchat.Titre = '';
+      this.newOrdreAchat.Quantite = 0;
+      this.newOrdreAchat.Prix = 0;
+      return this.$buefy.notification.open({
+        message: 'Ajout réussi',
         type: 'is-success',
       });
     },
@@ -106,3 +139,12 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.ordreAchatListe {
+  min-height: 90vh;
+  max-height: 90vh;
+  overflow-y: scroll;
+}
+
+</style>

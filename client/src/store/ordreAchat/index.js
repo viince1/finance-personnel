@@ -21,13 +21,15 @@ export default ({
     },
     async addOrdreAchat({ commit, rootState }, { ordreAchat }) {
       return axios.post('http://localhost:3000/ordreachat/ordreAchat', {
-        ordreAchat,
-        idCompte: rootState.compte.compteCurrId,
+        params: {
+          OrdreAchat: ordreAchat,
+          idCompte: rootState.compte.compteCurrId,
+        },
       }).then((response) => {
-        commit('ADD_ORDRE_ACHAT', { ordreAchat, data: response.data });
+        commit('ADD_ORDRE_ACHAT', { ordreAchat, response: response.data });
       });
     },
-    async deleteStock({ commit }, { IdOrdreAchat }) {
+    async deleteOrdreAchat({ commit }, { IdOrdreAchat }) {
       return axios.delete('http://localhost:3000/ordreachat/ordreAchat', {
         data: {
           IdOrdreAchat,
@@ -37,7 +39,7 @@ export default ({
         commit('DELETE_ORDRE_ACHAT', { IdOrdreAchat });
       });
     },
-    async updateStock({ commit }, { ordreAchat }) {
+    async updateOrdreAchat({ commit }, { ordreAchat }) {
       return axios.put('http://localhost:3000/ordreachat/ordreAchat', ordreAchat)
         .then(() => {
           commit('UPDATE_ORDRE_ACHAT', ordreAchat);
@@ -48,13 +50,11 @@ export default ({
     SET_ORDRE_ACHAT(state, data) {
       state.ordreAchats = data;
     },
-    ADD_ORDRE_ACHAT(state, { ordreAchat, data }) {
-      const newOrdreAchat = {
+    ADD_ORDRE_ACHAT(state, { ordreAchat, response }) {
+      state.ordreAchats.push({
+        IdOrdreAchat: response.insertId,
         ...ordreAchat,
-        IdOrdreAchat: data.insertId,
-      };
-      console.log(ordreAchat);
-      state.ordreAchats.push(newOrdreAchat);
+      });
     },
     DELETE_ORDRE_ACHAT(state, { IdOrdreAchat }) {
       const index = state.ordreAchats.findIndex((o) => o.IdOrdreAchat === IdOrdreAchat);
