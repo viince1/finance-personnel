@@ -14,6 +14,7 @@ var budgetsRouter = require('./routes/budgets');
 var categoriesRevenusRouter = require('./routes/categoriesrevenus')
 var categoriesDepensesRouter = require('./routes/categoriesdepenses')
 var investissementRouter = require('./routes/investissement')
+var ordreAchatRouter = require('./routes/ordreachat')
 var app = express();
 
 
@@ -37,6 +38,7 @@ app.use('/budgets', budgetsRouter)
 app.use('/categoriesrevenus', categoriesRevenusRouter)
 app.use('/categoriesdepenses', categoriesDepensesRouter)
 app.use('/investissement', investissementRouter)
+app.use('/ordreachat', ordreAchatRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -45,7 +45,8 @@ export default {
       });
     },
     seeInvestissements() {
-      this.$router.push({ name: 'Portefeuille' });
+      this.$store.dispatch('compte/setCurrCompteId', this.compte.IdCompte);
+      this.$router.push({ name: 'Investissement' });
     },
   },
 };
