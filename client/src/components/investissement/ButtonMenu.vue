@@ -43,6 +43,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'ButtonMenu',
   data() {
@@ -69,6 +70,7 @@ export default {
   },
   async created() {
     await this.$store.dispatch('compte/getComptes');
+    await this.$store.dispatch('ordreAchat/getOrdresAchat');
   },
 };
 </script>
