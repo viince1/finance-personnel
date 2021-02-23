@@ -193,3 +193,20 @@ SELECT * FROM Depense
 
 USE ProjetFinEtude;
 SELECT * FROM TitreBoursier;
+
+-- Sum pour chaque titre
+-- Sum totale
+-- Je parcours la liste des titres
+
+
+SELECT SUM(MontantPourChaqueTitre)
+FROM (SELECT Titre , SUM(Prix * Quantite) as MontantPourChaqueTitre
+FROM OrdreAchat
+WHERE IdCompte = 1
+GROUP BY Titre) as Somme;
+
+SELECT TB.IdTitreBoursier, TB.TitreCours, TB.TitreLong, TB.Poids, TB.Region, TB.Devise, SUM(OA.Prix * OA.Quantite) as TotalTitre
+FROM TitreBoursier TB
+INNER JOIN OrdreAchat OA on TB.TitreCours = OA.Titre
+WHERE TB.IdCompte = 1
+GROUP BY TB.IdTitreBoursier, TB.TitreCours, TB.TitreLong, TB.Poids, TB.Region, TB.Devise;

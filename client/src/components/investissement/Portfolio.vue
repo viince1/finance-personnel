@@ -11,6 +11,8 @@
         </div>
       </div>
     </div>
+    <div class="level">
+    </div>
     <div class="element">
       <stock :stock="s" v-for="s in stocks" :key="s.IdTitreBoursier" />
     </div>
@@ -52,6 +54,7 @@ export default {
   },
   created() {
     this.getStocks();
+    this.$store.dispatch('investissement/getSum', this.$store.state.compte.compteCurrId);
   },
 };
 </script>

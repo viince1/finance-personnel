@@ -12,8 +12,11 @@
             <div class="level-item">
               <button class="button is-danger" v-on:click="deleteStock">Supprimer</button>
             </div>
-            <div class="level-item">
-              {{stock.Poids * 100}} %
+            <div class="level-item target">
+              {{(stock.Poids * 100).toFixed(2)}} %
+            </div>
+            <div class="level-item present">
+              {{totalTitre}} %
             </div>
           </div>
         </div>
@@ -32,6 +35,12 @@ export default {
   },
   props: {
     stock: Object,
+  },
+  computed: {
+    totalTitre() {
+      const { sum } = this.$store.state.investissement;
+      return ((this.stock.TotalTitre / sum) * 100).toFixed(2);
+    },
   },
   methods: {
     async deleteStock() {
@@ -54,5 +63,15 @@ export default {
 <style scoped>
 .stock {
   margin-bottom: 15px;
+}
+
+.target {
+  color: rgb(81, 81, 247);
+  font-weight: bold;
+}
+
+.present {
+  color: rgb(36, 107, 51);
+  font-weight: bold;
 }
 </style>
