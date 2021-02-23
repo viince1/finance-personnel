@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
   // Mettre bonnes infos de connexion selon votre bd local
   host: 'localhost',
   user: 'root',
-  password: 'root',
+  password: 'localhost',
   database: 'ProjetFinEtude',
   insecureAuth: true,
 });
@@ -47,7 +47,7 @@ router.delete('/ordreAchat', (req, res, next) => {
 
   router.put('/ordreAchat', (req, res, next) => {
     const ordreAchat = req.body;
-    connection.query(`UPDATE OrdreAchat SET DateAcquisition = '${ordreAchat.DateAcquisition}', Titre = '${ordreAchat.Titre}', Prix = '${ordreAchat.Prix}', Quantite = '${ordreAchat.Quantite}' WHERE IdTitreBoursier = ${ordreAchat.IdOrdreAchat};`, (error, results) => {
+    connection.query(`UPDATE OrdreAchat SET DateAcquisition = '${ordreAchat.DateAcquisition}', Titre = '${ordreAchat.Titre}', Prix = '${ordreAchat.Prix}', Quantite = '${ordreAchat.Quantite}' WHERE IdOrdreAchat = ${ordreAchat.IdOrdreAchat};`, (error, results) => {
       if (error) res.send(error);
       if (results) res.send(results);
     })

@@ -6,14 +6,17 @@
               {{stock.TitreCours}} - {{stock.TitreLong}}</span>
           </div>
           <div class="level-right">
+            <div class="level-item target">
+              {{(stock.Poids * 100).toFixed(2)}} %
+            </div>
+            <div class="level-item present">
+              {{totalTitre}} %
+            </div>
             <div class="level-item">
               <button class="button is-primary" v-on:click="updateStock">Modifier</button>
             </div>
             <div class="level-item">
               <button class="button is-danger" v-on:click="deleteStock">Supprimer</button>
-            </div>
-            <div class="level-item">
-              {{stock.Poids * 100}} %
             </div>
           </div>
         </div>
@@ -32,6 +35,13 @@ export default {
   },
   props: {
     stock: Object,
+  },
+  computed: {
+    totalTitre() {
+      const { sum } = this.$store.state.investissement;
+      if (sum === null) return 0.00;
+      return ((this.stock.TotalTitre / sum) * 100).toFixed(2);
+    },
   },
   methods: {
     async deleteStock() {
@@ -54,5 +64,15 @@ export default {
 <style scoped>
 .stock {
   margin-bottom: 15px;
+}
+
+.target {
+  color: rgb(81, 81, 247);
+  font-weight: bold;
+}
+
+.present {
+  color: rgb(47, 141, 67);
+  font-weight: bold;
 }
 </style>

@@ -10,6 +10,7 @@ import budget from './budgets';
 import categoriesrevenus from './categoriesrevenus';
 import categoriesdepenses from './categoriesdepenses';
 import investissement from './investissement';
+// eslint-disable-next-line import/no-unresolved
 import ordreAchat from './ordreAchat';
 
 Vue.use(Vuex);

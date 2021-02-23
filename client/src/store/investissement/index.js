@@ -8,6 +8,7 @@ export default ({
   namespaced: true,
   state: {
     stocks: [],
+    sum: 0,
   },
   actions: {
     async getStocks({ commit, rootState }) {
@@ -43,6 +44,15 @@ export default ({
           commit('UPDATE_STOCK', stock);
         });
     },
+    async getSum({ commit }, idCompte) {
+      return axios.get('http://localhost:3000/investissement/stocks/getSum', {
+        params: {
+          idCompte,
+        },
+      }).then((response) => {
+        commit('SET_SUM', response.data[0].MontantPourChaqueTitre);
+      });
+    },
   },
   mutations: {
     SET_STOCKS(state, data) {
@@ -65,6 +75,9 @@ export default ({
       const index = state.stocks.findIndex((s) => s.IdTitreBoursier === stock.IdTitreBoursier);
       console.log(index);
       if (index >= 0) state.stocks.splice(index, 1, stock);
+    },
+    SET_SUM(state, data) {
+      state.sum = data;
     },
   },
 });

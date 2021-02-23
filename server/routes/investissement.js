@@ -16,8 +16,14 @@ connection.connect()
 router.get('/stocks', (req, res, next) => {
   const idCompte = req.query.idCompte;
   console.log(idCompte);
-  connection.query(`SELECT * FROM TitreBoursier WHERE IdCompte = ${idCompte};`,
+  connection.query(`SELECT TB.IdTitreBoursier, TB.TitreCours, TB.TitreLong, TB.Poids, TB.Region, TB.Devise, SUM(OA.Prix * OA.Quantite) as TotalTitre
+  FROM TitreBoursier TB
+  LEFT JOIN OrdreAchat OA on TB.TitreCours = OA.Titre
+  WHERE TB.IdCompte = ${idCompte}
+  GROUP BY TB.IdTitreBoursier, TB.TitreCours, TB.TitreLong, TB.Poids, TB.Region, TB.Devise;
+  `,
   (error, results) => {
+    console.log(results);
     if (error) res.send(error);
     if (results) res.send(results);
   })
@@ -50,4 +56,16 @@ router.put('/stocks', (req, res, next) => {
   })
 });
 
+router.get('/stocks/getSum', (req, res, next) => {
+  const idCompte = req.query.idCompte;
+  connection.query(`SELECT SUM(MontantPourChaqueTitre) as MontantPourChaqueTitre
+  FROM (SELECT Titre , SUM(Prix * Quantite) as MontantPourChaqueTitre
+  FROM OrdreAchat
+  WHERE IdCompte = ${idCompte}
+  GROUP BY Titre) as Somme;
+  `, (error, results) => {
+    if (error) res.send(error);
+    if (results) res.send(results);
+  })
+});
 module.exports = router;
