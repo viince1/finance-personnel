@@ -18,11 +18,12 @@ router.get('/stocks', (req, res, next) => {
   console.log(idCompte);
   connection.query(`SELECT TB.IdTitreBoursier, TB.TitreCours, TB.TitreLong, TB.Poids, TB.Region, TB.Devise, SUM(OA.Prix * OA.Quantite) as TotalTitre
   FROM TitreBoursier TB
-  INNER JOIN OrdreAchat OA on TB.TitreCours = OA.Titre
+  LEFT JOIN OrdreAchat OA on TB.TitreCours = OA.Titre
   WHERE TB.IdCompte = ${idCompte}
   GROUP BY TB.IdTitreBoursier, TB.TitreCours, TB.TitreLong, TB.Poids, TB.Region, TB.Devise;
   `,
   (error, results) => {
+    console.log(results);
     if (error) res.send(error);
     if (results) res.send(results);
   })

@@ -207,6 +207,10 @@ GROUP BY Titre) as Somme;
 
 SELECT TB.IdTitreBoursier, TB.TitreCours, TB.TitreLong, TB.Poids, TB.Region, TB.Devise, SUM(OA.Prix * OA.Quantite) as TotalTitre
 FROM TitreBoursier TB
-INNER JOIN OrdreAchat OA on TB.TitreCours = OA.Titre
+LEFT JOIN OrdreAchat OA on TB.TitreCours = OA.Titre
 WHERE TB.IdCompte = 1
 GROUP BY TB.IdTitreBoursier, TB.TitreCours, TB.TitreLong, TB.Poids, TB.Region, TB.Devise;
+
+
+USE ProjetFinEtude;
+SELECT * FROM TitreBoursier;

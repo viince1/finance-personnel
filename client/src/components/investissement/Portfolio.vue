@@ -87,7 +87,7 @@ export default {
 .dot-actual {
   height: 25px;
   width: 25px;
-  background-color: rgb(36, 107, 51);
+  background-color: rgb(47, 141, 67);
   border-radius: 50%;
   display: inline-block;
 }

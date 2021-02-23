@@ -39,6 +39,7 @@ export default {
   computed: {
     totalTitre() {
       const { sum } = this.$store.state.investissement;
+      if (sum === null) return 0.00;
       return ((this.stock.TotalTitre / sum) * 100).toFixed(2);
     },
   },
@@ -71,7 +72,7 @@ export default {
 }
 
 .present {
-  color: rgb(36, 107, 51);
+  color: rgb(47, 141, 67);
   font-weight: bold;
 }
 </style>

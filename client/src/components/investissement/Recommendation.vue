@@ -10,7 +10,7 @@
           class="input has-text-centered"
           placeholder="00.00 $"
           v-model="montant"
-          v-on:change="recommend()"
+          v-on:keyup="recommend()"
         >
         <div class="recommendations">
           <div class="card" v-for="(reco, index) in recommendations" :key="index">
@@ -27,6 +27,9 @@
                   </div>
                   <div class="level-item">
                     <span class="">{{reco.Montant.toFixed(2)}} $</span>
+                  </div>
+                  <div class="level-item">
+                    <span class="">{{reco.Pourcentage}} %</span>
                   </div>
                 </div>
               </div>
@@ -57,12 +60,13 @@ export default {
       this.recommendations.length = 0;
       for (let i = 0; i < this.stocks.length; i += 1) {
         const poids = this.stocks[i].Poids;
-        const prixAction = 30.00;
-        const result = Math.floor((poids * this.montant) / prixAction);
+        const prixAction = Math.random() * 200;
+        const result = Math.round((poids * this.montant) / prixAction);
         this.recommendations.push({
           TitreCours: this.stocks[i].TitreCours,
           Quantite: result,
           Montant: result * prixAction,
+          Pourcentage: (((result * prixAction) / this.montant) * 100).toFixed(2),
         });
       }
     },
