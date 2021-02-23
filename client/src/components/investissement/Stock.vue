@@ -6,17 +6,17 @@
               {{stock.TitreCours}} - {{stock.TitreLong}}</span>
           </div>
           <div class="level-right">
-            <div class="level-item">
-              <button class="button is-primary" v-on:click="updateStock">Modifier</button>
-            </div>
-            <div class="level-item">
-              <button class="button is-danger" v-on:click="deleteStock">Supprimer</button>
-            </div>
             <div class="level-item target">
               {{(stock.Poids * 100).toFixed(2)}} %
             </div>
             <div class="level-item present">
               {{totalTitre}} %
+            </div>
+            <div class="level-item">
+              <button class="button is-primary" v-on:click="updateStock">Modifier</button>
+            </div>
+            <div class="level-item">
+              <button class="button is-danger" v-on:click="deleteStock">Supprimer</button>
             </div>
           </div>
         </div>

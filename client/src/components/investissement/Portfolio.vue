@@ -10,8 +10,20 @@
           class="button is-info is-small" @click="addSecurity()">Ajouter</button>
         </div>
       </div>
-    </div>
-    <div class="level">
+      <div class="level-right">
+        <div class="level-item">
+          <span class="dot-target"></span>
+        </div>
+        <div class="level-item">
+          <p>Valeur ciblée</p>
+        </div>
+        <div class="level-item">
+          <span class="dot-actual"></span>
+        </div>
+        <div class="level-item">
+          <p>Valeur actuel</p>
+        </div>
+      </div>
     </div>
     <div class="element">
       <stock :stock="s" v-for="s in stocks" :key="s.IdTitreBoursier" />
@@ -63,5 +75,20 @@ export default {
 .element {
   min-height: 60vh;
   max-height:60vh;
+}
+.dot-target {
+  height: 25px;
+  width: 25px;
+  background-color: rgb(81, 81, 247);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-actual {
+  height: 25px;
+  width: 25px;
+  background-color: rgb(36, 107, 51);
+  border-radius: 50%;
+  display: inline-block;
 }
 </style>
