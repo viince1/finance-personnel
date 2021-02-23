@@ -135,7 +135,6 @@ export default {
   },
   created() {
     this.$store.dispatch('investissement/getStocks');
-    this.$store.dispatch('ordreAchat/getOrdresAchat');
   },
 };
 </script>
