@@ -3,7 +3,7 @@
         <div class="level">
           <div class="level-left">
             <div class="level-item">
-              <p class="title is-4">Ordres d'achats</p>
+              <p class="title is-4">Ordres d'achat</p>
             </div>
           </div>
         </div>

@@ -8,6 +8,7 @@ export default ({
   namespaced: true,
   state: {
     ordreAchats: [],
+    valeurTotale: 0,
   },
   actions: {
     async getOrdresAchat({ commit, rootState }) {
@@ -45,6 +46,9 @@ export default ({
           commit('UPDATE_ORDRE_ACHAT', ordreAchat);
         });
     },
+    setValeurTotale({ commit }, valeurTotale) {
+      commit('SET_VALEUR_TOTALE', valeurTotale);
+    },
   },
   mutations: {
     SET_ORDRE_ACHAT(state, data) {
@@ -65,6 +69,9 @@ export default ({
       const index = state.ordreAchats.findIndex((o) => o.IdOrdreAchat === ordreAchat.IdOrdreAchat);
       console.log(index);
       if (index >= 0) state.ordreAchats.splice(index, 1, ordreAchat);
+    },
+    SET_VALEUR_TOTALE(state, valeurTotale) {
+      state.valeurTotale = valeurTotale;
     },
   },
 });
