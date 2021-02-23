@@ -63,6 +63,7 @@ export default {
       await this.$store.dispatch('investissement/getStocks');
       await this.$store.dispatch('ordreAchat/getOrdresAchat');
       await this.$store.dispatch('investissement/getSum', this.$store.state.compte.compteCurrId);
+      await this.$store.dispatch('ordreAchat/getPrices');
     },
     showOrdreAchat() {
       this.$emit('show-ordre-achat');

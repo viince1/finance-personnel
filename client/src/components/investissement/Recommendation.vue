@@ -58,15 +58,18 @@ export default {
   methods: {
     recommend() {
       this.recommendations.length = 0;
+      const { stockPrices } = this.$store.state.ordreAchat;
       for (let i = 0; i < this.stocks.length; i += 1) {
         const poids = this.stocks[i].Poids;
-        const prixAction = Math.random() * 200;
-        const result = Math.round((poids * this.montant) / prixAction);
+        const { close } = stockPrices
+          .find((element) => element.symbol === this.stocks[i].TitreCours);
+        if (close === undefined) return;
+        const result = Math.round((poids * this.montant) / close);
         this.recommendations.push({
           TitreCours: this.stocks[i].TitreCours,
           Quantite: result,
-          Montant: result * prixAction,
-          Pourcentage: (((result * prixAction) / this.montant) * 100).toFixed(2),
+          Montant: result * close,
+          Pourcentage: (((result * close) / this.montant) * 100).toFixed(2),
         });
       }
     },
