@@ -10,6 +10,7 @@ import SignUp from '@/views/authentication/SignUp.vue';
 import Login from '@/views/Login.vue';
 import Profil from '@/views/utilisateur/Profil.vue';
 import Investissement from '../views/Investissement.vue';
+import InteretCompose from '../views/calculatrice/interetCompose.vue';
 import store from '../store';
 
 Vue.use(VueRouter);
@@ -84,6 +85,14 @@ const routes = [
     path: '/investissement',
     name: 'Investissement',
     component: Investissement,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/calculatrice/interetCompose',
+    name: 'InteretCompose',
+    component: InteretCompose,
     meta: {
       requiresAuth: true,
     },
