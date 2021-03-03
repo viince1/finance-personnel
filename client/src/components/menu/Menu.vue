@@ -36,7 +36,9 @@
             <router-link to="/calculatrice/interetCompose" class="navbar-item">
               Calculatrice d'intérêts composés
             </router-link>
-            <router-link to="/" class="navbar-item">Calculatrice 2</router-link>
+            <router-link to="/calculatrice/pretHypothecaire" class="navbar-item">
+              Calculatrice de prêt hypothécaire
+            </router-link>
           </div>
         </div>
     </div>

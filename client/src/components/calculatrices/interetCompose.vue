@@ -1,22 +1,28 @@
 <template>
   <div id="interetCompose">
     <div class="columns">
-      <div class="column is-4">
+      <div class="column is-6">
         <form class="box">
-            <div class="field">
-              <label class="label">Montant du placement</label>
+          <label class="label">Montant du placement</label>
+            <div class="field has-addons">
               <div class="control">
                 <input class="input" type="number" v-model="montantPlacement">
               </div>
+              <div class="control">
+                <button class="button is-static">$</button>
+              </div>
             </div>
-            <div class="field">
-              <label class="label">Taux d'intérêts annuel</label>
+            <label class="label">Taux d'intérêts annuel</label>
+            <div class="field has-addons">
               <div class="control">
                 <input class="input" type="number" v-model="tauxInteret">
               </div>
+              <div class="control">
+                <button class="button is-static">%</button>
+              </div>
             </div>
-            <div class="field">
-              <label class="label">Terme (années)</label>
+            <label class="label">Terme (années)</label>
+            <div class="field has-addons">
               <div class="control">
                 <input class="input" type="number" v-model="terme">
               </div>
