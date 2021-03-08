@@ -78,5 +78,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+#buttonMenu {
+  min-height: 15vh;
+  max-height: 15vh;
+}
 </style>

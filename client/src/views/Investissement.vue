@@ -3,7 +3,7 @@
     <div class="columns">
       <div class="column is-4">
         <div class="box">
-          <precision />
+          <precision class="precision"/>
         </div>
       </div>
       <div class="column is-4">
@@ -67,5 +67,8 @@ export default {
 <style scoped lang="scss">
 .columns {
   margin: 10px 10px 10px 10px;
+}
+#investissement.columns {
+  min-height: 100%;
 }
 </style>

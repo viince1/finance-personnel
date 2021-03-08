@@ -1,7 +1,7 @@
 <template>
   <div id="interetCompose">
     <div class="columns">
-      <div class="column is-4">
+      <div class="column">
         <form class="box">
           <label class="label">Prix de la maison</label>
             <div class="field has-addons">
@@ -53,8 +53,6 @@
               </div>
             </div>
         </form>
-      </div>
-      <div class="column is-5">
         <div class="box has-background-info has-text-centered has-text-white">
               <h1 class="title is-4 has-text-white">
                 Fréquence de versements hypothécaires et total des emprunts

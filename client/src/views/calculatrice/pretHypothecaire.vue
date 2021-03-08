@@ -1,6 +1,10 @@
 <template>
   <div class="pretHypothecaire">
-    <pret-hypothecaire />
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <pret-hypothecaire />
+      </div>
+    </div>
   </div>
 </template>
 

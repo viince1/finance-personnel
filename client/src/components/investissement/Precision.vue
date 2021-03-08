@@ -1,11 +1,11 @@
 <template>
-  <div id="precision">
-    <div class="container has-text-centered">
-      <h1 class="title is-5">Profits et Pertes</h1>
-      <div class="profitandloss">
-        <span v-if="profitsAndLoss >= 0"
+  <div id="precision" class="has-text-centered">
+    <div class="">
+      <h1 class="title is-4">Valeur totale</h1>
+      <div class="card-content">
+        <span v-if="profitsAndLoss >= 0" class="is-size-4"
           style="color:green">{{profitsAndLoss}} $ &uarr;</span>
-        <span v-if="profitsAndLoss <= 0"
+        <span v-if="profitsAndLoss <= 0" class="is-size-4"
           style="color:red">{{profitsAndLoss}} $ &darr;</span>
       </div>
     </div>
@@ -26,5 +26,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+#precision {
+  min-height: 15vh;
+  max-height: 15vh;
+}
 </style>

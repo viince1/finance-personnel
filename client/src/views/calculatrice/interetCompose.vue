@@ -1,6 +1,10 @@
 <template>
   <div class="interetCompose">
-    <interet-compose />
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <interet-compose />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -15,3 +19,7 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+
+</style>
