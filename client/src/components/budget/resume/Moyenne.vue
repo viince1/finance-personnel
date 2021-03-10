@@ -3,7 +3,7 @@
     <div class="level">
       <div class="level-left">
         <div class="level-item">
-          <h1 class="title is-4">Resume</h1>
+          <h1 class="title is-4">R&eacute;sum&eacute;</h1>
         </div>
       </div>
       <div class="level-right">
@@ -12,7 +12,7 @@
             <select
               v-model="idBudget"
               v-on:change.prevent="updateBudget" >
-              <option :value="0" disabled>Selectionnez un budget</option>
+              <option :value="0" disabled>S&eacute;lectionnez un budget</option>
               <option
                 :value="budget.IdBudget"
                 v-for="budget in budgets"
@@ -36,21 +36,21 @@
       </div>
       <div class="column is-4">
         <div class="box depenses has-text-white has-background-danger-dark has-text-centered">
-          <h1 class=" title is-4 has-text-white">Depenses</h1>
+          <h1 class=" title is-4 has-text-white">D&eacute;penses</h1>
           <div class="card-content">
             <div class="amount is-size-4">{{depensesYTD.toFixed(2)}} $</div>
             <div class="description is-size-6">
-              Cummul annuel des depenses <br> depuis 01 Janvier {{year}}</div>
+              Cummul annuel des d&eacute;penses <br> depuis 01 Janvier {{year}}</div>
           </div>
         </div>
       </div>
       <div class="column is-4">
         <div class="box is-fullheight has-background-link-dark has-text-white has-text-centered">
-          <h1 class="title is-4 has-text-white">Taux epargne</h1>
+          <h1 class="title is-4 has-text-white">Taux d'&eacute;pargne</h1>
           <div class="card-content">
             <div class="amount is-size-4">{{savingRateYTD.toFixed(0)}} %</div>
             <div class="description is-size-6">
-              Taux d'epargne pour l'ann&eacute;e <br> depuis 01 Janvier {{year}}</div>
+              Taux d'&eacute;pargne pour l'ann&eacute;e <br> depuis 01 Janvier {{year}}</div>
           </div>
         </div>
       </div>

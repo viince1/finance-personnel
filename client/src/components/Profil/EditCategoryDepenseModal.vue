@@ -1,7 +1,7 @@
 <template>
   <div class="modal-card" id="ajout-compte">
     <div class="modal-card-head">
-      <p class="modal-card-title">Modification d'un categorie depense</p>
+      <p class="modal-card-title">Modification d'un catégorie de dépense</p>
       <button
         type="button"
         class="delete"
@@ -17,11 +17,11 @@
         </div>
       </div>
       <div class="field">
-        <label class="label">Nom de la categorie Depense</label>
+        <label class="label">Nom de la catégorie de dépense</label>
         <div class="control">
           <input class="input"
           type="text"
-          placeholder="Donnez un nom descriptif a votre categorie depense"
+          placeholder="Donnez un nom descriptif a votre categorie de depense"
           v-model="categoriedepense.Nom">
         </div>
       </div>

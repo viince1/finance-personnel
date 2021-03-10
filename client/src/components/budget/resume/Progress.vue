@@ -1,6 +1,6 @@
 <template>
   <div class="box stats">
-    <h4 class="title is-4">Resume budgetaire</h4>
+    <h4 class="title is-4">R&eacute;sum&eacute; budgetaire</h4>
     <div class="mb-4" v-for="(categorie, index) in categories" :key="index">
       <div class="level">
         <div class="level-left">

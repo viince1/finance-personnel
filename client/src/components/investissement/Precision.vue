@@ -1,7 +1,7 @@
 <template>
   <div id="precision" class="has-text-centered">
     <div class="">
-      <h1 class="title is-4">Valeur totale</h1>
+      <h1 class="title is-4">Précision</h1>
       <div class="card-content">
         <span v-if="profitsAndLoss >= 0" class="is-size-4"
           style="color:green">{{profitsAndLoss}} $ &uarr;</span>
