@@ -11,7 +11,9 @@
             <a href="" class="link" v-on:click.prevent="seeRevenus()">Planifiez vos revenus</a>
           </div>
           <div class="level-item">
-            <a href="" class="link" v-on:click.prevent="seeDepenses()">Planifiez vos depenses</a>
+            <a href="" class="link" v-on:click.prevent="seeDepenses()">
+              Planifiez vos d&eacute;penses
+            </a>
           </div>
           <div class="level-item">
             <a href="" class="link" v-on:click.prevent="modifier()">Modifier</a>

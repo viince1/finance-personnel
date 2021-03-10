@@ -1,8 +1,8 @@
 <template>
   <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item" href="https://bulma.io">
-      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+    <a class="navbar-item">
+      <img src="@/assets/logoFinance.png" width="112" height="28">
     </a>
     <a role="button"
      class="navbar-burger"
@@ -19,13 +19,13 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <router-link to="/budget/resume" class="navbar-link">Budget</router-link>
           <div class="navbar-dropdown">
-            <router-link to="/budget/resume" class="navbar-item">Resume</router-link>
+            <router-link to="/budget/resume" class="navbar-item">Résumé</router-link>
             <router-link
             :to="{ name: 'Revenus', params: { idBudget: 0 } }"
             class="navbar-item">Revenus</router-link>
             <router-link
             :to="{ name: 'Depenses', params: { idBudget: 0 } }"
-            class="navbar-item">Depenses</router-link>
+            class="navbar-item">Dépenses</router-link>
             <router-link to="/budget/suivi" class="navbar-item">Suivi</router-link>
           </div>
         </div>
@@ -60,7 +60,7 @@
       </div>
       <div class="navbar-item" v-on:click="logout" v-if="userLogged !== false">
         <button class="navbar-item button" >
-          Deconnexion
+          Déconnexion
         </button>
       </div>
     </div>

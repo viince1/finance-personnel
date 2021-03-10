@@ -21,7 +21,7 @@
           <span class="dot-actual"></span>
         </div>
         <div class="level-item">
-          <p>Valeur actuel</p>
+          <p>Valeur actuelle</p>
         </div>
       </div>
     </div>

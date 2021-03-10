@@ -2,7 +2,7 @@
   <div id="recommendation">
     <div class="field">
       <div class="control">
-        <label for="" class="label">Montant d'argent periodique a investir</label>
+        <label for="" class="label">Montant d'argent p&eacute;riodique à investir</label>
         <input
           type="number"
           min="0.01"

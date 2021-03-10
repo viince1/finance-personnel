@@ -1,7 +1,7 @@
 <template>
   <div class="modal-card" id="ajout-compte">
       <div class="modal-card-head">
-        <p class="modal-card-title">Creation d'un budget</p>
+        <p class="modal-card-title">Cr&eacute;ation d'un budget</p>
         <button
           type="button"
           class="delete"

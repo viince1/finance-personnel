@@ -34,7 +34,7 @@
             <select
               v-model="idBudget"
               v-on:change.prevent="updateBudget" >
-              <option :value="0" disabled>Selectionnez un budget</option>
+              <option :value="0" disabled>S&eacute;lectionnez un budget</option>
               <option
                 :value="budget.IdBudget"
                 v-for="budget in budgets"
@@ -92,7 +92,7 @@
           <table class="table is-fullwidth">
             <thead>
               <tr>
-                <th>Depense</th>
+                <th>D&eacute;pense</th>
                 <th>Montant</th>
                 <th>Date</th>
                 <th>Description</th>

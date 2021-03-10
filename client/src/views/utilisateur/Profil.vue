@@ -14,7 +14,7 @@
                   </div>
                   <div class="field">
                      <div class="control">
-                        <label for="" class="label">Old password</label>
+                        <label for="" class="label">Ancien mot de passe</label>
                         <div class="control">
                            <input type="password"
                               class="input"
@@ -24,7 +24,7 @@
                      </div>
                   </div>
                   <div class="field">
-                     <label class="label">New Password</label>
+                     <label class="label">Nouveau mot de passe</label>
                      <div class="control">
                         <input
                            class="input"
@@ -34,7 +34,7 @@
                      </div>
                   </div>
                   <div class="field">
-                     <label class="label">Confrim New Password</label>
+                     <label class="label">Confirmer le nouveau mot de passe</label>
                      <div class="control">
                         <input
                            class="input"
@@ -58,17 +58,17 @@
                </form>
                <div class="">
                   <form class="box">
-                    <div class="title is-4">Modification de courriel</div>
+                    <div class="title is-4">Modification du courriel</div>
                     <div class="overflow">
                      <div class="field">
-                        <label class="label">Old Email</label>
+                        <label class="label">Ancien courriel</label>
                         <div class="control">
                            <input class="input" v-model="profile.email"
                               type="email" placeholder="e.g. alex@example.com">
                         </div>
                      </div>
                      <div class="field">
-                        <label class="label">New Email</label>
+                        <label class="label">Nouveau courriel</label>
                         <div class="control">
                            <input class="input" v-model="profile.newEmail"
                               type="email" placeholder="e.g. alex@example.com">
@@ -91,11 +91,11 @@
          </div>
          <div class="column is-4">
                <form class="box">
-                 <h1 class="title is-4">Ajout de categories de revenus</h1>
+                 <h1 class="title is-4">Ajout de catégories de revenus</h1>
                  <div class="overflow">
                   <table v-if="categoriesRevenu.length!=0"
                      class="table is-fullwidth is-bordered">
-                     <label  class="label">Categories</label>
+                     <label  class="label">Catégories</label>
                      <tbody>
                         <tr v-for="(c, index) in categoriesRevenu" :key="index">
                            <td :key="index"> {{c.Nom}} </td>
@@ -103,11 +103,11 @@
                               <p class="buttons">
                                  <a class="button is-small is-primary"
                                     @click="openCategorieRevenuUpdate(c)">
-                                 Edit
+                                 Modifier
                                  </a>
                                  <a class="button is-small is-danger"
                                     @click="deleteCategorieRevenu(c.IdCategorieRevenu)">
-                                 Delete
+                                 Supprimer
                                  </a>
                               </p>
                            </td>
@@ -118,7 +118,7 @@
                      Warning !<strong> No Data to Show</strong>
                   </div>
                   <div class="field">
-                     <label class="label">Ajouter une categorie</label>
+                     <label class="label">Ajouter une catégorie</label>
                      <div class="columns">
                         <div class="column is-two-thirds">
                            <div class="control">
@@ -149,11 +149,11 @@
                   </div>
                </form>
                   <form class="box">
-                    <h1 class="title is-4">Ajout de categories de depenses</h1>
+                    <h1 class="title is-4">Ajout de catégories de dépenses</h1>
                     <div class="overflow">
                      <table v-if="categoriesDepenses.length!=0"
                         class="table is-fullwidth is-bordered">
-                        <label  class="label">Categories</label>
+                        <label  class="label">Catégories</label>
                         <tbody>
                            <tr v-for="(c, index) in categoriesDepenses" :key="index" >
                               <td :key="index"> {{c.Nom}} </td>
@@ -161,11 +161,11 @@
                                  <p class="buttons">
                                     <a class="button is-small is-primary"
                                        @click="openCategorieDepenseUpdate(c)">
-                                    Edit
+                                    Modifier
                                     </a>
                                     <a class="button is-small is-danger"
                                        @click="deleteCategorieDepense(c.IdCategorieDepense)">
-                                    Delete
+                                    Supprimer
                                     </a>
                                  </p>
                               </td>

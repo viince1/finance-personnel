@@ -31,13 +31,6 @@
           </div>
         </div>
       </div>
-      <div class="level-item">
-        <div class="field">
-          <div class="control">
-            <button class="button is-info">Afficher les recommendations</button>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>

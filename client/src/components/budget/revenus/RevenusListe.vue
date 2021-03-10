@@ -6,7 +6,7 @@
                <div class="level">
                   <div class="level-left">
                      <div class="level-item">
-                        <h1 class="title is-5">Liste des revenus</h1>
+                        <h1 class="title is-5">Liste des revenus planifi&eacute;s</h1>
                      </div>
                   </div>
                   <div class="level-right">
@@ -17,7 +17,9 @@
                                  <select
                                   v-model="revenu.idBudget"
                                   v-on:change.prevent="updateRevenus" >
-                                    <option :value="0" disabled>Selectionnez un budget</option>
+                                    <option :value="0" disabled>
+                                      S&eacute;lectionnez un budget
+                                    </option>
                                     <option
                                        :value="budget.IdBudget"
                                        v-for="budget in budgets"

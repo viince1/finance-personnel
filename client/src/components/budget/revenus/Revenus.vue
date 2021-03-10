@@ -40,7 +40,7 @@
           class="button is-primary mr-3"
           v-on:click.prevent="save"
         >
-          Save
+          Sauvegarder
         </button>
         <button class="button is-danger" v-on:click.prevent="remove">
           Supprimer

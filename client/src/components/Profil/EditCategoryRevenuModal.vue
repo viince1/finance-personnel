@@ -1,7 +1,7 @@
 <template>
   <div class="modal-card" id="ajout-compte">
     <div class="modal-card-head">
-      <p class="modal-card-title">Modification d'un categorie revenu</p>
+      <p class="modal-card-title">Modification d'un catégorie de revenu</p>
       <button
         type="button"
         class="delete"
@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="field">
-        <label class="label">Nom de la categorie Revenu</label>
+        <label class="label">Nom de la categorie de revenu</label>
         <div class="control">
           <input class="input"
           type="text"
